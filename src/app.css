@@ -1,0 +1,60 @@
+:root {
+  font-family: "Noto Sans Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+body {
+  margin: 0;
+  padding: 5px;
+  --color: rgb(0, 0, 0);
+  --bg: rgb(250, 255, 240);
+  --secondary: rgb(200, 255, 200);
+  --tertiary: rgb(105, 255, 200);
+  color: var(--color);
+  background: var(--bg);
+  font-size: 20px;
+  overflow: hidden;
+}
+* {
+  transition-duration: .2s;
+}
+.m-icon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  user-select: none;
+}
+
+input, textarea, button, select, a {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+button {
+  --width: 36px;
+  height: var(--width);
+  width: var(--width);
+  border: none;
+  background: var(--secondary);
+  border-radius: 10px;
+  cursor: pointer;
+}
+button.big {
+  --width: 54px;
+}
+button:active {
+  transform: scale(0.95) translateY(5px);
+  background: var(--tertiary);
+}
