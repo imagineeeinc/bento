@@ -17,6 +17,12 @@ dependencies:
   m3-svelte:
     specifier: ^3.2.5
     version: 3.2.5
+  svelte-routing:
+    specifier: ^2.12.0
+    version: 2.12.0
+  tiny-markdown-editor:
+    specifier: ^0.1.11
+    version: 0.1.11
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -563,6 +569,11 @@ packages:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
 
+  /core-js@3.36.0:
+    resolution: {integrity: sha512-mt7+TUBbTFg5+GngsAxeKBTl5/VS0guFeJacYge9OmHb+m058UwwIm41SE9T4Den7ClatV57B6TYTuJ0CX1MAw==}
+    requiresBuild: true
+    dev: false
+
   /css-tree@2.3.1:
     resolution: {integrity: sha512-6Fv1DV/TYw//QF5IzQdqsNDjx/wc8TrMBZsqjL9eW01tWb7R7k/mq+/VXfJCl7SoD5emsJop9cOByJZfs8hYIw==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
@@ -886,6 +897,10 @@ packages:
     dependencies:
       svelte: 4.2.12
 
+  /svelte-routing@2.12.0:
+    resolution: {integrity: sha512-6i4Mncy4P2b7gD7+BOT9JzQvrfGfGXqFra8VXYU5//bpn6AzJ0PLEhH1E/KwY2AxleOiS/8Nm37MGuic2kn15A==}
+    dev: false
+
   /svelte@4.2.12:
     resolution: {integrity: sha512-d8+wsh5TfPwqVzbm4/HCXC783/KPHV60NvwitJnyTA5lWn1elhXMNWhXGCJ7PwPa8qFUnyJNIyuIRt2mT0WMug==}
     engines: {node: '>=16'}
@@ -910,6 +925,12 @@ packages:
     dependencies:
       globalyzer: 0.1.0
       globrex: 0.1.2
+
+  /tiny-markdown-editor@0.1.11:
+    resolution: {integrity: sha512-j3Jf70SYf6+tocd25vfGmZpTXQ8ceOXc15vRE1L8aGFgqq6FyWWE1oj0M/ZOL7QsIEdoLembATypOClpIpFIaw==}
+    dependencies:
+      core-js: 3.36.0
+    dev: false
 
   /totalist@3.0.1:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}

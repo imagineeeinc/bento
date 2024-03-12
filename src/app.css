@@ -20,7 +20,7 @@ body {
   overflow: hidden;
 }
 * {
-  transition-duration: .2s;
+  transition-duration: .1s;
 }
 .m-icon {
   font-family: 'Material Symbols Outlined';
@@ -39,6 +39,9 @@ body {
 
 input, textarea, button, select, a {
   -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+button, select {
   user-select: none;
 }
 
@@ -46,10 +49,20 @@ button {
   --width: 36px;
   height: var(--width);
   width: var(--width);
+  padding: 10px;
   border: none;
   background: var(--secondary);
   border-radius: 10px;
   cursor: pointer;
+}
+input {
+  --width: 36px;
+  height: var(--width);
+  border: none;
+  background: var(--secondary);
+  border-radius: 10px;
+  padding: 10px;
+  font: inherit;
 }
 button.big {
   --width: 54px;
