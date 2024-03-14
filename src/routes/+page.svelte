@@ -18,12 +18,12 @@
 <input type="search" id="searcbar" placeholder="Search your notes">
 <h1>Welcome to Bento 🍱</h1>
 <p>Minimlist Self Hosted Notes.</p>
-<!--{#if editing == true}
-  <Editor text="" {uid}></Editor>
-{/if}-->
 <p>
   {#each $notes as note}
-    <div on:click={()=>editNow(note.uid)}>{note.data}</div>
+    <div id="note-box" on:click={()=>editNow(note.uid)}>
+      <h3>{note.title}</h3>
+      <p>{note.data}</p>
+    </div>
   {/each}
 </p>
 <Router>
@@ -44,7 +44,7 @@
   #searcbar {
     position: fixed;
     top: 10px;
-    left: 74px;
+    right: 10px;
     width: calc(100% - 84px);
     height: 54px;
     padding: 20px;

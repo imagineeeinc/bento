@@ -4,6 +4,7 @@ import { browser } from '$app/environment'
 /*
 format:
 {
+  title: string
   data: string
   creation: Date.now() readonly
   lastEdited: Date.now()
@@ -24,11 +25,12 @@ format:
 // Notes
 export let notes = writable([])
 
-export function newNote(text) {
+export function newNote(text, title) {
   let uid = crypto.randomUUID()
   notes.update((list) => {
     list.push(
       {
+        title: title,
         data: text,
         creation: Date.now(),
         lastEdited: Date.now(),
@@ -44,7 +46,7 @@ export function newNote(text) {
   return uid
 }
 
-export function updateNote(uid,text) {
+export function updateNote(uid, text, title) {
   notes.update((list) => {
     let i = null
     let note = list.find((data, index) => {
@@ -54,6 +56,7 @@ export function updateNote(uid,text) {
       }
     })
     note.data = text
+    note.title = title
     note.lastEdited = Date.now()
     list[i] = note
     return list
@@ -88,7 +91,9 @@ export function getUidNote(uid) {
   return list[i]
 }
 if (browser) {
-  if (localStorage.getItem('notes') !== undefined) {
+  if (localStorage.getItem('notes') !== undefined &&
+  localStorage.getItem('notes') != "" &&
+  localStorage.getItem('notes') !== null) {
     notes.set(JSON.parse(localStorage.getItem('notes')))
   }
   notes.subscribe((data) => {

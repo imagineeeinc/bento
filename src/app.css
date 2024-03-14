@@ -56,7 +56,7 @@ button {
   cursor: pointer;
 }
 input {
-  --width: 36px;
+  --width: 34px;
   height: var(--width);
   border: none;
   background: var(--secondary);
