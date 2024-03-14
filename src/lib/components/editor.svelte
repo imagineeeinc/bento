@@ -5,6 +5,7 @@
 
   import { onMount } from 'svelte'
   import * as TinyMDE from 'tiny-markdown-editor'
+  import { navigate } from 'svelte-routing'
   import 'tiny-markdown-editor/dist/tiny-mde.css'
   import { newNote, updateNote, delNote, getUidNote, editing } from '$lib/components/store'
 
@@ -43,7 +44,7 @@
   })
 </script>
 <div id="editor-container">
-  <button id="close-btn" class="m-icon big">close</button>
+  <button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
   <div id="editor-box"></div>
 </div>
