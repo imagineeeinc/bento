@@ -1,5 +1,7 @@
 <script>
   import Editor from '$lib/components/editor.svelte'
+  import Menu from '../lib/components/menu.svelte'
+  import Settings from '../lib/components/settings.svelte'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
@@ -13,13 +15,18 @@
     editing.set(uid)
     navigate('editor')
   }
+  function openMenu() {
+    menuOpened = true
+    navigate('menu')
+  }
   let animtion = { fn: fade, duration: 200 }
+  let menuOpened = false
 </script>
-<button id="menu-btn" class="m-icon big">menu</button>
+<button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
 <input type="search" id="searcbar" placeholder="Search your notes">
 <div id="notes-grid">
   {#each $notes as note}
-    <div id="note-box" on:click={()=>editNow(note.uid)}>
+    <div class="note-box" on:click={()=>editNow(note.uid)}>
       <h3>{note.title}</h3>
       <SvelteMarkdown source={note.data} />
     </div>
@@ -27,6 +34,8 @@
 </div>
 <Router>
   <Route path="editor" component={Editor} />
+  <Route path="menu" component={Menu} />
+  <Route path="settings" component={Settings} />
 </Router>
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
 <style>
@@ -59,32 +68,35 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: flex-start;
     gap: 20px;
   }
-  #note-box {
-    --offset: 40px;
+  .note-box {
+    --offset: 50px;
     font-size: 15px;
     padding: 10px;
     background: var(--secondary);
     border-radius: 10px;
     cursor: pointer;
     width: calc(25vw - var(--offset));
+    max-height: 100vh;
+    overflow-y: hidden;
   }
   @media (max-width: 1000px) {
-    #note-box {
+    .note-box {
       width: calc(50vw - var(--offset));
     }
   }
   @media (max-width: 400px) {
-    #note-box {
+    .note-box {
       width: calc(100vw - var(--offset));
     }
   }
-  #note-box > h3 {
+  .note-box > h3 {
     margin: 0;
   }
-  :global(#note-box > p > img) {
-    width: 100%;
-    border-radius: 10px;
+  :global(.note-box > p > img) {
+    max-width: 100%;
+    border-radius: 5px;
   }
 </style>

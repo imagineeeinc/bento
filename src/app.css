@@ -12,6 +12,7 @@ body {
   padding: 0;
   --color: rgb(0, 0, 0);
   --bg: rgb(250, 255, 240);
+  --bg-transperent: rgb(250, 255, 240, 0.4);
   --secondary: rgb(200, 255, 200);
   --tertiary: rgb(105, 255, 200);
   color: var(--color);
