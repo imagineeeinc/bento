@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  padding: 5px;
+  padding: 0;
   --color: rgb(0, 0, 0);
   --bg: rgb(250, 255, 240);
   --secondary: rgb(200, 255, 200);
@@ -46,7 +46,7 @@ button, select {
 }
 
 button {
-  --width: 36px;
+  --width: 46px;
   height: var(--width);
   width: var(--width);
   padding: 10px;

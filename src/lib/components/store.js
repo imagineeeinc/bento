@@ -72,7 +72,7 @@ export function delNote(uid) {
         return true
       }
     })
-    delete list[i]
+    list.splice(i, 1)
     return list
   })
 }

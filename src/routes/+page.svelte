@@ -1,5 +1,6 @@
 <script>
   import Editor from '$lib/components/editor.svelte'
+  import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
   import { notes, editing } from '$lib/components/store'
@@ -16,16 +17,14 @@
 </script>
 <button id="menu-btn" class="m-icon big">menu</button>
 <input type="search" id="searcbar" placeholder="Search your notes">
-<h1>Welcome to Bento 🍱</h1>
-<p>Minimlist Self Hosted Notes.</p>
-<p>
+<div id="notes-grid">
   {#each $notes as note}
     <div id="note-box" on:click={()=>editNow(note.uid)}>
       <h3>{note.title}</h3>
-      <p>{note.data}</p>
+      <SvelteMarkdown source={note.data} />
     </div>
   {/each}
-</p>
+</div>
 <Router>
   <Route path="editor" component={Editor} />
 </Router>
@@ -48,5 +47,44 @@
     width: calc(100% - 84px);
     height: 54px;
     padding: 20px;
+  }
+  #notes-grid {
+    position: absolute;
+    top: 74px;
+    height: calc(100vh - 74px);
+    width: 100%;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  #note-box {
+    --offset: 40px;
+    font-size: 15px;
+    padding: 10px;
+    background: var(--secondary);
+    border-radius: 10px;
+    cursor: pointer;
+    width: calc(25vw - var(--offset));
+  }
+  @media (max-width: 1000px) {
+    #note-box {
+      width: calc(50vw - var(--offset));
+    }
+  }
+  @media (max-width: 400px) {
+    #note-box {
+      width: calc(100vw - var(--offset));
+    }
+  }
+  #note-box > h3 {
+    margin: 0;
+  }
+  :global(#note-box > p > img) {
+    width: 100%;
+    border-radius: 10px;
   }
 </style>

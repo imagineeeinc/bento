@@ -19,10 +19,17 @@
       }
     } else {
       if (uid !== null) {
-        //TODO: move the deleting note to on closr of window
+        //TODO: move the deleting note to on close of window
         delNote(uid)
         uid = null
       }
+    }
+  }
+  function deleteThisNote() {
+    let ask = confirm("Are you sure you want to delete this Note?")
+    if (ask) {
+      delNote(uid)
+      navigate("/")
     }
   }
   onMount(()=>{
@@ -47,6 +54,9 @@
   <button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
   <div id="editor-box"></div>
+  <div id="editor-toolbar">
+    <button id="new" class="m-icon" on:click={deleteThisNote}>delete</button>
+  </div>
 </div>
 <style>
   #editor-container {
@@ -64,16 +74,25 @@
     top: 74px;
     width: 100%;
     height: calc(100% - 74px);
-    overflow-y: scroll;
   }
-  .TinyMDE {
+  #editor-toolbar {
+    background: var(--secondary);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 46px;
+    padding: 5px;
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+  :global(.TinyMDE) {
     background-color: var(--bg) !important;
     color: var(--color) !important;
-    height: 100%;
-    
-  }
-  textarea {
-    background: var(--bg) !important;
+    height: calc(100% - 84px);
+    overflow-y: auto;
   }
   #editor-box {
     height: 100%;

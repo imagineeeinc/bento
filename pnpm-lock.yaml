@@ -17,6 +17,9 @@ dependencies:
   m3-svelte:
     specifier: ^3.2.5
     version: 3.2.5
+  svelte-markdown:
+    specifier: ^0.4.1
+    version: 0.4.1(svelte@4.2.12)
   svelte-routing:
     specifier: ^2.12.0
     version: 2.12.0
@@ -518,6 +521,10 @@ packages:
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
+  /@types/marked@5.0.2:
+    resolution: {integrity: sha512-OucS4KMHhFzhz27KxmWg7J+kIYqyqoW5kdIEI319hqARQQUTqhao3M/F+uFnDXD0Rg72iDDZxZNxq5gvctmLlg==}
+    dev: false
+
   /@types/resolve@1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
     dev: false
@@ -761,6 +768,12 @@ packages:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
 
+  /marked@5.1.2:
+    resolution: {integrity: sha512-ahRPGXJpjMjwSOlBoTMZAK7ATXkli5qCPxZ21TG44rx1KEo44bii4ekgTDQPNRQ4Kh7JMb9Ub1PVk1NxRSsorg==}
+    engines: {node: '>= 16'}
+    hasBin: true
+    dev: false
+
   /mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
 
@@ -896,6 +909,16 @@ packages:
       svelte: ^3.19.0 || ^4.0.0
     dependencies:
       svelte: 4.2.12
+
+  /svelte-markdown@0.4.1(svelte@4.2.12):
+    resolution: {integrity: sha512-pOlLY6EruKJaWI9my/2bKX8PdTeP5CM0s4VMmwmC2prlOkjAf+AOmTM4wW/l19Y6WZ87YmP8+ZCJCCwBChWjYw==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      '@types/marked': 5.0.2
+      marked: 5.1.2
+      svelte: 4.2.12
+    dev: false
 
   /svelte-routing@2.12.0:
     resolution: {integrity: sha512-6i4Mncy4P2b7gD7+BOT9JzQvrfGfGXqFra8VXYU5//bpn6AzJ0PLEhH1E/KwY2AxleOiS/8Nm37MGuic2kn15A==}
