@@ -6,3 +6,9 @@ micros:
     engine: svelte-kit
     primary: true
     dev: pnpm dev -- --host --open
+    presets:
+      env:
+        - name: DETA_COLLECTION_KEY
+          description: A key useful for external deta collections
+          default: ""
+      api_keys: true

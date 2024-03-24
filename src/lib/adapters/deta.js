@@ -1,7 +1,8 @@
 import 'dotenv/config'
 import { Deta } from 'deta'
+import { DETA_COLLECTION_KEY } from '$env/static/private'
 
-const deta = process.env.DETA_COLLECTION_KEY ? Deta(process.env.DETA_COLLECTION_KEY) : Deta()
+const deta = DETA_COLLECTION_KEY && DETA_COLLECTION_KEY != '' ? Deta(DETA_COLLECTION_KEY) : Deta()
 
 const db = deta.Base('bento')
 
