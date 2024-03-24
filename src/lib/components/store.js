@@ -103,3 +103,18 @@ if (browser) {
 
 // Editor State
 export let editing = writable(null)
+
+// Settings
+export let settings = writable({})
+if (browser) {
+  if (localStorage.getItem('settings') !== undefined &&
+  localStorage.getItem('settings') != "" &&
+  localStorage.getItem('settings') !== null) {
+    settings.set(JSON.parse(localStorage.getItem('settings')))
+  }
+  settings.subscribe((data) => {
+    localStorage.setItem('settings', JSON.stringify(data))
+  })
+}
+
+//TODO: add server sync

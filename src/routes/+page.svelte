@@ -32,34 +32,38 @@
     </div>
   {/each}
 </div>
+<button id="new" class="m-icon big" on:click={newNote}>add</button>
 <Router>
   <Route path="editor" component={Editor} />
   <Route path="menu" component={Menu} />
   <Route path="settings" component={Settings} />
 </Router>
-<button id="new" class="m-icon big" on:click={newNote}>add</button>
 <style>
   #new {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
   }
   #menu-btn {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 5px;
+    left: 5px;
+    z-index: 10;
   }
   #searcbar {
     position: fixed;
-    top: 10px;
-    right: 10px;
-    width: calc(100% - 84px);
+    top: 5px;
+    right: 20px;
+    width: calc(100% - 109px);
     height: 54px;
     padding: 20px;
+    z-index: 10;
   }
   #notes-grid {
     position: absolute;
-    top: 74px;
+    top: 0;
+    left: 0;
+    padding-top: 74px;
     height: calc(100vh - 74px);
     width: 100%;
     overflow-y: auto;

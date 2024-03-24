@@ -1,14 +1,14 @@
-export function sendFile(url, file) {
+export async function sendFile(url, file) {
 	let formData = new FormData()
 	formData.append("photo", file)
 
-	let res = fetch(url, {
+	let res = await fetch(url, {
     method: "POST",
     body: formData
 	})
-  res = res.json()
+  res = await res.json()
   if (res.error) {
 		return alert(error)
   }
-  return url
+  return res.url
 }

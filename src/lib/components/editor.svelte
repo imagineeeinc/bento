@@ -10,7 +10,9 @@
   import { navigate } from 'svelte-routing'
   import 'tiny-markdown-editor/dist/tiny-mde.css'
   import SvelteMarkdown from 'svelte-markdown'
-  import { newNote, updateNote, delNote, getUidNote, editing } from '$lib/components/store'
+  import { sendFile } from '$lib/components/images.js'
+  import { newNote, updateNote, delNote, getUidNote, editing, settings } from '$lib/components/store'
+  import { get } from 'svelte/store'
 
   var tinyMDE
   function update() {
@@ -36,8 +38,24 @@
       navigate("/")
     }
   }
-  function swapViewMode() {
-    mode = mode == 0 ? 1 : 0
+  function swapViewMode() {mode = mode == 0 ? 1 : 0}
+  let pickImage = false
+  function addImage() {
+    let blackhole = get(settings).blackhole
+    if (blackhole == '' || blackhole == null || blackhole == undefined) {
+      alert("Please add a blackhole image upload intergration url.")
+    } else {
+      let imagePicker = document.getElementById('image-picker')
+      pickImage = true
+      imagePicker.click()
+    }
+  }
+  async function imagePicked() {
+    if (pickImage == true) {
+      pickImage = false
+      let imageUrl = await sendFile(get(settings).blackhole, document.getElementById('image-picker').files[0])
+      tinyMDE.setContent(tinyMDE.getContent() + `\n![](${imageUrl})`)
+    }
   }
   onMount(()=>{
     editing.subscribe((id)=>{
@@ -57,6 +75,7 @@
     tinyMDE.addEventListener('change', update)
   })
 </script>
+<input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" on:change={imagePicked}>
 <div id="editor-container">
   <button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
@@ -69,6 +88,7 @@
   <div id="editor-toolbar">
     <button id="new" class="m-icon" on:click={deleteThisNote}>delete</button>
     <button id="new" class="m-icon" on:click={swapViewMode}>edit_note</button>
+    <button id="new" class="m-icon" on:click={addImage}>add_a_photo</button>
   </div>
 </div>
 <style>
@@ -79,20 +99,19 @@
     width: 100%;
     height: 100%;
     background: var(--bg);
-    z-index: 10;
+    z-index: 20;
     overflow-y: hidden;
   }
   #editor-box {
     position: absolute;
     top: 74px;
     width: 100%;
-    height: calc(100% - 74px);
   }
   #preview-box {
     position: absolute;
     top: 74px;
     width: 100%;
-    height: calc(100% - 74px);
+    height: calc(100% - 159px);
     padding: 10px;
     overflow-y: auto;
   }
@@ -106,8 +125,8 @@
     bottom: 0;
     left: 0;
     width: calc(100% - 10px);
-    height: 46px;
-    padding: 5px;
+    height: 56px;
+    padding: 10px;
 
     display: flex;
     flex-direction: row;
@@ -117,7 +136,7 @@
   :global(.TinyMDE) {
     background-color: var(--bg) !important;
     color: var(--color) !important;
-    height: calc(100% - 84px);
+    height: calc(100% - 159px);
     overflow-y: auto;
   }
   .hide {
@@ -128,14 +147,14 @@
   }
   #close-btn {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 5px;
+    left: 5px;
     z-index: 10;
   }
   #title-box {
     position: absolute;
     right: 10px;
-    top: 10px;
-    width: calc(100% - 104px);
+    top: 5px;
+    width: calc(100% - 114px);
   }
 </style>

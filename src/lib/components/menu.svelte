@@ -18,16 +18,19 @@
 		top: 0;
 		left: 0;
 		background: var(--bg-transperent);
+		mask: linear-gradient(to right, black 50%, transparent);
 		backdrop-filter: blur(10px);
 		padding: 10px;
 		font-size: 30px;
 		font-weight: 600;
+		z-index: 20;
 	}
-	#menu-container > ul {
-		list-style-type: none;
-	}
-	#menu-container > ul > li {
+	#menu-list > a {
 		cursor: pointer;
+		text-decoration: underline;
+	}
+	#menu-list > a:hover {
+		text-shadow: 0 0 2px slategrey;
 	}
 	#menu-list {
 		position: fixed;
