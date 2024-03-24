@@ -7,6 +7,6 @@ export async function GET(event) {
 }
 export async function POST(event) {
   const data = await event.request.formData()
-  db.save(data)
+  db.save(JSON.parse(data.get('notes')))
   return json({saved: true})
 }

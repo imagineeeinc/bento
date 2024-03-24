@@ -8,5 +8,5 @@ export function save(data) {
 }
 export async function load() {
   const data = await deta.retrive()
-  return data
+  return data.value
 }

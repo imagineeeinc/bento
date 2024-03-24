@@ -1,9 +1,10 @@
 import 'dotenv/config'
 import { Deta } from 'deta'
 
-const deta = Deta(process.env.DETA_COLLECTION_KEY)
+// const deta = Deta(process.env.DETA_COLLECTION_KEY)
+const deta = Deta()
 
-const db = deta.Base('bento');
+const db = deta.Base('bento')
 
 export async function putAway(data, timestamp) {
   db.put(data, "storedNotes")
