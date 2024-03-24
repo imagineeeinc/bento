@@ -1,8 +1,9 @@
 import 'dotenv/config'
 import { Deta } from 'deta'
-import { DETA_COLLECTION_KEY } from '$env/static/private'
+import { env } from "$env/dynamic/private";
 
-const deta = DETA_COLLECTION_KEY && DETA_COLLECTION_KEY != '' ? Deta(DETA_COLLECTION_KEY) : Deta()
+//const deta = DETA_COLLECTION_KEY && DETA_COLLECTION_KEY != '' ? Deta(DETA_COLLECTION_KEY) : Deta()
+const deta = Deta(env.DETA_PROJECT_KEY)
 
 const db = deta.Base('bento')
 
