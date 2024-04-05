@@ -99,11 +99,11 @@ if (browser) {
     notes.set(JSON.parse(localStorage.getItem('notes')))
   }
   // Get latest from server
-	let res = await fetch('/api/v1/sync', {
+	fetch('/api/v1/sync', {
     method: "GET"
 	})
-  res = await res.json()
-  notes.set(res)
+  .then(res => res.json())
+  .then(json=>notes.set(json))
   // Update on change
   notes.subscribe((data) => {
     localStorage.setItem('notes', JSON.stringify(data))
