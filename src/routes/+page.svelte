@@ -25,10 +25,11 @@
 <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
 <input type="search" id="searcbar" placeholder="Search your notes">
 <div id="notes-grid">
-  {#each $notes as note}
+  {#each [...$notes].reverse() as note}
     <div class="note-box" on:click={()=>editNow(note.uid)}>
       <h3>{note.title}</h3>
       <SvelteMarkdown source={note.data} />
+      <div class="note-time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</div>
     </div>
   {/each}
 </div>
@@ -85,6 +86,13 @@
     width: calc(25vw - var(--offset));
     max-height: 100vh;
     overflow-y: hidden;
+    position: relative;
+  }
+  .note-time {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: var(--color-sec);
   }
   @media (max-width: 1000px) {
     .note-box {

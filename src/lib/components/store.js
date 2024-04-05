@@ -92,11 +92,19 @@ export function getUidNote(uid) {
 }
 let sendOf = null
 if (browser) {
+  // Check if 
   if (localStorage.getItem('notes') !== undefined &&
   localStorage.getItem('notes') != "" &&
   localStorage.getItem('notes') !== null) {
     notes.set(JSON.parse(localStorage.getItem('notes')))
   }
+  // Get latest from server
+	let res = await fetch('/api/v1/sync', {
+    method: "GET"
+	})
+  res = await res.json()
+  notes.set(res)
+  // Update on change
   notes.subscribe((data) => {
     localStorage.setItem('notes', JSON.stringify(data))
     if (sendOf != null) {
