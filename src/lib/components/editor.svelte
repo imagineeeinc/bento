@@ -80,7 +80,7 @@
   <button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
   <div id="editor-box" class="{mode == 0?'hide':''}"></div>
-  {#if mode == 0}
+   {#if mode == 0}
     <div id="preview-box">
       <SvelteMarkdown source={text} />
     </div>
@@ -99,7 +99,7 @@
     width: 100%;
     height: 100%;
     background: var(--bg);
-    z-index: 20;
+    z-index: 200;
     overflow-y: hidden;
   }
   #editor-box {

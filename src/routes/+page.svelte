@@ -3,7 +3,7 @@
   import Menu from '../lib/components/menu.svelte'
   import Settings from '../lib/components/settings.svelte'
   import About from '../lib/components/about.svelte'
-  import Search from '../lib/components/search.svelte'
+  import Search, { searchTerm } from '../lib/components/search.svelte'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
@@ -25,7 +25,10 @@
   let menuOpened = false
 </script>
 <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
-<input type="search" id="searcbar" placeholder="Search your notes">
+<input type="search" id="searcbar" placeholder="Search your notes" bind:value={$searchTerm}>
+{#if $searchTerm != ""}
+  <Search></Search>
+{/if}
 <div id="notes-grid">
   {#each [...$notes].reverse() as note}
     <div class="note-box" on:click={()=>editNow(note.uid)}>
