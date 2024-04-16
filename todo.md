@@ -1,4 +1,4 @@
-- [x] Text search with [defiantjs](https://www.defiantjs.com/)
+- [x] Text search with [lunr](https://lunrjs.com/) full text search
 - [ ] user system
 - [ ] password auth with backend
 - [ ] admin panel
