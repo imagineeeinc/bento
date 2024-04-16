@@ -91,6 +91,19 @@ export function getUidNote(uid) {
   return list[i]
 }
 let sendOf = null
+function sendSync() {
+  if (sendOf != null) {
+    clearTimeout(sendOf)
+  }
+  sendOf = setTimeout(()=>{
+    let d = new FormData()
+    d.append("notes", localStorage.getItem('notes'))
+    fetch('/api/v1/sync', {
+      method: "POST",
+      body: d
+    }).then(data=>data.status==200?null:setTimeout(sendSync,100))
+  }, 1000)
+}
 if (browser) {
   // Check if 
   if (localStorage.getItem('notes') !== undefined &&
@@ -107,17 +120,7 @@ if (browser) {
   // Update on change
   notes.subscribe((data) => {
     localStorage.setItem('notes', JSON.stringify(data))
-    if (sendOf != null) {
-      clearTimeout(sendOf)
-    }
-    sendOf = setTimeout(()=>{
-      let d = new FormData()
-      d.append("notes", localStorage.getItem('notes'))
-      fetch('/api/v1/sync', {
-        method: "POST",
-        body: d
-      })
-    }, 1000)
+    sendSync()
   })
 }
 
