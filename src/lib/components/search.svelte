@@ -91,8 +91,8 @@
   .note-box > h3 {
     margin: 0;
   }
-  :global(.note-box img) {
-    max-height: 10vh;
+  :global(#search-res > .note-box img) {
+    max-height: 20vh;
     border-radius: 5px;
   }
 </style>
