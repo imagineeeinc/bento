@@ -115,8 +115,8 @@
     padding: 10px;
     overflow-y: auto;
   }
-  :global(#preview-box > p > img) {
-    max-width: 100%;
+  :global(#preview-box img) {
+    max-width: 90%;
     border-radius: 5px;
   }
   #editor-toolbar {

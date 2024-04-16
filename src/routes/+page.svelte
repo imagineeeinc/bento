@@ -107,8 +107,8 @@
   .note-box > h3 {
     margin: 0;
   }
-  :global(.note-box > p > img) {
-    max-width: 100%;
+  :global(.note-box img) {
+    max-width: 90%;
     border-radius: 5px;
   }
 </style>
