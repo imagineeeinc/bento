@@ -43,6 +43,9 @@ input, textarea, button, select, a {
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
+input:hover, textarea:hover, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid lightgreen;
+}
 button, select {
   user-select: none;
 }
@@ -56,7 +59,7 @@ button {
   background: var(--secondary);
   border-radius: 10px;
   cursor: pointer;
-  outline: 5px solid var(--bg);
+  outline: 3px solid var(--bg);
   margin: 5px;
 }
 input {
@@ -69,6 +72,9 @@ input {
   outline: 5px solid var(--bg);
   margin: 5px;
   font: inherit;
+}
+button:hover, button:focus-visible {
+  outline: 3px solid lightgreen;
 }
 button.big {
   --width: 54px;

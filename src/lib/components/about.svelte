@@ -16,19 +16,28 @@
 	})
 </script>
 
-<div id="settings-panel">
+<div id="about-panel">
 	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
-	<h2 style="display: inline;">Settings</h2>
-	<div id="settings-content">
-		<label>
-			Blackhole Image Intergration
+	<h2 style="display: inline;">About</h2>
+	
+	<div id="about-content">
+		<img src="/images/bento.svg" class="icon">
+		<h3>A minimal self hosted notes app.</h3>
+		<p style="text-align: justify; max-width: 600px;">
+			Bento is a self hosted, minimal looking and private notes taking app.
 			<br>
-			<input id="blackhole" type="url" placeholder="https://..." bind:value={$blackholeUrl}>
-		</label>
+			You simply host your own instance of it on your own server.
+			<br>
+			And then take control of your own data.
+			<br>
+			It has markdown support and image support using <a href="https://github.com/mikhailsdv/deta-black-hole" target="_blank" rel="noopener noreferrer">Blackhole</a> intergration.
+			<br>
+			It is also open source.
+		</p>
 	</div>
 </div>
 <style>
-	#settings-panel {
+	#about-panel {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -39,19 +48,16 @@
 		padding: 5px;
 		z-index: 20;
 	}
-	#settings-content {
+	#about-content {
 		padding: 20px;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
 		align-items: center;
 	}
-	label {
-		max-width: 500px;
+	.icon {
+		max-width: 200px;
 		width: 100%;
-	}
-	#blackhole {
-		margin: 10px 0;
-		width: calc(100% - 20px);
+		user-select: none;
 	}
 </style>

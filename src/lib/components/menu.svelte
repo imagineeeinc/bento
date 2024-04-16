@@ -7,6 +7,7 @@
 	<div id="menu-list">
 		<a on:click={()=>navigate('/')}><span class="m-icon">home</span>Home</a>
 		<a on:click={()=>navigate('settings')}><span class="m-icon">settings</span>Settings</a>
+		<a on:click={()=>navigate('about')}><span class="m-icon">info</span>About</a>
 	</div>
 </div>
 
@@ -20,7 +21,7 @@
 		background: var(--bg-transperent);
 		mask: linear-gradient(to right, black 50%, transparent);
 		backdrop-filter: blur(10px);
-		padding: 10px;
+		padding: 5px;
 		font-size: 30px;
 		font-weight: 600;
 		z-index: 20;

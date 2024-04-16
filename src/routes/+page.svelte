@@ -2,6 +2,8 @@
   import Editor from '$lib/components/editor.svelte'
   import Menu from '../lib/components/menu.svelte'
   import Settings from '../lib/components/settings.svelte'
+  import About from '../lib/components/about.svelte'
+  import Search from '../lib/components/search.svelte'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
@@ -38,6 +40,7 @@
   <Route path="editor" component={Editor} />
   <Route path="menu" component={Menu} />
   <Route path="settings" component={Settings} />
+  <Route path="about" component={About} />
 </Router>
 <style>
   #new {
@@ -87,6 +90,9 @@
     max-height: 100vh;
     overflow-y: hidden;
     position: relative;
+  }
+  .note-box:hover {
+    outline: 3px solid lightgreen;
   }
   .note-time {
     position: absolute;
