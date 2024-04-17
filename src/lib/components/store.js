@@ -59,10 +59,9 @@ export function updateNote(uid, text, title) {
       }
     })
     let note = list[i]
-    delete note.data
-    delete note.title
-    delete note.owner
-    delete note.clientArgs
+    note.data = text
+    note.title = title
+    note.owner = user
     note.lastEdited = Date.now()
     list[i] = note
     return list
@@ -79,9 +78,10 @@ export function delNote(uid) {
       }
     })
     let note = list[i]
-    note.data = ""
-    note.title = ""
-    note.owner = user
+    delete note.data
+    delete note.title
+    delete note.owner
+    delete note.clientArgs
     note.lastEdited = Date.now()
     note.delete = true
     list[i] = note
