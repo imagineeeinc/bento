@@ -5,7 +5,7 @@
   // mode: 1=edit, 0=view only
   export let mode = 1
 
-  import { onMount } from 'svelte'
+  import { onMount, createEventDispatcher } from 'svelte'
   import * as TinyMDE from 'tiny-markdown-editor'
   import { navigate } from 'svelte-routing'
   import 'tiny-markdown-editor/dist/tiny-mde.css'
@@ -14,6 +14,7 @@
   import { newNote, updateNote, delNote, getUidNote, editing, settings } from '$lib/components/store'
   import { get } from 'svelte/store'
 
+  const dispatch = createEventDispatcher()
   var tinyMDE
   function update() {
     if (tinyMDE.getContent() != '') {
@@ -80,7 +81,7 @@
   <button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
   <div id="editor-box" class="{mode == 0?'hide':''}"></div>
-   {#if mode == 0}
+  {#if mode == 0}
     <div id="preview-box">
       <SvelteMarkdown source={text} />
     </div>

@@ -47,11 +47,13 @@
 <!-- {/if} -->
 <div id="notes-grid">
   {#each [...$notes].reverse() as note}
-    <div class="note-box" on:click={()=>editNow(note.uid)}>
-      <h3>{note.title}</h3>
-      <SvelteMarkdown source={note.data} />
-      <div class="note-time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</div>
-    </div>
+    {#if note.delete == false}
+      <div class="note-box" on:click={()=>editNow(note.uid)}>
+        <h3>{note.title}</h3>
+        <SvelteMarkdown source={note.data} />
+        <div class="note-time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</div>
+      </div>
+    {/if}
   {/each}
 </div>
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
@@ -103,11 +105,12 @@
     --offset: 50px;
     font-size: 15px;
     padding: 10px;
+    padding-bottom: calc(1ch + 20px);
     background: var(--secondary);
     border-radius: 10px;
     cursor: pointer;
     width: calc(25vw - var(--offset));
-    max-height: 100vh;
+    max-height: 60vh;
     overflow-y: hidden;
     position: relative;
   }
@@ -119,6 +122,10 @@
     bottom: 10px;
     right: 10px;
     color: var(--color-sec);
+    background: var(--bg-transperent);
+		backdrop-filter: blur(5px);
+    padding: 5px;
+    border-radius: 10px;
   }
   @media (max-width: 1000px) {
     .note-box {
@@ -136,5 +143,7 @@
   :global(.note-box img) {
     max-width: 90%;
     border-radius: 5px;
+    display: block;
+    margin: 0 auto;
   }
 </style>

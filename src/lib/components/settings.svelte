@@ -1,30 +1,18 @@
 <script>
 	import { navigate } from 'svelte-routing'
-	import { writable } from 'svelte/store'
-	import { settings } from '$lib/components/store.js'
-
-	let blackholeUrl = writable("")
-
-	settings.subscribe((data)=>{
-		blackholeUrl.set(data.blackhole)
-	})
-	blackholeUrl.subscribe((url) => {
-		settings.update((value) => {
-			value.blackhole = url
-			return value
-		})
-	})
 </script>
 
 <div id="settings-panel">
 	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
 	<h2 style="display: inline;">Settings</h2>
 	<div id="settings-content">
-		<label>
-			Blackhole Image Intergration
-			<br>
-			<input id="blackhole" type="url" placeholder="https://..." bind:value={$blackholeUrl}>
-		</label>
+		<i>Very Empty Right now...</i>
+		<p>
+			Settings has moved to the admin panel.
+		</p>
+		<p>
+			<a href="/admin" target="_blank" rel="noopener noreferrer">Go to Admin panel</a>
+		</p>
 	</div>
 </div>
 <style>
@@ -45,13 +33,5 @@
 		flex-direction: column;
 		flex-wrap: nowrap;
 		align-items: center;
-	}
-	label {
-		max-width: 500px;
-		width: 100%;
-	}
-	#blackhole {
-		margin: 10px 0;
-		width: calc(100% - 20px);
 	}
 </style>

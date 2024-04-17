@@ -10,6 +10,7 @@ format:
   lastEdited: Date.now()
   uid: uid
   owner: string
+  delete: boolen
   clientArgs: {
     markdown: true
     data: string
@@ -24,6 +25,7 @@ format:
 */
 // Notes
 export let notes = writable([])
+let user = ''
 
 export function newNote(text, title) {
   let uid = crypto.randomUUID()
@@ -35,7 +37,8 @@ export function newNote(text, title) {
         creation: Date.now(),
         lastEdited: Date.now(),
         uid: uid,
-        owner: "Bento Client",
+        owner: user,
+        delete: false,
         clientArgs: {
           markdown: true
         }
@@ -49,14 +52,17 @@ export function newNote(text, title) {
 export function updateNote(uid, text, title) {
   notes.update((list) => {
     let i = null
-    let note = list.find((data, index) => {
+    list.find((data, index) => {
       if (data.uid === uid) {
         i = index
         return true
       }
     })
-    note.data = text
-    note.title = title
+    let note = list[i]
+    delete note.data
+    delete note.title
+    delete note.owner
+    delete note.clientArgs
     note.lastEdited = Date.now()
     list[i] = note
     return list
@@ -72,7 +78,13 @@ export function delNote(uid) {
         return true
       }
     })
-    list.splice(i, 1)
+    let note = list[i]
+    note.data = ""
+    note.title = ""
+    note.owner = user
+    note.lastEdited = Date.now()
+    note.delete = true
+    list[i] = note
     return list
   })
 }
@@ -101,7 +113,22 @@ function sendSync() {
     fetch('/api/v1/sync', {
       method: "POST",
       body: d
-    }).then(data=>data.status==200?null:setTimeout(sendSync,100))
+    })
+    //.then(data=>data.status==200?null:setTimeout(sendSync,100))
+    .then(data=>{
+      if (data.status==200) {
+        return data.json()
+      } else {
+        setTimeout(sendSync,100)
+        return false
+      }
+    })
+    .then(json=>{
+      if (json != false) {
+        notes.set(json)
+      }
+      sendOf = null
+    })
   }, 1000)
 }
 if (browser) {
@@ -111,16 +138,10 @@ if (browser) {
   localStorage.getItem('notes') !== null) {
     notes.set(JSON.parse(localStorage.getItem('notes')))
   }
-  // Get latest from server
-	fetch('/api/v1/sync', {
-    method: "GET"
-	})
-  .then(res => res.json())
-  .then(json=>notes.set(json))
   // Update on change
   notes.subscribe((data) => {
     localStorage.setItem('notes', JSON.stringify(data))
-    sendSync()
+    if (sendOf === null) sendSync()
   })
 }
 
@@ -135,9 +156,17 @@ if (browser) {
   localStorage.getItem('settings') !== null) {
     settings.set(JSON.parse(localStorage.getItem('settings')))
   }
+  fetch('/api/v1/settings', {
+    method: "GET"
+  })
+  .then(res=>res.status==200?res.json():false)
+  .then(json=>{
+    if (json != false) {
+      settings.set(json)
+      user = json.user
+    }
+  })
   settings.subscribe((data) => {
     localStorage.setItem('settings', JSON.stringify(data))
   })
 }
-
-//TODO: add server sync

@@ -53,7 +53,6 @@ button, select {
 button {
   --width: 46px;
   height: var(--width);
-  width: var(--width);
   padding: 10px;
   border: none;
   background: var(--secondary);
@@ -61,7 +60,11 @@ button {
   cursor: pointer;
   outline: 3px solid var(--bg);
   margin: 5px;
+  font: inherit;
 }
+button.m-icon {
+  width: var(--width);
+} 
 input {
   --width: 34px;
   height: var(--width);
