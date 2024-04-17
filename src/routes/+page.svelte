@@ -8,6 +8,7 @@
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
   import { notes, editing } from '$lib/components/store'
+  import { browser } from '$app/environment'
 
   function newNote() {
     editing.set(null)
@@ -23,12 +24,27 @@
   }
   let animtion = { fn: fade, duration: 200 }
   let menuOpened = false
+  let searchMenuOpened = false
+
+  if (browser) {
+    searchTerm.subscribe(val=>{
+      if (val != "" && searchMenuOpened == false) {
+        navigate('search')
+        searchMenuOpened = true
+        document.getElementById("searchbar").focus()
+      } else if (val == "" && searchMenuOpened == true){
+        navigate('/')
+        searchMenuOpened = false
+        document.getElementById("searchbar").focus()
+      }
+    })
+  }
 </script>
 <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
-<input type="search" id="searcbar" placeholder="Search your notes" bind:value={$searchTerm}>
-{#if $searchTerm != ""}
-  <Search></Search>
-{/if}
+<input type="search" id="searchbar" placeholder="Search your notes" bind:value={$searchTerm}>
+<!-- {#if $searchTerm != ""} -->
+<!--   <Search></Search> -->
+<!-- {/if} -->
 <div id="notes-grid">
   {#each [...$notes].reverse() as note}
     <div class="note-box" on:click={()=>editNow(note.uid)}>
@@ -44,6 +60,7 @@
   <Route path="menu" component={Menu} />
   <Route path="settings" component={Settings} />
   <Route path="about" component={About} />
+  <Route path="search" component={Search} />
 </Router>
 <style>
   #new {
@@ -57,7 +74,7 @@
     left: 5px;
     z-index: 10;
   }
-  #searcbar {
+  #searchbar {
     position: fixed;
     top: 5px;
     right: 20px;
