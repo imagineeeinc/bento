@@ -34,6 +34,9 @@
 			<br>
 			It is also open source.
 		</p>
+		<p>
+			<a href="https://github.com/imagineeeinc/bento" target="_blank" rel="noopener noreferrer">Github</a>
+		</p>
 	</div>
 </div>
 <style>
