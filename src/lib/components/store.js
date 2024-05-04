@@ -1,6 +1,6 @@
 import { writable, get } from 'svelte/store'
 import { browser } from '$app/environment'
-
+import { DateTime } from 'luxon'
 /*
 format:
 {
@@ -23,8 +23,9 @@ format:
   ]
 }
 */
-// Notes
+// Vars
 export let notes = writable([])
+export let settings = writable({})
 let user = ''
 
 export function newNote(text, title) {
@@ -102,34 +103,53 @@ export function getUidNote(uid) {
   })
   return list[i]
 }
+
+// Note Sync
 let sendOf = null
-function sendSync() {
+export async function sendSync(noWait) {
   if (sendOf != null) {
     clearTimeout(sendOf)
   }
-  sendOf = setTimeout(()=>{
-    let d = new FormData()
-    d.append("notes", localStorage.getItem('notes'))
-    fetch('/api/v1/sync', {
-      method: "POST",
-      body: d
-    })
-    //.then(data=>data.status==200?null:setTimeout(sendSync,100))
-    .then(data=>{
-      if (data.status==200) {
-        return data.json()
-      } else {
-        setTimeout(sendSync,100)
-        return false
+  let send = async ()=>{
+    if (localStorage.getItem('login') !== undefined &&
+      localStorage.getItem('login') != "" &&
+      localStorage.getItem('login') !== null) {
+      let d = new FormData()
+      d.append("notes", localStorage.getItem('notes'))
+      await fetch(`/api/v1/sync?p=${localStorage.getItem('login')}`, {
+        method: "POST",
+        body: d
+      })
+      .then(data=>{
+        if (data.status==200) {
+          return data.json()
+        } else {
+          setTimeout(sendSync,100)
+          return false
+        }
+      })
+      .then(json=>{
+        if (json != false) {
+          notes.set(json)
+        }
+        sendOf = null
+      })
+      let f = await fetch(`/api/v1/settings?p=${localStorage.getItem('login')}`, {
+        method: "GET"
+      })
+      let json = await f.status==200?await f.json():false
+      if (json != false && !json.error) {
+        settings.set(json)
+        user = json.user
       }
-    })
-    .then(json=>{
-      if (json != false) {
-        notes.set(json)
-      }
-      sendOf = null
-    })
-  }, 1000)
+      return json
+    }
+  }
+  if (noWait == true) {
+    return send()
+  } else {
+    sendOf = setTimeout(send, 1000)
+  }
 }
 if (browser) {
   // Check if 
@@ -149,24 +169,35 @@ if (browser) {
 export let editing = writable(null)
 
 // Settings
-export let settings = writable({})
 if (browser) {
   if (localStorage.getItem('settings') !== undefined &&
   localStorage.getItem('settings') != "" &&
   localStorage.getItem('settings') !== null) {
     settings.set(JSON.parse(localStorage.getItem('settings')))
   }
-  fetch('/api/v1/settings', {
-    method: "GET"
-  })
-  .then(res=>res.status==200?res.json():false)
-  .then(json=>{
-    if (json != false) {
-      settings.set(json)
-      user = json.user
-    }
-  })
   settings.subscribe((data) => {
     localStorage.setItem('settings', JSON.stringify(data))
   })
+}
+
+// Login
+export async function authenticate(pass, pub) {
+  let f = await fetch(`/api/v1/auth?p=${pass}`, {
+    method: "GET"
+  })
+  let res = await f.json()
+  if (res.ok == 0) {
+    localStorage.setItem('login', pass)
+    let settingsCopy = await sendSync(true)
+    localStorage.setItem('logOut', Number(DateTime.now().plus({hours: !pub?settingsCopy.logOut.h || 24:0, minutes: !pub?settingsCopy.logOut.m || 0:10}).toFormat("X")))
+    return true
+  } else {
+    return false
+  }
+}
+export function checkTime() {
+  if (localStorage.getItem('logOut')<=Number(DateTime.now().toFormat("X"))) {
+    localStorage.removeItem('logOut')
+    localStorage.removeItem('login')
+  }
 }

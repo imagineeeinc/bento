@@ -1,13 +1,14 @@
 <script>
   import Editor from '$lib/components/editor.svelte'
-  import Menu from '../lib/components/menu.svelte'
-  import Settings from '../lib/components/settings.svelte'
-  import About from '../lib/components/about.svelte'
-  import Search, { searchTerm } from '../lib/components/search.svelte'
+  import Menu from '$lib/components/menu.svelte'
+  import Settings from '$lib/components/settings.svelte'
+  import About from '$lib/components/about.svelte'
+  import Search, { searchTerm } from '$lib/components/search.svelte'
+  import Password from '$lib/components/password.svelte'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
-  import { notes, editing } from '$lib/components/store'
+  import { notes, editing, checkTime } from '$lib/components/store'
   import { browser } from '$app/environment'
 
   function newNote() {
@@ -38,6 +39,14 @@
         document.getElementById("searchbar").focus()
       }
     })
+    checkTime()
+    if (localStorage.getItem('login') !== undefined &&
+      localStorage.getItem('login') != "" &&
+      localStorage.getItem('login') !== null) {
+      // login.set(JSON.parse(localStorage.getItem('login')))
+    } else {
+      navigate('login')
+    }
   }
 </script>
 <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
@@ -63,6 +72,7 @@
   <Route path="settings" component={Settings} />
   <Route path="about" component={About} />
   <Route path="search" component={Search} />
+  <Route path="login" component={Password} />
 </Router>
 <style>
   #new {

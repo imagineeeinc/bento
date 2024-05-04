@@ -20,6 +20,9 @@ importers:
       lunr:
         specifier: ^2.3.9
         version: 2.3.9
+      luxon:
+        specifier: ^3.4.4
+        version: 3.4.4
       m3-svelte:
         specifier: ^3.2.5
         version: 3.2.5
@@ -508,6 +511,10 @@ packages:
 
   lunr@2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
+
+  luxon@3.4.4:
+    resolution: {integrity: sha512-zobTr7akeGHnv7eBOXcRgMeCP6+uyYsczwmeRCauvpvaAltgNyTbLH/+VaEAPUeWBT+1GuNmz4wC/6jtQzbbVA==}
+    engines: {node: '>=12'}
 
   m3-svelte@3.2.5:
     resolution: {integrity: sha512-XDF13XA6DZwF1vzPVPilwBPwG//lG8zkLHGL/2hYF9O4nKp6Rvdk2CcSzJjLqPw7pA91vIWJg2FKF14yk2BLDw==}
@@ -1061,6 +1068,8 @@ snapshots:
   locate-character@3.0.0: {}
 
   lunr@2.3.9: {}
+
+  luxon@3.4.4: {}
 
   m3-svelte@3.2.5:
     dependencies:

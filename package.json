@@ -20,6 +20,7 @@
 		"deta": "^2.0.0",
 		"dotenv": "^16.4.5",
 		"lunr": "^2.3.9",
+		"luxon": "^3.4.4",
 		"m3-svelte": "^3.2.5",
 		"svelte-markdown": "^0.4.1",
 		"svelte-routing": "^2.12.0",

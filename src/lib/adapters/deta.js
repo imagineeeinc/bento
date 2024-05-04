@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { Deta } from 'deta'
-import { env } from "$env/dynamic/private";
+import { env } from "$env/dynamic/private"
 
 //const deta = DETA_COLLECTION_KEY && DETA_COLLECTION_KEY != '' ? Deta(DETA_COLLECTION_KEY) : Deta()
 const deta = Deta(env.DETA_PROJECT_KEY || process.env.DETA_PROJECT_KEY || 'key')
@@ -29,7 +29,7 @@ export async function retrive() {
   return data
 }
 
-const defaultSettings = {value: {"adapter": "deta"}}
+const defaultSettings = {value: {"adapter": "deta", "logOut": {h: 24, m: 0}}}
 export async function settingsPutAway(data) {
   db.put({value: data}, "settings")
 }

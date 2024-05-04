@@ -43,8 +43,11 @@ input, textarea, button, select, a {
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
-input:hover, textarea:hover, input:focus-visible, textarea:focus-visible {
+input:not([type='checkbox']):hover, textarea:hover, input:focus-visible, textarea:focus-visible {
   outline: 3px solid lightgreen;
+}
+input[type='checkbox'] {
+  cursor: pointer;
 }
 button, select {
   user-select: none;
@@ -65,7 +68,7 @@ button {
 button.m-icon {
   width: var(--width);
 } 
-input {
+input:not([type='checkbox']) {
   --width: 34px;
   height: var(--width);
   border: none;
