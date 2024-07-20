@@ -3,10 +3,9 @@
 
 	import SvelteMarkdown from 'svelte-markdown'
 	import { navigate } from 'svelte-routing'
-	import { notes, editing } from '$lib/components/store'
+	import { notes } from '$lib/components/store'
 
 	function editNow(uid) {
-    editing.set(uid)
     navigate(`/editor/${uid}`)
   }
 	function filterBy(item) {
