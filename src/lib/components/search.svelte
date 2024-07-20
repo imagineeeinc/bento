@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import lunr from 'lunr'
 	import SvelteMarkdown from 'svelte-markdown'
-	import { notes, getUidNote, editing } from '$lib/components/store'
+	import { notes, getUidNote } from '$lib/components/store'
 	import { navigate } from 'svelte-routing'
 
 	var idx
@@ -28,8 +28,7 @@
 	})
 
 	function editNow(uid) {
-    editing.set(uid)
-    navigate('editor')
+    navigate(`editor/${uid}`)
   }
 </script>
 

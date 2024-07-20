@@ -1,6 +1,7 @@
 <script>
   export let title = ""
   export let text = " "
+  export let archive = false
   export let uid = null
   // mode: 1=edit, 0=view only
   export let mode = 1
@@ -11,17 +12,18 @@
   import 'tiny-markdown-editor/dist/tiny-mde.css'
   import SvelteMarkdown from 'svelte-markdown'
   import { sendFile } from '$lib/components/images.js'
-  import { newNote, updateNote, delNote, getUidNote, editing, settings } from '$lib/components/store'
+  import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
   import { get } from 'svelte/store'
 
   const dispatch = createEventDispatcher()
   var tinyMDE
   function update() {
     if (tinyMDE.getContent() != '') {
-      if (uid === null) {
+      if (uid === null || uid == "null") {
         uid = newNote(tinyMDE.getContent(), title)
+        navigate(`/editor/${uid}`)
       } else {
-        updateNote(uid, tinyMDE.getContent(), title)
+        updateNote(uid, tinyMDE.getContent(), title, archive)
       }
       text = tinyMDE.getContent()
     } else {
@@ -59,18 +61,15 @@
     }
   }
   onMount(()=>{
-    editing.subscribe((id)=>{
-      uid=id
-    })
-
     tinyMDE = new TinyMDE.Editor({ element: 'editor-box' })
 
-    if (uid == null) {
+    if (uid == null || uid == "null") {
       text = "*starts typing*"
     } else {
       let note = getUidNote(uid)
       text = note.data
       title = note.title
+      archive = note.archive
     }
     tinyMDE.setContent(text)
     tinyMDE.addEventListener('change', update)
@@ -90,6 +89,13 @@
     <button id="new" class="m-icon" on:click={deleteThisNote}>delete</button>
     <button id="new" class="m-icon" on:click={swapViewMode}>edit_note</button>
     <button id="new" class="m-icon" on:click={addImage}>add_a_photo</button>
+    <button id="new" class="m-icon" on:click={()=>{archive=!archive;update()}}>
+      {#if archive}
+        unarchive
+      {:else}
+        archive
+      {/if}
+    </button>
   </div>
 </div>
 <style>

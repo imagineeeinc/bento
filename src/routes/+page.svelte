@@ -5,23 +5,19 @@
   import About from '$lib/components/about.svelte'
   import Search, { searchTerm } from '$lib/components/search.svelte'
   import Password from '$lib/components/password.svelte'
+  import Grid from '$lib/components/grid.svelte'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
-  import { notes, editing, checkTime } from '$lib/components/store'
+  import { notes, checkTime } from '$lib/components/store'
   import { browser } from '$app/environment'
 
   function newNote() {
-    editing.set(null)
-    navigate('editor')
-  }
-  function editNow(uid) {
-    editing.set(uid)
-    navigate('editor')
+    navigate('/editor/null')
   }
   function openMenu() {
     menuOpened = true
-    navigate('menu')
+    navigate('/menu')
   }
   let animtion = { fn: fade, duration: 200 }
   let menuOpened = false
@@ -30,7 +26,7 @@
   if (browser) {
     searchTerm.subscribe(val=>{
       if (val != "" && searchMenuOpened == false) {
-        navigate('search')
+        navigate('/search')
         searchMenuOpened = true
         document.getElementById("searchbar").focus()
       } else if (val == "" && searchMenuOpened == true){
@@ -45,7 +41,7 @@
       localStorage.getItem('login') !== null) {
       // login.set(JSON.parse(localStorage.getItem('login')))
     } else {
-      navigate('login')
+      navigate('/login')
     }
   }
 </script>
@@ -54,31 +50,23 @@
 <!-- {#if $searchTerm != ""} -->
 <!--   <Search></Search> -->
 <!-- {/if} -->
-<div id="notes-grid">
-  {#each [...$notes].reverse() as note}
-    {#if note.delete == false}
-      <div class="note-box" on:click={()=>editNow(note.uid)}>
-        <h3>{note.title}</h3>
-        <SvelteMarkdown source={note.data} />
-        <div class="note-time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</div>
-      </div>
-    {/if}
-  {/each}
-</div>
+<Grid tag=""></Grid>
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
 <Router>
-  <Route path="editor" component={Editor} />
+  <Route path="editor/:uid" component={Editor} />
   <Route path="menu" component={Menu} />
   <Route path="settings" component={Settings} />
   <Route path="about" component={About} />
   <Route path="search" component={Search} />
   <Route path="login" component={Password} />
+  <Route path="tags/:tag" component={Grid} />
 </Router>
 <style>
   #new {
     position: fixed;
     bottom: 15px;
     right: 15px;
+    z-index: 10;
   }
   #menu-btn {
     position: fixed;

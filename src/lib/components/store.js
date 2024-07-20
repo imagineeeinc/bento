@@ -11,6 +11,10 @@ format:
   uid: uid
   owner: string
   delete: boolen
+  archive: boolen
+  tags: [
+    string
+  ]
   clientArgs: {
     markdown: true
     data: string
@@ -40,6 +44,8 @@ export function newNote(text, title) {
         uid: uid,
         owner: user,
         delete: false,
+        archive: false,
+        tags: [],
         clientArgs: {
           markdown: true
         }
@@ -50,7 +56,7 @@ export function newNote(text, title) {
   return uid
 }
 
-export function updateNote(uid, text, title) {
+export function updateNote(uid, text, title, archive) {
   notes.update((list) => {
     let i = null
     list.find((data, index) => {
@@ -64,6 +70,7 @@ export function updateNote(uid, text, title) {
     note.title = title
     note.owner = user
     note.lastEdited = Date.now()
+    note.archive = archive
     list[i] = note
     return list
   })
@@ -164,9 +171,6 @@ if (browser) {
     if (sendOf === null) sendSync()
   })
 }
-
-// Editor State
-export let editing = writable(null)
 
 // Settings
 if (browser) {

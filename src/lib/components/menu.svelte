@@ -6,6 +6,7 @@
 	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
 	<div id="menu-list">
 		<a on:click={()=>navigate('/')}><span class="m-icon">home</span>Home</a>
+		<a on:click={()=>navigate('tags/archive')}><span class="m-icon">archive</span>Archive</a>
 		<a on:click={()=>navigate('settings')}><span class="m-icon">settings</span>Settings</a>
 		<a on:click={()=>navigate('about')}><span class="m-icon">info</span>About</a>
 	</div>
