@@ -1,3 +1,6 @@
+// DEPRECTED
+// DO NOT USE
+// ONLY FOR REFERENCE
 import 'dotenv/config'
 import { Deta } from 'deta'
 import { env } from "$env/dynamic/private"

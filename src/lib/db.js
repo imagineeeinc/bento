@@ -1,11 +1,11 @@
-import * as deta from './adapters/deta.js'
+import * as adapter from './adapters/sqlite3.js'
 import 'dotenv/config'
 
 //TODO: decipher diffrent adapters
 
 export async function save(data) {
-  let oldData = await deta.retrive()
-  oldData = oldData.value
+  let oldData = await adapter.retrive()
+  // oldData = oldData.value
   data.forEach(n => {
     let i = null
     let timestamp = 0
@@ -33,18 +33,18 @@ export async function save(data) {
     }
     // TODO: deleted notes list
   })
-  deta.putAway(oldData, Date.now().toString())
+  adapter.putAway(oldData, Date.now().toString())
   return oldData
 }
 export async function load() {
-  const data = await deta.retrive()
+  const data = await adapter.retrive()
   return data.value
 }
 
 export function settingsSave(data) {
-  deta.settingsPutAway(data, Date.now().toString())
+  adapter.settingsPutAway(data, Date.now().toString())
 }
 export async function settingsLoad() {
-  const data = await deta.settingsRetrive()
+  const data = await adapter.settingsRetrive()
   return data.value
 }
