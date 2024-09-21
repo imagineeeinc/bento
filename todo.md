@@ -1,8 +1,11 @@
 - [x] Text search with [lunr](https://lunrjs.com/) full text search
 - [ ] user system
-- [ ] password auth with backend
-- [ ] admin panel
+- [x] password auth with backend
+- [x] admin panel
   - [ ] export and import data
   - [ ] manage users
 - [ ] whiteboard notes with svg
+- [ ] Taging notes
+- [ ] sveltekit routes over spa
+- [x] pwa
 
