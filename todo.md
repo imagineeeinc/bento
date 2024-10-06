@@ -5,7 +5,7 @@
   - [ ] export and import data
   - [ ] manage users
 - [ ] whiteboard notes with svg
-- [ ] Taging notes
+- [ ] Tagging notes
 - [ ] sveltekit routes over spa
 - [x] pwa
 
