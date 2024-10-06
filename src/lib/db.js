@@ -38,7 +38,7 @@ export async function save(data) {
 }
 export async function load() {
   const data = await adapter.retrive()
-  return data.value
+  return data
 }
 
 export function settingsSave(data) {
