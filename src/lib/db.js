@@ -46,5 +46,5 @@ export function settingsSave(data) {
 }
 export async function settingsLoad() {
   const data = await adapter.settingsRetrive()
-  return data.value
+  return data
 }

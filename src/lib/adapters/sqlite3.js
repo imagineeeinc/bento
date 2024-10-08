@@ -75,7 +75,7 @@ export async function retrive() {
 	return result
 }
 
-const defaultSettings = {value: {"adapter": "sqlite3", "logOut": {h: 24, m: 0}}}
+const defaultSettings = {"adapter": "sqlite3", "logOut": {h: 24, m: 0}}
 let [setting, settingCreated] = await Settings.findOrCreate({
 	where: { settings_id: 1 },
 	defaults: {
