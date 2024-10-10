@@ -8,4 +8,5 @@
 - [ ] Tagging notes
 - [x] Web sockets based saving
 - [x] PWA
-
+- [ ] Add http API to take backups and background sync
+- [ ] Background Sync
