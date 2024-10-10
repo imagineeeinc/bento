@@ -1,8 +1,7 @@
 import { Sequelize, Model, DataTypes } from '@sequelize/core'
 import { SqliteDialect, OPEN_READWRITE, OPEN_CREATE } from '@sequelize/sqlite3'
-// import { env } from '$env/dynamic/private'
 
-const FILE_NAME = /* env.SQLITE3_FILE || */ process.env.SQLITE3_FILE || "./db/bento.db"
+const FILE_NAME = process.env.SQLITE3_FILE || "./db/bento.db"
 
 export const sequelize = new Sequelize({
   dialect: SqliteDialect,
