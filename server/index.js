@@ -3,7 +3,7 @@ import { createServer } from 'http'
 import { Server } from 'socket.io'
 
 import { handler } from '../build/handler.js'
-import { socketManger } from 'socket.js'
+import { socketManger } from './socket.js'
 
 const port = 3000 || process.env.PORT
 

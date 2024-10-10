@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { sequelize, Notes, Settings, Tokens } from './sqlite3.init'
+import { sequelize, Notes, Settings, Tokens } from './sqlite3.init.js'
 
 export async function putAway(data, timestamp, updated) {
 	updated.forEach(i => {
