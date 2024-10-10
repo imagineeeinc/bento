@@ -3,7 +3,7 @@
 // ONLY FOR REFERENCE
 import 'dotenv/config'
 import { Deta } from 'deta'
-import { env } from "$env/dynamic/private"
+import { env } from '$env/dynamic/private'
 
 //const deta = DETA_COLLECTION_KEY && DETA_COLLECTION_KEY != '' ? Deta(DETA_COLLECTION_KEY) : Deta()
 const deta = Deta(env.DETA_PROJECT_KEY || process.env.DETA_PROJECT_KEY || 'key')

@@ -1,6 +1,7 @@
 import { writable, get } from 'svelte/store'
 import { browser } from '$app/environment'
 import { DateTime } from 'luxon'
+import { io } from 'socket.io-client'
 /*
 format:
 {
@@ -113,52 +114,30 @@ export function getUidNote(uid) {
 
 // Note Sync
 let sendOf = null
-export async function sendSync(noWait) {
-  if (sendOf != null) {
-    clearTimeout(sendOf)
-  }
-  let send = async ()=>{
-    if (localStorage.getItem('login') !== undefined &&
-      localStorage.getItem('login') != "" &&
-      localStorage.getItem('login') !== null) {
-      let d = new FormData()
-      d.append("notes", localStorage.getItem('notes'))
-      await fetch(`/api/v1/sync?p=${localStorage.getItem('login')}`, {
-        method: "POST",
-        body: d
-      })
-      .then(data=>{
-        if (data.status==200) {
-          return data.json()
-        } else {
-          setTimeout(sendSync,100)
-          return false
-        }
-      })
-      .then(json=>{
-        if (json != false) {
-          notes.set(json)
-        }
-        sendOf = null
-      })
-      let f = await fetch(`/api/v1/settings?p=${localStorage.getItem('login')}`, {
-        method: "GET"
-      })
-      let json = await f.status==200?await f.json():false
-      if (json != false && !json.error) {
-        settings.set(json)
-        user = json.user
-      }
-      return json
-    }
-  }
-  if (noWait == true) {
-    return send()
-  } else {
-    sendOf = setTimeout(send, 1000)
+function syncSave() {
+  if (socket.connected) {
+    socket.emit("save", JSON.parse(localStorage.getItem('notes')))
+    sendOf = null
   }
 }
+function syncFirst() {
+  socket.emit("syncFirst", JSON.parse(localStorage.getItem('notes')), data => {
+    if (data) {
+      notes.set(data.notes)
+      settings.set(data.settings)
+      // user = data.settings.user
+    }
+  })
+}
+var socket
 if (browser) {
+  socket = io()
+  socket.on("connect", () => {
+    syncFirst()
+  })
+  socket.on("load", data => {
+    console.log(data)
+  })
   // Check if 
   if (localStorage.getItem('notes') !== undefined &&
   localStorage.getItem('notes') != "" &&
@@ -168,7 +147,12 @@ if (browser) {
   // Update on change
   notes.subscribe((data) => {
     localStorage.setItem('notes', JSON.stringify(data))
-    if (sendOf === null) sendSync()
+    if (sendOf !== null) {
+      clearTimeout(sendOf)
+      sendOf = setTimeout(syncSave, 1000)
+    } else {
+      syncSave()
+    }
   })
 }
 
@@ -186,22 +170,22 @@ if (browser) {
 
 // Login
 export async function authenticate(pass, pub) {
-  let f = await fetch(`/api/v1/auth?p=${pass}`, {
-    method: "GET"
-  })
-  let res = await f.json()
-  if (res.ok == 0) {
-    localStorage.setItem('login', pass)
-    let settingsCopy = await sendSync(true)
-    localStorage.setItem('logOut', Number(DateTime.now().plus({hours: !pub?settingsCopy.logOut.h || 24:0, minutes: !pub?settingsCopy.logOut.m || 0:10}).toFormat("X")))
-    return true
-  } else {
-    return false
-  }
+  return new Promise(resolve => socket.emit("signIn", pass, data => {
+    if (data == null) {
+      resolve(false)
+    } else {
+      localStorage.setItem('token', data.token)
+      resolve(true)
+    }
+  }))
 }
-export function checkTime() {
-  if (localStorage.getItem('logOut')<=Number(DateTime.now().toFormat("X"))) {
-    localStorage.removeItem('logOut')
-    localStorage.removeItem('login')
-  }
+export async function authValidity() {
+  return new Promise(resolve => socket.emit("authVerify", localStorage.getItem('token'), data => {
+    if (data.signOut == true) {
+      localStorage.removeItem('login')
+      resolve(false)
+    } else {
+      resolve(true)
+    }
+  }))
 }

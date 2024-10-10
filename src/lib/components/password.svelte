@@ -1,12 +1,11 @@
 <script>
 	import { navigate } from 'svelte-routing'
-  import { authenticate, sendSync } from '$lib/components/store'
+  import { authenticate } from '$lib/components/store'
   let visibility = false
   async function login() {
     let res = await authenticate(document.getElementById("pass").value, document.getElementById("public").checked)
-    if (res == true) {
+    if (res) {
       navigate('/')
-      sendSync()
     } else {
       alert("Wrong Password Entered")
     }

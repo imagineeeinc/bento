@@ -1,3 +1,4 @@
+// TODO: Store images in the database
 export async function sendFile(url, file) {
 	let formData = new FormData()
 	formData.append("photo", file)

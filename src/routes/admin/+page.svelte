@@ -16,33 +16,34 @@
     }
     let d = new FormData()
     d.append("value", JSON.stringify(settings))
+    // DEPERECTED
     fetch(`/api/v1/settings?p=${password}`, {
       method: "POST",
       body: d
     })
   }
   onMount(()=>{
-    let pass = prompt("Password")
-    password = pass
-    fetch(`/api/v1/settings?p=${pass}`, {
-      method: "GET"
-    })
-    .then(res=>res.json())
-    .then(json=>{
-      if (!json.error) {
-        blackholeUrl.set(json.blackholeUrl)
-        user.set(json.user)
-        document.getElementById("logout-hour").value = json.logOut.h
-        document.getElementById("logout-min").value = json.logOut.m
-      } else {
-          alert("Wrong password, reload page and re-enter password.")
-        }
-    })
+    // let pass = prompt("Password")
+    // password = pass
+    // fetch(`/api/v1/settings?p=${pass}`, {
+    //   method: "GET"
+    // })
+    // .then(res=>res.json())
+    // .then(json=>{
+    //   if (!json.error) {
+    //     blackholeUrl.set(json.blackholeUrl)
+    //     user.set(json.user)
+    //     document.getElementById("logout-hour").value = json.logOut.h
+    //     document.getElementById("logout-min").value = json.logOut.m
+    //   } else {
+    //       alert("Wrong password, reload page and re-enter password.")
+    //     }
+    // })
   })
 </script>
 <div id="settings-panel">
 	<div id="settings-content">
-    <h2>Admin Panel</h2>
+    <!-- <h2>Admin Panel</h2>
     <h4>Configure settings on this instance</h4>
     <label>
 			Owner Name
@@ -65,7 +66,8 @@
 			<br>
 			<input id="logout-min" type="number" placeholder="0">
 		</label>
-    <button id="save" on:click={save}>Save</button>
+    <button id="save" on:click={save}>Save</button> -->
+    <h2>Admin Panel is being replaced by settings in the main app.</h2>
 	</div>
 </div>
 <style>

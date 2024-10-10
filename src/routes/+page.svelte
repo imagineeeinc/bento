@@ -9,8 +9,9 @@
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
-  import { notes, checkTime } from '$lib/components/store'
+  import { authValidity } from '$lib/components/store'
   import { browser } from '$app/environment'
+  import { onMount } from 'svelte'
 
   function newNote() {
     navigate('/editor/null')
@@ -35,14 +36,11 @@
         document.getElementById("searchbar").focus()
       }
     })
-    checkTime()
-    if (localStorage.getItem('login') !== undefined &&
-      localStorage.getItem('login') != "" &&
-      localStorage.getItem('login') !== null) {
-      // login.set(JSON.parse(localStorage.getItem('login')))
-    } else {
-      navigate('/login')
-    }
+    onMount(async () => {
+      if (!(await authValidity())) {
+        navigate('/login')
+      }
+    })
   }
 </script>
 <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
