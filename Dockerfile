@@ -13,4 +13,4 @@ RUN npm prune --production
 ENV NODE_ENV=production
 # ENV PORT=3000
 
-ENTRYPOINT ["node", "server/index.js"]
+ENTRYPOINT ["npm", "start"]
