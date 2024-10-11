@@ -71,7 +71,7 @@ Tokens.init(
 		},
 		expiry: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: true
 		}
 	},
 	{
