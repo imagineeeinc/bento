@@ -1,0 +1,8 @@
+:root {
+  --color: var(--dark-color);
+  --color-sec: var(--dark-color-sec);
+  --bg: var(--dark-bg);
+  --bg-transperent: var(--dark-bg-transperent);
+  --secondary: var(--dark-secondary);
+  --tertiary: var(--dark-tertiary);
+}

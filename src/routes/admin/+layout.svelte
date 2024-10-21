@@ -1,8 +1,8 @@
 <script>
-  import '../../app.css'
+  import '$lib/css/main.css'
 </script>
 <svelte:head>
-    <title>Admin - Bento</title> 
+  <title>Admin - Bento</title> 
 </svelte:head>
 
 <slot />

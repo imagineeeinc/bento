@@ -1,17 +1,22 @@
 <script>
 	import { navigate } from 'svelte-routing'
+	import { theme } from '$lib/components/store.js'
 </script>
 
 <div id="settings-panel">
 	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
 	<h2 style="display: inline;">Settings</h2>
 	<div id="settings-content">
-		<i>Very Empty Right now...</i>
+		<select name="theme" id="theme" bind:value={$theme}>
+			<option value="system">System</option>
+			<option value="dark">Dark</option>
+			<option value="light">Light</option>
+		</select>
 		<p>
 			Settings has moved to the admin panel.
 		</p>
 		<p>
-			<a href="/admin" target="_blank" rel="noopener noreferrer">Go to Admin panel</a>
+			<a href="/admin" rel="noopener noreferrer">Go to Admin panel</a>
 		</p>
 	</div>
 </div>

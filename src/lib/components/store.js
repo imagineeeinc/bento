@@ -31,6 +31,7 @@ format:
 // Vars
 export let notes = writable([])
 export let settings = writable({})
+export let theme = writable('system')
 let user = ''
 
 export function newNote(text, title) {
@@ -153,6 +154,10 @@ if (browser) {
     } else {
       syncSave()
     }
+  })
+  theme.set(localStorage.getItem('theme') || 'system')
+  theme.subscribe((data) => {
+    localStorage.setItem('theme', data)
   })
 }
 

@@ -3,19 +3,26 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+  font-variation-settings: "wdth" 100;
+  
+  --light-color: rgb(0, 0, 0);
+  --light-color-sec: rgb(80,100,80);
+  --light-bg: rgb(250, 255, 240);
+  --light-bg-transperent: rgb(250, 255, 240, 0.4);
+  --light-secondary: rgb(200, 255, 200);
+  --light-tertiary: rgb(100, 255, 198);
+
+  --dark-color: rgb(236, 239, 230);
+  --dark-color-sec: rgb(80,100,80);
+  --dark-bg: rgb(10, 15, 13);
+  --dark-bg-transperent: rgb(10, 15, 13, 0.4);
+  --dark-secondary: rgb(16, 22, 19);
+  --dark-tertiary: rgb(3, 147, 94);
 }
 
 body {
   margin: 0;
   padding: 0;
-  --color: rgb(0, 0, 0);
-  --color-sec: rgb(80,100,80);
-  --bg: rgb(250, 255, 240);
-  --bg-transperent: rgb(250, 255, 240, 0.4);
-  --secondary: rgb(200, 255, 200);
-  --tertiary: rgb(105, 255, 200);
   color: var(--color);
   background: var(--bg);
   font-size: 20px;
@@ -30,6 +37,7 @@ body {
   font-style: normal;
   font-size: 24px;  /* Preferred icon size */
   display: inline-block;
+  color: var(--color);
   line-height: 1;
   text-transform: none;
   letter-spacing: normal;
@@ -44,7 +52,7 @@ input, textarea, button, select, a {
   outline: none;
 }
 input:not([type='checkbox']):hover, textarea:hover, input:focus-visible, textarea:focus-visible {
-  outline: 3px solid lightgreen;
+  outline: 3px solid var(--tertiary);
 }
 input[type='checkbox'] {
   cursor: pointer;
@@ -68,19 +76,23 @@ button {
 button.m-icon {
   width: var(--width);
 } 
-input:not([type='checkbox']) {
+input:not([type='checkbox']), select {
   --width: 34px;
   height: var(--width);
   border: none;
   background: var(--secondary);
+  color: var(--color);
   border-radius: 10px;
   padding: 10px;
   outline: 5px solid var(--bg);
   margin: 5px;
   font: inherit;
 }
+select {
+  --width: 50px;
+}
 button:hover, button:focus-visible {
-  outline: 3px solid lightgreen;
+  outline: 3px solid var(--tertiary);
 }
 button.big {
   --width: 54px;

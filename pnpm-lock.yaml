@@ -29,9 +29,6 @@ importers:
       luxon:
         specifier: ^3.4.4
         version: 3.4.4
-      m3-svelte:
-        specifier: ^3.2.5
-        version: 3.2.5
       socket.io:
         specifier: ^4.8.0
         version: 4.8.0
@@ -217,9 +214,6 @@ packages:
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
-  '@iconify/types@2.0.0':
-    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-
   '@jridgewell/gen-mapping@0.3.5':
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
     engines: {node: '>=6.0.0'}
@@ -237,12 +231,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@ktibow/iconset-material-symbols@0.0.1708325449':
-    resolution: {integrity: sha512-jI8aeTmft2+m7SQXMcy2Tx//bz6q1zda6Ipu4asy6NrqpwO3ILWBkHVFv1YfjGQZnO85fDf0ZrsLgPLQRGLNDA==}
-
-  '@material/material-color-utilities@0.2.7':
-    resolution: {integrity: sha512-0FCeqG6WvK4/Cc06F/xXMd/pv4FeisI0c1tUpBbfhA2n9Y8eZEv4Karjbmf2ZqQCPUWMrGp8A571tCjizxoTiQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -984,9 +972,6 @@ packages:
     resolution: {integrity: sha512-zobTr7akeGHnv7eBOXcRgMeCP6+uyYsczwmeRCauvpvaAltgNyTbLH/+VaEAPUeWBT+1GuNmz4wC/6jtQzbbVA==}
     engines: {node: '>=12'}
 
-  m3-svelte@3.2.5:
-    resolution: {integrity: sha512-XDF13XA6DZwF1vzPVPilwBPwG//lG8zkLHGL/2hYF9O4nKp6Rvdk2CcSzJjLqPw7pA91vIWJg2FKF14yk2BLDw==}
-
   magic-string@0.30.8:
     resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
     engines: {node: '>=12'}
@@ -1642,8 +1627,6 @@ snapshots:
   '@gar/promisify@1.1.3':
     optional: true
 
-  '@iconify/types@2.0.0': {}
-
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
       '@jridgewell/set-array': 1.2.1
@@ -1660,12 +1643,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-
-  '@ktibow/iconset-material-symbols@0.0.1708325449':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@material/material-color-utilities@0.2.7': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -2514,13 +2491,6 @@ snapshots:
   lunr@2.3.9: {}
 
   luxon@3.4.4: {}
-
-  m3-svelte@3.2.5:
-    dependencies:
-      '@iconify/types': 2.0.0
-      '@ktibow/iconset-material-symbols': 0.0.1708325449
-      '@material/material-color-utilities': 0.2.7
-      svelte: 4.2.12
 
   magic-string@0.30.8:
     dependencies:

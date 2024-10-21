@@ -62,7 +62,7 @@
     position: relative;
   }
   .note-box:hover {
-    outline: 3px solid lightgreen;
+    outline: 3px solid var(--tertiary);
   }
   .note-time {
     position: absolute;

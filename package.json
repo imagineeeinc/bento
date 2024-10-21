@@ -6,7 +6,8 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"start": "npm run gen:db &&node server/index.js",
+		"server": "node server/index.js",
+		"start": "npm run gen:db && npm run server",
 		"gen:db": "node scripts/sqlite.js"
 	},
 	"devDependencies": {
@@ -26,12 +27,12 @@
 		"express": "^4.21.1",
 		"lunr": "^2.3.9",
 		"luxon": "^3.4.4",
-		"m3-svelte": "^3.2.5",
 		"socket.io": "^4.8.0",
 		"socket.io-client": "^4.8.0",
 		"svelte-markdown": "^0.4.1",
 		"svelte-routing": "^2.12.0",
 		"tiny-markdown-editor": "^0.1.11",
 		"uuid4": "^2.0.3"
-	}
+	},
+	"packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
 }

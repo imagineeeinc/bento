@@ -1,0 +1,20 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --color: var(--light-color);
+    --color-sec: var(--light-color-sec);
+    --bg: var(--light-bg);
+    --bg-transperent: var(--light-bg-transperent);
+    --secondary: var(--light-secondary);
+    --tertiary: var(--light-tertiary);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color: var(--dark-color);
+    --color-sec: var(--dark-color-sec);
+    --bg: var(--dark-bg);
+    --bg-transperent: var(--dark-bg-transperent);
+    --secondary: var(--dark-secondary);
+    --tertiary: var(--dark-tertiary);
+  }
+}

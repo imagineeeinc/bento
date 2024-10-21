@@ -68,6 +68,7 @@
 		</label>
     <button id="save" on:click={save}>Save</button> -->
     <h2>Admin Panel is being replaced by settings in the main app.</h2>
+    <a href="/">Back to app</a>
 	</div>
 </div>
 <style>

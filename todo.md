@@ -10,4 +10,4 @@
 - [x] PWA
 - [ ] Add http API to take backups and background sync
 - [ ] Background Sync
-- [ ] Use [fuse.js](https://www.fusejs.io/) fuzzy search
+- [ ] ~~Use [fuse.js](https://www.fusejs.io/) fuzzy search~~

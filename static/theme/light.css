@@ -1,0 +1,8 @@
+:root {
+  --color: var(--light-color);
+  --color-sec: var(--light-color-sec);
+  --bg: var(--light-bg);
+  --bg-transperent: var(--light-bg-transperent);
+  --secondary: var(--light-secondary);
+  --tertiary: var(--light-tertiary);
+}
