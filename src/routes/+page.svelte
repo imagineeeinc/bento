@@ -80,6 +80,10 @@
     height: 54px;
     padding: 20px;
     z-index: 10;
+    outline: 3px solid var(--secondary);
+  }
+  #searchbar:hover, #searchbar:focus-visible {
+    outline: 3px solid var(--accent);
   }
   #notes-grid {
     position: absolute;
@@ -96,45 +100,6 @@
     justify-content: center;
     align-content: flex-start;
     gap: 20px;
-  }
-  .note-box {
-    --offset: 50px;
-    font-size: 15px;
-    padding: 10px;
-    padding-bottom: calc(1ch + 20px);
-    background: var(--secondary);
-    border-radius: 10px;
-    cursor: pointer;
-    width: calc(25vw - var(--offset));
-    max-height: 60vh;
-    overflow-y: hidden;
-    position: relative;
-  }
-  .note-box:hover {
-    outline: 3px solid var(--tertiary);
-  }
-  .note-time {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: var(--color-sec);
-    background: var(--bg-transperent);
-		backdrop-filter: blur(5px);
-    padding: 5px;
-    border-radius: 10px;
-  }
-  @media (max-width: 1000px) {
-    .note-box {
-      width: calc(50vw - var(--offset));
-    }
-  }
-  @media (max-width: 400px) {
-    .note-box {
-      width: calc(100vw - var(--offset));
-    }
-  }
-  .note-box > h3 {
-    margin: 0;
   }
   :global(.note-box img) {
     max-width: 90%;

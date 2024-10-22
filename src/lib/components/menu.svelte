@@ -30,6 +30,13 @@
 	#menu-list > a {
 		cursor: pointer;
 		text-decoration: underline;
+		color: var(--color);
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	.m-icon {
+		text-decoration: none !important;
 	}
 	#menu-list > a:hover {
 		text-shadow: 0 0 2px slategrey;

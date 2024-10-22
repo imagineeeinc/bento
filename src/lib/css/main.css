@@ -4,20 +4,22 @@
   font-weight: 400;
   font-style: normal;
   font-variation-settings: "wdth" 100;
-  
-  --light-color: rgb(0, 0, 0);
-  --light-color-sec: rgb(80,100,80);
-  --light-bg: rgb(250, 255, 240);
-  --light-bg-transperent: rgb(250, 255, 240, 0.4);
-  --light-secondary: rgb(200, 255, 200);
-  --light-tertiary: rgb(100, 255, 198);
 
-  --dark-color: rgb(236, 239, 230);
+  --light-color: rgb(16, 19, 11);
+  --light-color-sec: rgb(80,100,80);
+  --light-bg: rgb(240, 245, 243);
+  --light-bg-transperent: rgb(240, 245, 243, 0.4);
+  --light-primary: rgb(15, 226, 149);
+  --light-secondary: rgb(200, 234, 218);
+  --light-accent: rgb(143, 214, 143);
+
+  --dark-color: rgb(241, 244, 236);
   --dark-color-sec: rgb(80,100,80);
   --dark-bg: rgb(10, 15, 13);
-  --dark-bg-transperent: rgb(10, 15, 13, 0.4);
-  --dark-secondary: rgb(16, 22, 19);
-  --dark-tertiary: rgb(3, 147, 94);
+  --dark-bg-transperent: rgba(10, 15, 13, 0.4);
+  --dark-primary: rgb(30, 241, 163);
+  --dark-secondary: rgb(21, 55, 39);
+  --dark-accent: rgb(41, 112, 41);
 }
 
 body {
@@ -30,6 +32,8 @@ body {
 }
 * {
   transition-duration: .1s;
+  outline: none;
+	font: inherit;
 }
 .m-icon {
   font-family: 'Material Symbols Outlined';
@@ -51,8 +55,8 @@ input, textarea, button, select, a {
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
-input:not([type='checkbox']):hover, textarea:hover, input:focus-visible, textarea:focus-visible {
-  outline: 3px solid var(--tertiary);
+input:not([type='checkbox']):hover, select:hover, textarea:hover, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--accent);
 }
 input[type='checkbox'] {
   cursor: pointer;
@@ -60,44 +64,47 @@ input[type='checkbox'] {
 button, select {
   user-select: none;
 }
-
+a {
+  color: var(--primary);
+}
+a:hover {
+  color: var(--accent);
+}
 button {
   --width: 46px;
   height: var(--width);
+  width: var(--width);
   padding: 10px;
   border: none;
-  background: var(--secondary);
+  background: var(--bg);
   border-radius: 10px;
   cursor: pointer;
-  outline: 3px solid var(--bg);
+  outline: 3px solid var(--secondary);
   margin: 5px;
   font: inherit;
 }
-button.m-icon {
-  width: var(--width);
-} 
-input:not([type='checkbox']), select {
-  --width: 34px;
+input:not([type='checkbox']), select, textarea {
+  --width: 46px;
   height: var(--width);
-  border: none;
-  background: var(--secondary);
-  color: var(--color);
+	border: none;
+  outline: 3px solid var(--bg);
+  background: var(--bg);
   border-radius: 10px;
   padding: 10px;
-  outline: 5px solid var(--bg);
   margin: 5px;
   font: inherit;
+	color: inherit;
 }
-select {
-  --width: 50px;
+input:not([type='checkbox']) {
+  --width: 34px;
 }
 button:hover, button:focus-visible {
-  outline: 3px solid var(--tertiary);
+  outline: 3px solid var(--accent);
 }
 button.big {
   --width: 54px;
 }
 button:active {
   transform: scale(0.95) translateY(5px);
-  background: var(--tertiary);
+  background: var(--primary);
 }

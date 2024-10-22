@@ -2,7 +2,7 @@
   --color: var(--light-color);
   --color-sec: var(--light-color-sec);
   --bg: var(--light-bg);
-  --bg-transperent: var(--light-bg-transperent);
+  --primary: var(--light-primary);
   --secondary: var(--light-secondary);
-  --tertiary: var(--light-tertiary);
+  --accent: var(--light-accent);
 }

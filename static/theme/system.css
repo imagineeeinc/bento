@@ -3,9 +3,9 @@
     --color: var(--light-color);
     --color-sec: var(--light-color-sec);
     --bg: var(--light-bg);
-    --bg-transperent: var(--light-bg-transperent);
+    --primary: var(--light-primary);
     --secondary: var(--light-secondary);
-    --tertiary: var(--light-tertiary);
+    --accent: var(--light-accent);
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -13,8 +13,8 @@
     --color: var(--dark-color);
     --color-sec: var(--dark-color-sec);
     --bg: var(--dark-bg);
-    --bg-transperent: var(--dark-bg-transperent);
+    --primary: var(--dark-primary);
     --secondary: var(--dark-secondary);
-    --tertiary: var(--dark-tertiary);
+    --accent: var(--dark-accent);
   }
 }

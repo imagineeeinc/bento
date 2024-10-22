@@ -33,9 +33,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 74px;
+    padding-top: 84px;
 		padding-bottom: 20px;
-    height: calc(100vh - 74px);
+    height: calc(100vh - 104px);
     width: 100%;
     overflow-y: auto;
 
@@ -53,7 +53,8 @@
     font-size: 15px;
     padding: 10px;
     padding-bottom: calc(1ch + 20px);
-    background: var(--secondary);
+    background: var(--bg);
+    outline: 3px solid var(--secondary);
     border-radius: 10px;
     cursor: pointer;
     width: calc(25vw - var(--offset));
@@ -62,7 +63,7 @@
     position: relative;
   }
   .note-box:hover {
-    outline: 3px solid var(--tertiary);
+    outline: 3px solid var(--accent);
   }
   .note-time {
     position: absolute;
