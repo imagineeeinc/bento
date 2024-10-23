@@ -24,11 +24,7 @@
       {/if}
     </button>
     <br>
-    <label>
-      Public Login
-      <input id="public" type="checkbox">
-    </label>
-    <button on:click={login}>Login</button>
+    <button on:click={login} class="m-icon">login</button>
 	</div>
 </div>
 <style>

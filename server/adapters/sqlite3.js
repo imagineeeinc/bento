@@ -1,10 +1,13 @@
 import 'dotenv/config'
 import { sequelize, Notes, Settings, Tokens } from './sqlite3.init.js'
 
-export async function putAway(data, timestamp, updated) {
+export async function putAway(data, timestamp, updated, deleted) {
 	updated.forEach(i => {
 		let item = data[i]
 		Notes.upsert({ notes_id: item.uid, data: JSON.stringify(item), lastUpdated: timestamp, created: item.creation, delete: item.delete })
+	})
+	deleted.forEach(i => {
+		Notes.destroy({ where: { notes_id: data[i].uid } })
 	})
 	sequelize.sync({ force: false })
 }

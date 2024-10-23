@@ -8,6 +8,7 @@ import uuid4 from 'uuid4'
 export async function save(data) {
   let oldData = await adapter.retrive()
   let updated = []
+  let deletedList = []
   data.forEach(n => {
     let i = null
     let timestamp = 0
@@ -22,8 +23,12 @@ export async function save(data) {
     })
     if (i !== null) {
       if (timestamp < n.lastEdited) {
-        oldData.splice(i, 1, n)
-        updated.push(i)
+        if (!deleted) {
+          oldData.splice(i, 1, n)
+          updated.push(i)
+        } else {
+          deletedList.push(i)
+        }
       }
     } else {
       if (n.delete === false) {
@@ -33,7 +38,7 @@ export async function save(data) {
     }
     // TODO: deleted notes list
   })
-  adapter.putAway(oldData, DateTime.now().toISO(), updated)
+  adapter.putAway(oldData, DateTime.now().toISO(), updated, deletedList)
   return oldData
 }
 export async function load() {

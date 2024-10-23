@@ -12,12 +12,6 @@
 			<option value="dark">Dark</option>
 			<option value="light">Light</option>
 		</select>
-		<p>
-			Settings has moved to the admin panel.
-		</p>
-		<p>
-			<a href="/admin" rel="noopener noreferrer">Go to Admin panel</a>
-		</p>
 	</div>
 </div>
 <style>
