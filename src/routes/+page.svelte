@@ -80,7 +80,6 @@
     height: 54px;
     padding: 20px;
     z-index: 10;
-    outline: 3px solid var(--secondary);
   }
   #searchbar:hover, #searchbar:focus-visible {
     outline: 3px solid var(--accent);

@@ -87,7 +87,7 @@ input:not([type='checkbox']), select, textarea {
   --width: 46px;
   height: var(--width);
 	border: none;
-  outline: 3px solid var(--bg);
+  outline: 3px solid var(--secondary);
   background: var(--bg);
   border-radius: 10px;
   padding: 10px;
@@ -107,4 +107,12 @@ button.big {
 button:active {
   transform: scale(0.95) translateY(5px);
   background: var(--primary);
+}
+::-webkit-scrollbar {
+  width: 7.5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
 }
