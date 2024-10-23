@@ -13,7 +13,8 @@
   import SvelteMarkdown from 'svelte-markdown'
   import { sendFile } from '$lib/components/images.js'
   import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
-  import { get } from 'svelte/store'
+  import { get, writable } from 'svelte/store'
+  import TagsEditor from '$lib/components/tagsEditor.svelte'
 
   const dispatch = createEventDispatcher()
   var tinyMDE
@@ -38,7 +39,7 @@
     let ask = confirm("Are you sure you want to delete this Note?")
     if (ask) {
       delNote(uid)
-      navigate("/")
+      window.history.back()
     }
   }
   function swapViewMode() {mode = mode == 0 ? 1 : 0}
@@ -64,7 +65,7 @@
     tinyMDE = new TinyMDE.Editor({ element: 'editor-box' })
 
     if (uid == null || uid == "null") {
-      text = "*starts typing*"
+      text = ""
     } else {
       let note = getUidNote(uid)
       text = note.data
@@ -74,10 +75,11 @@
     tinyMDE.setContent(text)
     tinyMDE.addEventListener('change', update)
   })
+  let tagEditor = writable(false)
 </script>
 <input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" on:change={imagePicked}>
 <div id="editor-container">
-  <button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
+  <button id="close-btn" class="m-icon big" on:click={()=>navigate('/')}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
   <div id="editor-box" class="{mode == 0?'hide':''}"></div>
   {#if mode == 0}
@@ -86,18 +88,24 @@
     </div>
   {/if}
   <div id="editor-toolbar">
-    <button id="new" class="m-icon" on:click={deleteThisNote}>delete</button>
-    <button id="new" class="m-icon" on:click={swapViewMode}>edit_note</button>
-    <button id="new" class="m-icon" on:click={addImage}>add_a_photo</button>
-    <button id="new" class="m-icon" on:click={()=>{archive=!archive;update()}}>
+    <button class="m-icon" on:click={deleteThisNote}>delete</button>
+    <button class="m-icon" on:click={swapViewMode}>edit_note</button>
+    <button class="m-icon" on:click={addImage}>add_a_photo</button>
+    <button class="m-icon" on:click={()=>{archive=!archive;update()}}>
       {#if archive}
         unarchive
       {:else}
         archive
       {/if}
     </button>
+    {#if uid !== 'null'}
+      <button class="m-icon" on:click={()=>tagEditor.set(!$tagEditor)}>label</button>
+    {/if}
   </div>
 </div>
+{#if $tagEditor}
+  <TagsEditor uid={uid} tagEditor={tagEditor} />
+{/if}
 <style>
   #editor-container {
     position: fixed;
@@ -127,7 +135,7 @@
     border-radius: 5px;
   }
   #editor-toolbar {
-    background: var(--secondary);
+    background: var(--bg);
     position: fixed;
     bottom: 0;
     left: 0;

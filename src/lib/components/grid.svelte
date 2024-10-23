@@ -19,10 +19,21 @@
 <div id="notes-grid">
   {#each [...$notes].reverse().filter(filterBy) as note}
     {#if note.delete == false}
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="note-box" on:click={()=>editNow(note.uid)}>
         <h3>{note.title}</h3>
         <SvelteMarkdown source={note.data} />
-        <div class="note-time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</div>
+        <div class="note-time">
+          {#if note.tags && note.tags.length > 0}
+            <span class="tags-list">
+              {#each note.tags as tag}
+                <span class="tag">{tag}</span>
+              {/each}
+            </span>
+          {/if}
+          <span class="time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</span>
+        </div>
       </div>
     {/if}
   {/each}
@@ -69,11 +80,36 @@
     position: absolute;
     bottom: 10px;
     right: 10px;
+    max-width: calc(100% - 30px);
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
     color: var(--color-sec);
     background: var(--bg-transperent);
 		backdrop-filter: blur(5px);
     padding: 5px;
     border-radius: 10px;
+  }
+  .tags-list {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .tag {
+    background: var(--accent);
+    color: var(--color);
+    padding: 5px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .time {
+    flex-shrink: 0;
   }
   @media (max-width: 1000px) {
     .note-box {

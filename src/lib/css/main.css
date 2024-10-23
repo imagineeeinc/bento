@@ -4,6 +4,7 @@
   font-weight: 400;
   font-style: normal;
   font-variation-settings: "wdth" 100;
+  --font-size: 20px;
 
   --light-color: rgb(16, 19, 11);
   --light-color-sec: rgb(80,100,80);
@@ -14,7 +15,7 @@
   --light-accent: rgb(143, 214, 143);
 
   --dark-color: rgb(241, 244, 236);
-  --dark-color-sec: rgb(80,100,80);
+  --dark-color-sec: rgb(168, 208, 168);
   --dark-bg: rgb(10, 15, 13);
   --dark-bg-transperent: rgba(10, 15, 13, 0.4);
   --dark-primary: rgb(30, 241, 163);
@@ -27,7 +28,7 @@ body {
   padding: 0;
   color: var(--color);
   background: var(--bg);
-  font-size: 20px;
+  font-size: var(--font-size);
   overflow: hidden;
 }
 * {
@@ -97,6 +98,9 @@ input:not([type='checkbox']), select, textarea {
 }
 input:not([type='checkbox']) {
   --width: 34px;
+}
+input:not([type='checkbox']):focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--accent);
 }
 button:hover, button:focus-visible {
   outline: 3px solid var(--accent);

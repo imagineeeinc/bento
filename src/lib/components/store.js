@@ -32,6 +32,7 @@ format:
 export let notes = writable([])
 export let settings = writable({})
 export let theme = writable('system')
+export let tags = writable([])
 let user = ''
 
 export function newNote(text, title) {
@@ -111,6 +112,40 @@ export function getUidNote(uid) {
     }
   })
   return list[i]
+}
+export function getUidTags(uid) {
+  let list = getListNotes()
+  let i = null
+  list.find((data, index) => {
+    if (data.uid === uid) {
+      i = index
+      return true
+    }
+  })
+  let note = list[i]
+  // if tags dosen't exist create and save
+  if (note.tags === undefined) {
+    note.tags = []
+    list[i] = note
+    notes.set(list)
+  }
+  return note.tags
+}
+export function setUidTags(uid, tags) {
+  notes.update((list) => {
+    let i = null
+    list.find((data, index) => {
+      if (data.uid === uid) {
+        i = index
+        return true
+      }
+    })
+    let note = list[i]
+    note.tags = tags
+    note.lastEdited = Date.now()
+    list[i] = note
+    return list
+  })
 }
 
 // Note Sync
@@ -193,4 +228,20 @@ export async function authValidity() {
       resolve(true)
     }
   }))
+}
+
+export function availableTags() {
+  get(notes).forEach(note => {
+    if (note.tags) {
+      note.tags.forEach(tag => {
+        if (!get(tags).includes(tag)) {
+          tags.update((list) => {
+            list.push(tag)
+            return list
+          })
+        }
+      })
+    }
+  })
+  return get(tags)
 }

@@ -41,6 +41,9 @@ importers:
       svelte-routing:
         specifier: ^2.12.0
         version: 2.12.0
+      svelte-tags-input:
+        specifier: ^6.0.1
+        version: 6.0.1
       tiny-markdown-editor:
         specifier: ^0.1.11
         version: 0.1.11
@@ -1390,6 +1393,9 @@ packages:
 
   svelte-routing@2.12.0:
     resolution: {integrity: sha512-6i4Mncy4P2b7gD7+BOT9JzQvrfGfGXqFra8VXYU5//bpn6AzJ0PLEhH1E/KwY2AxleOiS/8Nm37MGuic2kn15A==}
+
+  svelte-tags-input@6.0.1:
+    resolution: {integrity: sha512-3X5qomFSXe6E8H7Lq0oce7096tr6u06pWvTNgNoeNVIXCrRLxRYOk4Ujkte7z5WaAit47EUsZZP1TSJ2HR9ixA==}
 
   svelte@4.2.12:
     resolution: {integrity: sha512-d8+wsh5TfPwqVzbm4/HCXC783/KPHV60NvwitJnyTA5lWn1elhXMNWhXGCJ7PwPa8qFUnyJNIyuIRt2mT0WMug==}
@@ -2997,6 +3003,8 @@ snapshots:
       svelte: 4.2.12
 
   svelte-routing@2.12.0: {}
+
+  svelte-tags-input@6.0.1: {}
 
   svelte@4.2.12:
     dependencies:

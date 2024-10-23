@@ -1,12 +1,19 @@
 <script>
 	import { onMount } from 'svelte'
   import { navigate } from 'svelte-routing'
+	import { availableTags } from './store.js'
+	import Acordian from './acordian.svelte'
 </script>
 <div id="menu-container">
-	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
+	<button id="close-btn" class="m-icon big" on:click={()=>window.history.back()}>close</button>
 	<div id="menu-list">
 		<a on:click={()=>navigate('/')}><span class="m-icon">home</span>Home</a>
 		<a on:click={()=>navigate('tags/archive')}><span class="m-icon">archive</span>Archive</a>
+		<Acordian title="Tags">
+			{#each availableTags() as tag}
+				<a on:click={()=>navigate(`tags/${tag}`)} class="label-link"><span class="m-icon">label</span>{tag}</a>
+			{/each}
+		</Acordian>
 		<a on:click={()=>navigate('settings')}><span class="m-icon">settings</span>Settings</a>
 		<a on:click={()=>navigate('about')}><span class="m-icon">info</span>About</a>
 	</div>
@@ -27,9 +34,16 @@
 		font-weight: 600;
 		z-index: 20;
 	}
+	#menu-list {
+		height: calc(100% - 84px);
+		overflow: auto;
+	}
+	#menu-list::-webkit-scrollbar {
+		display: none;
+	}
 	#menu-list > a {
 		cursor: pointer;
-		text-decoration: underline;
+		text-decoration: none;
 		color: var(--color);
 		display: flex;
 		flex-direction: row;
@@ -39,7 +53,7 @@
 		text-decoration: none !important;
 	}
 	#menu-list > a:hover {
-		text-shadow: 0 0 2px slategrey;
+		color: var(--color-sec);
 	}
 	#menu-list {
 		position: fixed;
@@ -49,5 +63,13 @@
 		flex-direction: column;
 		flex-wrap: nowrap;
 		gap: 10px;
+	}
+	.label-link {
+		text-decoration: none !important;
+		color: var(--color);
+		cursor: pointer;
+	}
+	.label-link:hover {
+		color: var(--color-sec);
 	}
 </style>
