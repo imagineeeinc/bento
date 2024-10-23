@@ -22,13 +22,11 @@ export async function save(data) {
       }
     })
     if (i !== null) {
-      if (timestamp < n.lastEdited) {
-        if (!deleted) {
-          oldData.splice(i, 1, n)
-          updated.push(i)
-        } else {
-          deletedList.push(i)
-        }
+      if (timestamp < n.lastEdited && !deleted) {
+        oldData.splice(i, 1, n)
+        updated.push(i)
+      } else if (deleted) {
+        deletedList.push(i)
       }
     } else {
       if (n.delete === false) {
