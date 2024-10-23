@@ -2,6 +2,7 @@
   export let title = ""
   export let text = " "
   export let archive = false
+  export let pin = false
   export let uid = null
   // mode: 1=edit, 0=view only
   export let mode = 1
@@ -24,7 +25,7 @@
         uid = newNote(tinyMDE.getContent(), title)
         navigate(`/editor/${uid}`)
       } else {
-        updateNote(uid, tinyMDE.getContent(), title, archive)
+        updateNote(uid, tinyMDE.getContent(), title, archive, pin)
       }
       text = tinyMDE.getContent()
     } else {
@@ -70,7 +71,8 @@
       let note = getUidNote(uid)
       text = note.data
       title = note.title
-      archive = note.archive
+      archive = note.archive || false
+      pin = note.pin || false
     }
     tinyMDE.setContent(text)
     tinyMDE.addEventListener('change', update)
@@ -101,6 +103,13 @@
     {#if uid !== 'null'}
       <button class="m-icon" on:click={()=>tagEditor.set(!$tagEditor)}>label</button>
     {/if}
+    <button class="m-icon" on:click={()=>{pin=!pin;update()}}>
+      {#if pin}
+        keep_off
+      {:else}
+        keep
+      {/if}
+    </button>
   </div>
 </div>
 {#if $tagEditor}

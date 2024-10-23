@@ -13,6 +13,7 @@ format:
   owner: string
   delete: boolen
   archive: boolen
+  pin: boolen
   tags: [
     string
   ]
@@ -48,6 +49,7 @@ export function newNote(text, title) {
         owner: user,
         delete: false,
         archive: false,
+        pin: false,
         tags: [],
         clientArgs: {
           markdown: true
@@ -59,7 +61,7 @@ export function newNote(text, title) {
   return uid
 }
 
-export function updateNote(uid, text, title, archive) {
+export function updateNote(uid, text, title, archive, pin) {
   notes.update((list) => {
     let i = null
     list.find((data, index) => {
@@ -74,6 +76,7 @@ export function updateNote(uid, text, title, archive) {
     note.owner = user
     note.lastEdited = Date.now()
     note.archive = archive
+    note.pin = pin
     list[i] = note
     return list
   })
