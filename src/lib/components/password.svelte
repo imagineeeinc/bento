@@ -3,7 +3,7 @@
   import { authenticate } from '$lib/components/store'
   let visibility = false
   async function login() {
-    let res = await authenticate(document.getElementById("pass").value, document.getElementById("public").checked)
+    let res = await authenticate(document.getElementById("pass").value, false)
     if (res) {
       navigate('/')
     } else {
