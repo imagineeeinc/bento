@@ -51,9 +51,9 @@ self.addEventListener('fetch', (event) => {
       const response = await fetch(event.request, { signal: controller.signal });
       clearTimeout(timeoutId);
       // if response takes to long return from cache
-      if (response.headers.get('x-sveltekit-cache') === 'no-store') {
-        return response;
-      }
+      // if (response.headers.get('x-sveltekit-cache') === 'no-store') {
+      //   return response;
+      // }
       
       if (response.status === 200) {
         cache.put(event.request, response.clone());
