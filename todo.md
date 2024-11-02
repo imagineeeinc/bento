@@ -11,3 +11,4 @@
 - [ ] Add http API to take backups and background sync
 - [ ] Background Sync
 - [ ] ~~Use [fuse.js](https://www.fusejs.io/) fuzzy search~~
+- [ ] Add reactive client database with [RxDB](https://rxdb.info/) and use [http](https://rxdb.info/replication-http.html) for repication.
