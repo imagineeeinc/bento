@@ -4,6 +4,9 @@
 
 A self hosted minimalist note taking service.
 
+> [!WARNING]  
+> As of right now is heavily experimental and isn't recomended for personal use.
+
 ### Features
 - Markdown Notes & preview
 - Minimal Notes Grid for least friction
