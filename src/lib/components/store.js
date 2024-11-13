@@ -240,6 +240,7 @@ export async function authValidity() {
   if (res.token == localStorage.getItem('token')) {
     return true
   }
+  localStorage.removeItem('token')
   return false
 }
 
@@ -257,4 +258,12 @@ export function availableTags() {
     }
   })
   return get(tags)
+}
+
+export function resetClient() {
+  localStorage.removeItem('notes')
+  localStorage.removeItem('settings')
+  localStorage.removeItem('theme')
+  localStorage.removeItem('token')
+  location.reload()
 }

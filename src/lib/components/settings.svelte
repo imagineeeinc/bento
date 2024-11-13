@@ -1,6 +1,12 @@
 <script>
 	import { navigate } from 'svelte-routing'
 	import { theme } from '$lib/components/store.js'
+	import { resetClient } from './store.js';
+	function reset() {
+		if (confirm("are you sure you want to reset client?")) {
+			resetClient()
+		}
+	}
 </script>
 
 <div id="settings-panel">
@@ -12,6 +18,7 @@
 			<option value="dark">Dark</option>
 			<option value="light">Light</option>
 		</select>
+		<button on:click={reset}>Reset Client Data</button>
 	</div>
 </div>
 <style>

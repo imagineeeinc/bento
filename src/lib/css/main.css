@@ -74,7 +74,7 @@ a:hover {
 button {
   --width: 46px;
   height: var(--width);
-  width: var(--width);
+  min-width: var(--width);
   padding: 10px;
   border: none;
   background: var(--bg);
