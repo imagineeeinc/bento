@@ -34,7 +34,7 @@ body {
 * {
   transition-duration: .1s;
   outline: none;
-	font: inherit;
+	font-family: inherit;
 }
 .m-icon {
   font-family: 'Material Symbols Outlined';

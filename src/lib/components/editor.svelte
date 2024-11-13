@@ -6,6 +6,7 @@
   export let uid = null
   // mode: 1=edit, 0=view only
   export let mode = 1
+  export let back = '/'
 
   import { onMount, createEventDispatcher } from 'svelte'
   import * as TinyMDE from 'tiny-markdown-editor'
@@ -81,7 +82,7 @@
 </script>
 <input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" on:change={imagePicked}>
 <div id="editor-container">
-  <button id="close-btn" class="m-icon big" on:click={()=>navigate('/')}>close</button>
+  <button id="close-btn" class="m-icon big" on:click={()=>navigate(back)}>close</button>
   <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
   <div id="editor-box" class="{mode == 0?'hide':''}"></div>
   {#if mode == 0}
@@ -155,7 +156,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 10px;
+    overflow-x: auto;
+  }
+  #editor-toolbar::-webkit-scrollbar {
+    display: none;
   }
   :global(.TinyMDE) {
     background-color: var(--bg) !important;

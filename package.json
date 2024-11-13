@@ -6,7 +6,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"server": "node server/index.js",
+		"server": "node build",
 		"start": "npm run gen:db && npm run server",
 		"gen:db": "node scripts/sqlite.js"
 	},
@@ -27,8 +27,6 @@
 		"express": "^4.21.1",
 		"lunr": "^2.3.9",
 		"luxon": "^3.4.4",
-		"socket.io": "^4.8.0",
-		"socket.io-client": "^4.8.0",
 		"svelte-markdown": "^0.4.1",
 		"svelte-routing": "^2.12.0",
 		"svelte-tags-input": "^6.0.1",

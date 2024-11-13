@@ -1,7 +1,5 @@
 import { writable, get } from 'svelte/store'
 import { browser } from '$app/environment'
-import { DateTime } from 'luxon'
-import { io } from 'socket.io-client'
 /*
 format:
 {
@@ -153,36 +151,48 @@ export function setUidTags(uid, tags) {
 
 // Note Sync
 let sendOf = null
-function syncSave() {
-  if (socket.connected) {
-    socket.emit("save", JSON.parse(localStorage.getItem('notes')))
-    sendOf = null
-  }
+async function syncSave() {
+  let d = new FormData()
+  d.append("notes", localStorage.getItem('notes'))
+  fetch(`/api/v1/sync?t=${localStorage.getItem('token')}`, {
+    method: "POST",
+    body: d
+  }).then(res=>res.json()).then(res=>{if (res.success) {sendOf = null} else {console.error(res.error)}})
 }
-function syncFirst() {
-  socket.emit("syncFirst", JSON.parse(localStorage.getItem('notes')), data => {
-    if (data) {
-      notes.set(data.notes)
-      settings.set(data.settings)
-      // user = data.settings.user
-    }
+var firstTime
+async function syncFirst() {
+  let d = new FormData()
+  d.append("notes", localStorage.getItem('notes'))
+  let res = await fetch(`/api/v1/sync?t=${localStorage.getItem('token')}&first=true`, {
+    method: "POST",
+    body: d
   })
+  res = await res.json()
+  if (res.notes) {
+    notes.set(res.notes)
+    settings.set(res.settings)
+    // user = data.settings.user
+  } else {
+    alert("Error syncing")
+    console.error(res.error)
+  }
 }
 var socket
 if (browser) {
-  socket = io()
-  socket.on("connect", () => {
-    syncFirst()
-  })
-  socket.on("load", data => {
-    console.log(data)
-  })
   // Check if 
   if (localStorage.getItem('notes') !== undefined &&
   localStorage.getItem('notes') != "" &&
   localStorage.getItem('notes') !== null) {
     notes.set(JSON.parse(localStorage.getItem('notes')))
   }
+  firstTime = setInterval(()=>{
+    if (localStorage.getItem('token') !== undefined &&
+    localStorage.getItem('token') != "" &&
+    localStorage.getItem('token') !== null) {
+      clearInterval(firstTime)
+      syncFirst()
+    }
+  }, 1000)
   // Update on change
   notes.subscribe((data) => {
     localStorage.setItem('notes', JSON.stringify(data))
@@ -213,24 +223,24 @@ if (browser) {
 
 // Login
 export async function authenticate(pass, pub) {
-  return new Promise(resolve => socket.emit("signIn", pass, data => {
-    if (data == null) {
-      resolve(false)
-    } else {
-      localStorage.setItem('token', data.token)
-      resolve(true)
-    }
-  }))
+  let res = await fetch(`/api/v1/auth?p=${pass}`)
+  res = await res.json()
+  if (res.token) {
+    localStorage.setItem('token', res.token)
+    return true
+  }
+  return false
 }
 export async function authValidity() {
-  return new Promise(resolve => socket.emit("authVerify", localStorage.getItem('token'), data => {
-    if (data.signOut == true) {
-      localStorage.removeItem('login')
-      resolve(false)
-    } else {
-      resolve(true)
-    }
-  }))
+  if (localStorage.getItem('token') == null) {
+    return false
+  }
+  let res = await fetch(`/api/v1/auth?t=${localStorage.getItem('token')}`)
+  res = await res.json()
+  if (res.token == localStorage.getItem('token')) {
+    return true
+  }
+  return false
 }
 
 export function availableTags() {
