@@ -5,12 +5,12 @@
 A self hosted minimalist note taking service.
 
 > [!WARNING]  
-> As of right now is heavily experimental and isn't recomended for personal use.
+> As of right now is heavily experimental and isn't recomended for personal use. The database is highly unstable.
 
 ### Features
 - Markdown Notes & preview
 - Minimal Notes Grid for least friction
-- Archiving & Tagging (*Tagging not implemented yet*)
+- Archiving & Tagging
 - Search notes
 - Can be installed as a PWA
 - Offline First model, ensuring offline data is merged once online.
@@ -24,6 +24,7 @@ Make sure to have the latest version of Node and npm installed, also pnpm is rec
 	```
 2. Install dependencies
 	```bash
+ 	# npm
 	npm i
 	# pnpm (recommended)
 	pnpm i
@@ -36,13 +37,14 @@ Make sure to have the latest version of Node and npm installed, also pnpm is rec
 	```
 4. Generate build
 	```bash
+ 	# npm
 	npm run build
 	# pnpm
 	pnpm build
 	```
 5. Run server. Set the `WEB_PASS` env to a password of your choice, you can also use a `.env` file in the root of the project.
 	```bash
-	node server/index.js
+	node build
 	```
 
 ### Docker
