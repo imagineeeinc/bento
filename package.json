@@ -7,7 +7,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"server": "node build",
-		"start": "npm run gen:db && npm run server",
+		"start": "concurrently \"npm run gen:db\" \"npm run server\"",
 		"gen:db": "node scripts/sqlite.js"
 	},
 	"devDependencies": {
@@ -22,6 +22,7 @@
 	"dependencies": {
 		"@sequelize/core": "7.0.0-alpha.42",
 		"@sequelize/sqlite3": "7.0.0-alpha.42",
+		"concurrently": "^9.1.2",
 		"deta": "^2.0.0",
 		"dotenv": "^16.4.5",
 		"express": "^4.21.1",
@@ -33,5 +34,13 @@
 		"tiny-markdown-editor": "^0.1.11",
 		"uuid4": "^2.0.3"
 	},
-	"packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@sveltejs/kit", 
+			"core-js", 
+			"esbuild", 
+			"sqlite3"
+		]
+	},
+	"packageManager": "pnpm@10.0.0+sha512.b8fef5494bd3fe4cbd4edabd0745df2ee5be3e4b0b8b08fa643aa3e4c6702ccc0f00d68fa8a8c9858a735a0032485a44990ed2810526c875e416f001b17df12b"
 }
