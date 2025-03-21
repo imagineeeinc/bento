@@ -4,7 +4,7 @@
   font-weight: 400;
   font-style: normal;
   font-variation-settings: "wdth" 100;
-  --font-size: 20px;
+  --font-size: large;
 
   --light-color: rgb(16, 19, 11);
   --light-color-sec: rgb(80,100,80);
@@ -116,6 +116,8 @@ button:active {
   width: 7.5px;
   height: 5px;
 }
+::-webkit-scrollbar-button:end{height: 20px; width:5px;}
+::-webkit-scrollbar-button:start{height: 20px; width:5px;}
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 5px;

@@ -93,7 +93,7 @@
   <div id="editor-toolbar">
     <button class="m-icon" on:click={deleteThisNote}>delete</button>
     <button class="m-icon" on:click={swapViewMode}>edit_note</button>
-    <button class="m-icon" on:click={addImage}>add_a_photo</button>
+    <!-- <button class="m-icon" on:click={addImage}>add_a_photo</button> -->
     <button class="m-icon" on:click={()=>{archive=!archive;update()}}>
       {#if archive}
         unarchive

@@ -1,14 +1,11 @@
 - [x] Text search with [lunr](https://lunrjs.com/) full text search
-- [ ] user system
+- [x] user system
 - [x] password auth with backend
-- [x] ~~admin panel~~ Settings 
+- [ ] ~~admin panel~~ Settings 
   - [ ] export and import data
   - [ ] manage users
 - [ ] whiteboard notes with SVG
-- [ ] Tagging notes
-- [x] Web sockets based saving
+- [x] Tagging notes
 - [x] PWA
-- [ ] Add http API to take backups and background sync
+- [x] Add http API to take backups and background sync
 - [ ] Background Sync
-- [ ] ~~Use [fuse.js](https://www.fusejs.io/) fuzzy search~~
-- [ ] Add reactive client database with [RxDB](https://rxdb.info/) and use [http](https://rxdb.info/replication-http.html) for repication.

@@ -1,31 +1,31 @@
 import { json, error } from '@sveltejs/kit'
-import * as db from '$lib/db.js'
 import { env } from "$env/dynamic/private"
+import { validateSessionToken } from '$lib/server/session.js'
+import { getNotes, putNotes } from '$lib/server/db.js'
 
 export async function GET(event) {
-  let p = event.url.searchParams.get('p')
-  if (p == env.WEB_PASS) {
-    const data = await db.load()
-    return json(data)
-  } else {
-    return error(403, {error: "password"})
-  }
+	let session = await validateSessionToken(event.cookies.get("session"))
+	if (session.session === null) {
+		return json({error: "Not logged in"})
+	}
+	let notes = await getNotes(session.user.id)
+	return json({ notes })
 }
 export async function POST(event) {
   const data = await event.request.formData()
 	const notes = JSON.parse(data.get('notes'))
-  let t = event.url.searchParams.get('t')
 	let first = event.url.searchParams.get('first')
-	if (t && await db.checkTokenValidity(t) == null) {
-		return json({error: "token"})
-	} else if (t) {
-		if (first) {
-			let res = await db.save(notes)
-			let settings = await db.settingsLoad()
-			return json({ notes: res, settings })
-		} else {
-			await db.save(notes)
-			return json({ success: true })
-		}
+	let session = await validateSessionToken(event.cookies.get("session"))
+	if (session.session === null) {
+		return json({error: "Not logged in"})
+	}
+	if (first) {
+		let res = await putNotes(session.user.id, notes)
+		// TODO: Get settings sync
+		// let settings = await db.settingsLoad()
+		return json({ notes: res, settings: {} })
+	} else {
+		await putNotes(session.user.id, notes)
+		return json({ success: true })
 	}
 }

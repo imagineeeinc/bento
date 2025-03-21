@@ -3,8 +3,6 @@ import 'dotenv/config'
 import { DateTime } from 'luxon'
 import uuid4 from 'uuid4'
 
-//TODO: decipher diffrent adapters
-
 export async function save(data) {
   let oldData = await adapter.retrive()
   let updated = []

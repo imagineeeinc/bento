@@ -30,7 +30,7 @@ format:
 // Vars
 export let notes = writable([])
 export let settings = writable({})
-export let theme = writable('system')
+export let theme = writable(browser? localStorage.getItem('theme') || 'system' : 'system')
 export let tags = writable([])
 let user = ''
 
@@ -153,8 +153,8 @@ export function setUidTags(uid, tags) {
 let sendOf = null
 async function syncSave() {
   let d = new FormData()
-  d.append("notes", localStorage.getItem('notes'))
-  fetch(`/api/v1/sync?t=${localStorage.getItem('token')}`, {
+  d.append("notes", localStorage.getItem('bento_notes'))
+  fetch(`/api/v1/sync`, {
     method: "POST",
     body: d
   }).then(res=>res.json()).then(res=>{if (res.success) {sendOf = null} else {console.error(res.error)}})
@@ -162,8 +162,8 @@ async function syncSave() {
 var firstTime
 async function syncFirst() {
   let d = new FormData()
-  d.append("notes", localStorage.getItem('notes'))
-  let res = await fetch(`/api/v1/sync?t=${localStorage.getItem('token')}&first=true`, {
+  d.append("notes", localStorage.getItem('bento_notes'))
+  let res = await fetch(`/api/v1/sync?first=true`, {
     method: "POST",
     body: d
   })
@@ -172,30 +172,27 @@ async function syncFirst() {
     notes.set(res.notes)
     settings.set(res.settings)
     // user = data.settings.user
-  } else {
+  } else if (res.error != "Not logged in") {
     alert("Error syncing")
     console.error(res.error)
   }
 }
-var socket
+function sync() {
+	fetch('/api/v1/sync').then(res => res.json()).then(res => notes.set(res.notes))
+	localStorage.setItem('beans_notes', JSON.stringify(get(notes)))
+
+}
 if (browser) {
   // Check if 
-  if (localStorage.getItem('notes') !== undefined &&
-  localStorage.getItem('notes') != "" &&
-  localStorage.getItem('notes') !== null) {
-    notes.set(JSON.parse(localStorage.getItem('notes')))
+  if (localStorage.getItem('bento_notes') !== undefined &&
+  localStorage.getItem('bento_notes') != "" &&
+  localStorage.getItem('bento_notes') !== null) {
+    notes.set(JSON.parse(localStorage.getItem('bento_notes')))
   }
-  firstTime = setInterval(()=>{
-    if (localStorage.getItem('token') !== undefined &&
-    localStorage.getItem('token') != "" &&
-    localStorage.getItem('token') !== null) {
-      clearInterval(firstTime)
-      syncFirst()
-    }
-  }, 1000)
+  syncFirst()
   // Update on change
   notes.subscribe((data) => {
-    localStorage.setItem('notes', JSON.stringify(data))
+    localStorage.setItem('bento_notes', JSON.stringify(data))
     if (sendOf !== null) {
       clearTimeout(sendOf)
       sendOf = setTimeout(syncSave, 1000)
@@ -221,29 +218,6 @@ if (browser) {
   })
 }
 
-// Login
-export async function authenticate(pass, pub) {
-  let res = await fetch(`/api/v1/auth?p=${pass}`)
-  res = await res.json()
-  if (res.token) {
-    localStorage.setItem('token', res.token)
-    return true
-  }
-  return false
-}
-export async function authValidity() {
-  if (localStorage.getItem('token') == null) {
-    return false
-  }
-  let res = await fetch(`/api/v1/auth?t=${localStorage.getItem('token')}`)
-  res = await res.json()
-  if (res.token == localStorage.getItem('token')) {
-    return true
-  }
-  localStorage.removeItem('token')
-  return false
-}
-
 export function availableTags() {
   get(notes).forEach(note => {
     if (note.tags) {
@@ -261,9 +235,7 @@ export function availableTags() {
 }
 
 export function resetClient() {
-  localStorage.removeItem('notes')
-  localStorage.removeItem('settings')
+  localStorage.removeItem('bento_notes')
+  localStorage.removeItem('bento_settings')
   localStorage.removeItem('theme')
-  localStorage.removeItem('token')
-  location.reload()
 }

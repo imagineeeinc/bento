@@ -4,15 +4,13 @@
   import Settings from '$lib/components/settings.svelte'
   import About from '$lib/components/about.svelte'
   import Search, { searchTerm } from '$lib/components/search.svelte'
-  import Password from '$lib/components/password.svelte'
   import Grid from '$lib/components/grid.svelte'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
-  import { authValidity } from '$lib/components/store'
   import { browser } from '$app/environment'
   import { onMount } from 'svelte'
-
+  import { slide } from 'svelte/transition'
   function newNote() {
     navigate('/editor/null')
   }
@@ -36,28 +34,23 @@
         document.getElementById("searchbar").focus()
       }
     })
-    onMount(async () => {
-      if (!(await authValidity())) {
-        navigate('/login')
-      }
-    })
   }
+  let url = ''
 </script>
 <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
 <input type="search" id="searchbar" placeholder="Search your notes" bind:value={$searchTerm}>
-<!-- {#if $searchTerm != ""} -->
-<!--   <Search></Search> -->
+<!-- {#if $searchterm != ""} -->
+<!--   <search></search> -->
 <!-- {/if} -->
 <Grid tag=""></Grid>
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
-<Router>
-  <Route path="editor/:uid" component={Editor} />
-  <Route path="menu" component={Menu} />
-  <Route path="settings" component={Settings} />
-  <Route path="about" component={About} />
-  <Route path="search" component={Search} />
-  <Route path="login" component={Password} />
-  <Route path="tags/:tag" component={Grid} />
+<Router {url}>
+  <Route path="editor/:uid" let:params><Editor uid="{params.uid}"/></Route>
+  <Route path="menu"><Menu transition={slide} /></Route>
+  <Route path="settings"><Settings /></Route>
+  <Route path="about"><About /></Route>
+  <Route path="search"><Search /></Route>
+  <Route path="tags/:tag" let:params><Grid tag="{params.tag}"/></Route>
 </Router>
 <style>
   #new {

@@ -30,7 +30,7 @@
 			<br>
 			And then take control of your own data.
 			<br>
-			It has markdown support and image support using <a href="https://github.com/mikhailsdv/deta-black-hole" target="_blank" rel="noopener noreferrer">Blackhole</a> intergration.
+			It has markdown, tags, pinning searching and multi user support.
 			<br>
 			It is also open source.
 		</p>

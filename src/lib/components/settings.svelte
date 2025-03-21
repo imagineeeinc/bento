@@ -3,22 +3,28 @@
 	import { theme } from '$lib/components/store.js'
 	import { resetClient } from './store.js';
 	function reset() {
-		if (confirm("are you sure you want to reset client?")) {
-			resetClient()
-		}
+		resetClient()
+		window.location.href = '/logout'
 	}
 </script>
 
 <div id="settings-panel">
 	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
-	<h2 style="display: inline;">Settings</h2>
 	<div id="settings-content">
-		<select name="theme" id="theme" bind:value={$theme}>
-			<option value="system">System</option>
-			<option value="dark">Dark</option>
-			<option value="light">Light</option>
-		</select>
-		<button on:click={reset}>Reset Client Data</button>
+	<h2 style="display: inline;">Settings</h2>
+		<label>
+			<h3>
+				<span class="m-icon">dark_mode</span>
+				Theme
+			</h3>
+			<br>
+			<select name="theme" id="theme" bind:value={$theme}>
+				<option value="system">System</option>
+				<option value="dark">Dark</option>
+				<option value="light">Light</option>
+			</select>
+		</label>
+		<button on:click={reset}>Logout</button>
 	</div>
 </div>
 <style>
@@ -32,12 +38,30 @@
 		width: calc(100% - 20px);
 		padding: 5px;
 		z-index: 20;
+		display: flex;
+		justify-content: center;
 	}
 	#settings-content {
 		padding: 20px;
+		width: 80vh;
+		max-width: 100%;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
+		overflow: auto;
+	}
+	#close-btn {
+		position: fixed;
+		top: 10px;
+		left: 10px;
+	}
+	h3 {
+		margin: 0;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
 		align-items: center;
+		width: 100%;
+		gap: 5px;
 	}
 </style>

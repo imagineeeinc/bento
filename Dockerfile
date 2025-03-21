@@ -6,7 +6,6 @@ COPY . .
 
 RUN npm install
 
-RUN node scripts/sqlite.js
 RUN npm run build
 RUN npm prune --production
 
