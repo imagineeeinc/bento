@@ -4,5 +4,6 @@
   --bg: var(--light-bg);
   --primary: var(--light-primary);
   --secondary: var(--light-secondary);
+  --secondary-transperent: var(--light-secondary-transperent);
   --accent: var(--light-accent);
 }

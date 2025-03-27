@@ -37,7 +37,7 @@
 				<div class="label">Password</div>
 				<div id="password-box">
 					<input type={showPassword?'text':'password'} id="password" name="password" required/>				
-					<button type="button" class="m-icon transperent" title={showPassword?'Hide Password':'Show Password'} onclick={() => showPassword = !showPassword}>visibility</button>
+					<button type="button" class="m-icon transparent" title={showPassword?'Hide Password':'Show Password'} onclick={() => showPassword = !showPassword}>visibility</button>
 				</div>
 			</label>
 			{#if form?.error}

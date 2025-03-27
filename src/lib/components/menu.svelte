@@ -41,7 +41,7 @@
 	#menu-list::-webkit-scrollbar {
 		display: none;
 	}
-	#menu-list > a {
+	#menu-list > a, .label-link {
 		cursor: pointer;
 		text-decoration: none;
 		color: var(--color);
@@ -52,7 +52,7 @@
 	.m-icon {
 		text-decoration: none !important;
 	}
-	#menu-list > a:hover {
+	#menu-list a:hover, #menu-list a:hover .m-icon {
 		color: var(--color-sec);
 	}
 	#menu-list {

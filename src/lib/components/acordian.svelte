@@ -30,7 +30,7 @@
 		align-items: center;
 		justify-content: flex-start;
 	}
-	.title:hover {
+	.title:hover, .title:hover .m-icon {
 		color: var(--color-sec);
 	}
 	.items {

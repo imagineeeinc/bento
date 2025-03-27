@@ -91,10 +91,10 @@
     </div>
   {/if}
   <div id="editor-toolbar">
-    <button class="m-icon" on:click={deleteThisNote}>delete</button>
-    <button class="m-icon" on:click={swapViewMode}>edit_note</button>
-    <!-- <button class="m-icon" on:click={addImage}>add_a_photo</button> -->
-    <button class="m-icon" on:click={()=>{archive=!archive;update()}}>
+    <button class="m-icon transparent" on:click={deleteThisNote}>delete</button>
+    <button class="m-icon transparent" on:click={swapViewMode}>edit_note</button>
+    <!-- <button class="m-icon transparent" on:click={addImage}>add_a_photo</button> -->
+    <button class="m-icon transparent" on:click={()=>{archive=!archive;update()}}>
       {#if archive}
         unarchive
       {:else}
@@ -102,9 +102,9 @@
       {/if}
     </button>
     {#if uid !== 'null'}
-      <button class="m-icon" on:click={()=>tagEditor.set(!$tagEditor)}>label</button>
+      <button class="m-icon transparent" on:click={()=>tagEditor.set(!$tagEditor)}>label</button>
     {/if}
-    <button class="m-icon" on:click={()=>{pin=!pin;update()}}>
+    <button class="m-icon transparent" on:click={()=>{pin=!pin;update()}}>
       {#if pin}
         keep_off
       {:else}
@@ -136,7 +136,7 @@
     position: absolute;
     top: 74px;
     width: 100%;
-    height: calc(100% - 159px);
+    height: calc(100% - 149px);
     padding: 10px;
     overflow-y: auto;
   }
@@ -151,12 +151,12 @@
     left: 0;
     width: calc(100% - 10px);
     height: 56px;
-    padding: 10px;
+    padding: 5px 10px;
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 5px;
     overflow-x: auto;
   }
   #editor-toolbar::-webkit-scrollbar {
@@ -165,7 +165,7 @@
   :global(.TinyMDE) {
     background-color: var(--bg) !important;
     color: var(--color) !important;
-    height: calc(100% - 159px);
+    height: calc(100% - 149px);
     overflow-y: auto;
   }
   .hide {

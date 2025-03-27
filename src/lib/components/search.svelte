@@ -75,7 +75,7 @@
     --offset: 50px;
     font-size: 15px;
     padding: 10px;
-    background: var(--secondary);
+    background: var(--secondary-transperent);
     border-radius: 10px;
     cursor: pointer;
     max-width: calc(100% - 20px);

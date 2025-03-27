@@ -29,8 +29,8 @@
     font-size: 15px;
     padding: 10px;
     padding-bottom: calc(1ch + 20px);
-    background: var(--bg);
-    outline: 3px solid var(--secondary);
+    background: var(--secondary-transperent);
+    outline: 3px solid var(--secondary-transperent);
     border-radius: 10px;
     cursor: pointer;
     width: calc(25vw - var(--offset));
@@ -67,7 +67,7 @@
   }
 
   .tag {
-    background: var(--accent);
+    background: var(--secondary);
     color: var(--color);
     padding: 5px;
     border-radius: 10px;

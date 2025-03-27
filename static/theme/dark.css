@@ -4,5 +4,6 @@
   --bg: var(--dark-bg);
   --primary: var(--dark-primary);
   --secondary: var(--dark-secondary);
+  --secondary-transperent: var(--dark-secondary-transperent);
   --accent: var(--dark-accent);
 }

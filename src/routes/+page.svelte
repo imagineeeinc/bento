@@ -58,12 +58,24 @@
     bottom: 15px;
     right: 15px;
     z-index: 10;
+    background: var(--secondary-transperent);
+    outline: 3px solid var(--secondary-transperent);
+    backdrop-filter: blur(20px);
+  }
+  #new:hover, #new:focus-visible {
+      outline: 3px solid var(--accent);
   }
   #menu-btn {
     position: fixed;
     top: 5px;
     left: 5px;
     z-index: 10;
+    background: var(--secondary-transperent);
+    outline: 3px solid var(--secondary-transperent);
+    backdrop-filter: blur(20px);
+  }
+  #menu-btn:hover, #menu-btn:focus-visible {
+    outline: 3px solid var(--accent);
   }
   #searchbar {
     position: fixed;
@@ -73,25 +85,12 @@
     height: 54px;
     padding: 20px;
     z-index: 10;
+    background: var(--secondary-transperent);
+    outline: 3px solid var(--secondary-transperent);
+    backdrop-filter: blur(20px);
   }
   #searchbar:hover, #searchbar:focus-visible {
     outline: 3px solid var(--accent);
-  }
-  #notes-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding-top: 74px;
-    height: calc(100vh - 74px);
-    width: 100%;
-    overflow-y: auto;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-    gap: 20px;
   }
   :global(.note-box img) {
     max-width: 90%;
