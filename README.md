@@ -5,16 +5,18 @@
 A self hosted minimalist multi user note taking service.
 
 > [!WARNING]  
-> As of right now, the database is still in an experimental state and isn't recommended for personal use if you are storing important information without another copy.
+> As of right now, the database (and app) has been tested by me. However, the algorithm for updating and error handling is still rough around the edges. Thus, in this state it is recommended not to use for storing important information without another copy or backups.
 
 ### Features
 
-- Markdown Notes & preview
-- Minimal Notes Grid for least friction
-- Archiving & Tagging
-- Search notes
-- Can be installed as a PWA
-- Offline First model, ensuring offline data is merged once online.
+- ✏️ Markdown Notes & preview
+- 🫧 Minimal Notes Grid for least friction
+- 🗄️ Archiving & Tagging
+- 🔎 Search notes
+- 📱 Can be installed as a PWA
+- 📵 Offline First model, ensuring offline data is merged once online.
+
+![Screenshot of Bento App](.github/screenshot.png)
 
 ## Installation
 
@@ -75,7 +77,7 @@ Make sure to have docker cli installed.
 
 ## API
 
-There is an API to access the app from without the UI. There is 2 versions on the API.
+There is an API to access the app from without the UI. There is 2 versions of the API.
 
 - `V1` (`/api/v1`): First version with simple get sync and put sync, sending all the changes.
   - `/api/v1/sync`

@@ -1,13 +1,13 @@
-FROM node:21-alpine AS build
+FROM node:22-alpine AS build
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 RUN npm run build
-RUN npm prune --production
+RUN npm prune --production --legacy-peer-deps
 
 ENV NODE_ENV=production
 # ENV PORT=3000
