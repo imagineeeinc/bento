@@ -9,10 +9,10 @@
   <link rel="stylesheet" href={`/theme/${$theme}.css`} />
 
   {#if $theme == 'system'}
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f5f3" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0f0d" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eff1f5" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1e1e2e" />
   {:else}
-    <meta name="theme-color" content={$theme == 'dark' ? '#0a0f0d' : '#f0f5f3'} />
+    <meta name="theme-color" content={$theme == 'dark' ? '#1e1e2e' : '#eff1f5'} />
   {/if}
 </svelte:head>
 

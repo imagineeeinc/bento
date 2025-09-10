@@ -6,23 +6,23 @@
   font-variation-settings: "wdth" 100;
   --font-size: large;
 
-  --light-color: rgb(16, 19, 11);
-  --light-color-sec: rgb(80,100,80);
-  --light-bg: rgb(240, 245, 243);
-  --light-bg-transperent: rgba(240, 245, 243, 0.4);
-  --light-primary: rgb(15, 226, 149);
-  --light-secondary: rgb(200, 234, 218);
-  --light-accent: rgb(143, 214, 143);
-  --light-secondary-transperent: rgba(200, 234, 218, 0.4);
+  --light-color: #4c4f69;
+  --light-color-sec: #6c6f85;
+  --light-bg: #eff1f5;
+  --light-bg-transperent: rgba(239, 241, 245, 0.4);
+  --light-primary: #8839ef;
+  --light-secondary: #cba6f7;
+  --light-accent: #8839ef;
+  --light-secondary-transperent: rgba(204, 208, 218, 0.4);
 
-  --dark-color: rgb(241, 244, 236);
-  --dark-color-sec: rgb(168, 208, 168);
-  --dark-bg: rgb(10, 15, 13);
-  --dark-bg-transperent: rgba(10, 15, 13, 0.4);
-  --dark-primary: rgb(30, 241, 163);
-  --dark-secondary: rgb(21, 55, 39);
-  --dark-accent: rgb(41, 112, 41);
-  --dark-secondary-transperent: rgba(21, 55, 39, 0.4);
+  --dark-color: #cdd6f4;
+  --dark-color-sec: #a6adc8;
+  --dark-bg: #1e1e2e;
+  --dark-bg-transperent: rgba(30, 30, 46, 0.4);
+  --dark-primary: #cba6f7;
+  --dark-secondary: #8839ef;
+  --dark-accent: #cba6f7;
+  --dark-secondary-transperent: rgb(49, 50, 68, .4);
 }
 
 body {

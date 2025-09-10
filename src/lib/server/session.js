@@ -3,7 +3,6 @@ import { eq } from 'drizzle-orm'
 import { db } from '../server/db.js'
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding'
 import { sha256 } from '@oslojs/crypto/sha2'
-import { RequestEvent } from '@sveltejs/kit'
 
 export function generateSessionToken() {
 	const bytes = new Uint8Array(20)

@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"server": "node build",
@@ -32,7 +32,6 @@
 		"svelte-markdown": "^0.4.1",
 		"svelte-routing": "^2.13.0",
 		"svelte-tags-input": "^6.0.1",
-		"tiny-markdown-editor": "^0.1.11",
 		"uuid4": "^2.0.3"
 	},
 	"pnpm": {

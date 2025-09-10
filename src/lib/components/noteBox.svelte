@@ -27,7 +27,7 @@
 	.note-box {
     --offset: 50px;
     font-size: 15px;
-    padding: 10px;
+    padding: 1ch;
     padding-bottom: calc(1ch + 20px);
     background: var(--secondary-transperent);
     outline: 3px solid var(--secondary-transperent);
@@ -35,7 +35,7 @@
     cursor: pointer;
     width: calc(25vw - var(--offset));
     max-height: 60vh;
-    overflow-y: hidden;
+    overflow: hidden;
     position: relative;
   }
   .note-box:hover {
@@ -43,11 +43,11 @@
   }
   .note-time {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 1ch;
+    right: 1ch;
     max-width: calc(100% - 30px);
     display: flex;
-    gap: 10px;
+    gap: 1em;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;

@@ -63,7 +63,7 @@
 		z-index: 100;
 		background: var(--bg-transperent);
 		backdrop-filter: blur(20px);
-		padding: 10px;
+		padding: 1ch;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: row;
@@ -74,7 +74,7 @@
 	.note-box {
     --offset: 50px;
     font-size: 15px;
-    padding: 10px;
+    padding: 1ch;
     background: var(--secondary-transperent);
     border-radius: 10px;
     cursor: pointer;
@@ -85,7 +85,7 @@
     position: relative;
   }
   .note-box:hover {
-    outline: 3px solid lightgreen;
+    outline: 3px solid var(--accent);
   }
   .note-box > h3 {
     margin: 0;

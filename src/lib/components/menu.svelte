@@ -21,7 +21,7 @@
 
 <style>
 	#menu-container {
-		width: 100%;
+		width: calc(100% - 2ch);
 		height: 100%;
 		position: fixed;
 		top: 0;
@@ -29,12 +29,18 @@
 		background: var(--bg-transperent);
 		mask: linear-gradient(to right, black 50%, transparent);
 		backdrop-filter: blur(10px);
-		padding: 5px;
-		font-size: 30px;
-		font-weight: 600;
+		padding: 5px 1ch;
 		z-index: 20;
 	}
+	#close-btn {
+		position: fixed;
+		top: 5px;
+		left: .5ch;
+		z-index: 10;
+	}
 	#menu-list {
+		font-size: 30px;
+		font-weight: 600;
 		height: calc(100% - 84px);
 		overflow: auto;
 	}
@@ -62,12 +68,14 @@
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
-		gap: 10px;
+		gap: 1ch;
 	}
 	.label-link {
 		text-decoration: none !important;
 		color: var(--color);
 		cursor: pointer;
+		margin-left: 1em;
+		gap: .25em;
 	}
 	.label-link:hover {
 		color: var(--color-sec);

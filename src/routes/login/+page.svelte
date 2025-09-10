@@ -13,7 +13,7 @@
 </svelte:head>
 <div id="login">
 	<div id="login-form">
-		<img src="/images/bento.svg" width="30%" alt="bento logo" />
+		<img src="/images/bento2.svg" width="30%" alt="bento logo" />
 		<h1>Bento</h1>
 		<hr>
 		{#if register == true || register == 'true'}
@@ -60,9 +60,9 @@
 		display: flex;
 		justify-content: center;
 		width:	calc(100% - 20px);
-		height: calc(100vh - 20px);
-		padding: 10px;
-		background: var(--background);
+		height: 100%;
+		padding: 1ch;
+		background: var(--bg);
 	}
 	#login-form {
 		width: 80vh;
@@ -127,15 +127,15 @@
 	}
 	.selected {
 		background: var(--primary);
-		color: var(--background);
+		color: var(--bg);
 	}
 	.selected:hover {
 		outline: 3px solid var(--primary);
 	}
 	#error {
 		background: lightcoral;
-		color: var(--background);
-		padding: 10px;
+		color: var(--bg);
+		padding: 1ch;
 		border-radius: 10px;
 	}
 </style>

@@ -34,13 +34,19 @@ export let theme = writable(browser? localStorage.getItem('theme') || 'system' :
 export let tags = writable([])
 let user = ''
 
-export function newNote(text, title) {
+let newNoteIds = []
+export function newNoteId() {
+  let res = crypto.randomUUID()
+  newNoteIds.push(res)
+  return res
+}
+export function newNote() {
   let uid = crypto.randomUUID()
   notes.update((list) => {
     list.push(
       {
-        title: title,
-        data: text,
+        title: '',
+        data: '',
         creation: Date.now(),
         lastEdited: Date.now(),
         uid: uid,
@@ -60,6 +66,7 @@ export function newNote(text, title) {
 }
 
 export function updateNote(uid, text, title, archive, pin) {
+  let note = {}
   notes.update((list) => {
     let i = null
     list.find((data, index) => {
@@ -68,15 +75,47 @@ export function updateNote(uid, text, title, archive, pin) {
         return true
       }
     })
-    let note = list[i]
-    note.data = text
-    note.title = title
-    note.owner = user
-    note.lastEdited = Date.now()
-    note.archive = archive
-    note.pin = pin
-    list[i] = note
+    if (i === null) {
+      note = {
+          title: title,
+          data: title,
+          creation: Date.now(),
+          lastEdited: Date.now(),
+          uid: uid,
+          owner: user,
+          delete: false,
+          archive: archive,
+          pin: pin,
+          tags: [],
+          clientArgs: {
+            markdown: true
+          }
+        }
+      list.push(note)
+    } else {
+      note = list[i]
+      note.data = text
+      note.title = title
+      note.owner = user
+      note.lastEdited = Date.now()
+      note.archive = archive
+      note.pin = pin
+      list[i] = note
+    }
     return list
+  })
+
+  let d = new FormData()
+  d.append("data", JSON.stringify(note))
+  fetch(`/api/v2/update?id=${uid}`, {
+    method: 'POST',
+    body: d
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.error) {
+      console.error(res.error)
+    }
   })
 }
 
@@ -112,6 +151,23 @@ export function getUidNote(uid) {
       return true
     }
   })
+  if (i === null && newNoteIds.includes(uid)) {
+    return {
+      title: '',
+      data: '',
+      creation: Date.now(),
+      lastEdited: Date.now(),
+      uid: uid,
+      owner: user,
+      delete: false,
+      archive: false,
+      pin: false,
+      tags: [],
+      clientArgs: {
+        markdown: true
+      }
+    }
+  }
   return list[i]
 }
 export function getUidTags(uid) {
@@ -133,6 +189,7 @@ export function getUidTags(uid) {
   return note.tags
 }
 export function setUidTags(uid, tags) {
+  let note = {}
   notes.update((list) => {
     let i = null
     list.find((data, index) => {
@@ -141,12 +198,13 @@ export function setUidTags(uid, tags) {
         return true
       }
     })
-    let note = list[i]
+    note = list[i]
     note.tags = tags
     note.lastEdited = Date.now()
     list[i] = note
     return list
   })
+  updateNote(uid, note.data, note.title, note.archive, note.pin)
 }
 
 // Note Sync
@@ -190,16 +248,10 @@ if (browser) {
     notes.set(JSON.parse(localStorage.getItem('bento_notes')))
   }
   syncFirst()
-  // Update on change
-  notes.subscribe((data) => {
-    localStorage.setItem('bento_notes', JSON.stringify(data))
-    if (sendOf !== null) {
-      clearTimeout(sendOf)
-      sendOf = setTimeout(syncSave, 1000)
-    } else {
-      syncSave()
-    }
-  })
+  // Auto save every minute
+  setInterval(() => {
+    syncSave()
+  }, 60*1000)
   theme.set(localStorage.getItem('theme') || 'system')
   theme.subscribe((data) => {
     localStorage.setItem('theme', data)

@@ -5,6 +5,7 @@
   import About from '$lib/components/about.svelte'
   import Search, { searchTerm } from '$lib/components/search.svelte'
   import Grid from '$lib/components/grid.svelte'
+  import { newNoteId } from '../lib/components/store'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
   import { Router, Route, navigate } from 'svelte-routing'
@@ -12,7 +13,7 @@
   import { onMount } from 'svelte'
   import { slide } from 'svelte/transition'
   function newNote() {
-    navigate('/editor/null')
+    navigate(`/editor/${newNoteId()}`)
   }
   function openMenu() {
     menuOpened = true
@@ -37,8 +38,10 @@
   }
   let url = ''
 </script>
-<button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
-<input type="search" id="searchbar" placeholder="Search your notes" bind:value={$searchTerm}>
+<nav>
+  <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
+  <input type="search" id="searchbar" placeholder="Search your notes" bind:value={$searchTerm}>
+</nav>
 <!-- {#if $searchterm != ""} -->
 <!--   <search></search> -->
 <!-- {/if} -->
@@ -65,11 +68,19 @@
   #new:hover, #new:focus-visible {
       outline: 3px solid var(--accent);
   }
-  #menu-btn {
+  nav {
     position: fixed;
-    top: 5px;
-    left: 5px;
+    top: 0;
+    left: 0;
+    width: calc(100% - 2ch);
+    padding: 5px 1ch;
     z-index: 10;
+    display: flex;
+    flex-direction: row;
+    gap: 1ch;
+    background: var(--bg);
+  }
+  #menu-btn {
     background: var(--secondary-transperent);
     outline: 3px solid var(--secondary-transperent);
     backdrop-filter: blur(20px);
@@ -78,13 +89,9 @@
     outline: 3px solid var(--accent);
   }
   #searchbar {
-    position: fixed;
-    top: 5px;
-    right: 20px;
-    width: calc(100% - 109px);
+    width: calc(100%);
     height: 54px;
     padding: 20px;
-    z-index: 10;
     background: var(--secondary-transperent);
     outline: 3px solid var(--secondary-transperent);
     backdrop-filter: blur(20px);

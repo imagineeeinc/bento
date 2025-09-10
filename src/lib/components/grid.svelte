@@ -53,7 +53,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 84px;
+    margin-top: 84px;
 		padding-bottom: 20px;
     height: calc(100vh - 104px);
     width: 100%;
@@ -67,11 +67,11 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-    gap: 20px;
-    margin: 10px 0;
+    gap: 2ch;
+    margin: 1ch 0;
   }
   .section-title {
     font-size: 20px;
-    margin: 0 10px;
+    margin: 0 1ch;
   }
 </style>

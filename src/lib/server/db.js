@@ -44,34 +44,36 @@ export async function putNotes(userId, data) {
 	let oldData = await getNotes(userId)
   let updated = []
   let deletedList = []
-  data.forEach(n => {
-    let i = null
-    let timestamp = 0
-    let deleted = false
-    oldData.find((data, index) => {
-      if (data.uid === n.uid) {
-        i = index
-        timestamp = data.lastEdited
-        deleted = data.delete
-        return true
-      }
-    })
-    if (i !== null) {
-      if (timestamp < n.lastEdited && !deleted) {
-        oldData.splice(i, 1, n)
-        updated.push(i)
-      } else if (deleted) {
-        deletedList.push(i)
-      }
-    } else {
-      if (n.delete === false) {
-        oldData.push(n)
-        updated.push(oldData.length - 1)
-      }
-    }
-    // TODO: deleted notes list
-  })
-  putAway(oldData, DateTime.now().toISO(), updated, deletedList, userId)
+	if (data !== null) {
+		data.forEach(n => {
+			let i = null
+			let timestamp = 0
+			let deleted = false
+			oldData.find((data, index) => {
+				if (data.uid === n.uid) {
+					i = index
+					timestamp = data.lastEdited
+					deleted = data.delete
+					return true
+				}
+			})
+			if (i !== null) {
+				if (timestamp < n.lastEdited && !deleted) {
+					oldData.splice(i, 1, n)
+					updated.push(i)
+				} else if (deleted) {
+					deletedList.push(i)
+				}
+			} else {
+				if (n.delete === false) {
+					oldData.push(n)
+					updated.push(oldData.length - 1)
+				}
+			}
+			// TODO: deleted notes list
+		})
+		putAway(oldData, DateTime.now().toISO(), updated, deletedList, userId)
+	}
   return oldData
 }
 
@@ -99,4 +101,38 @@ async function putAway(data, timestamp, updated, deleted, userId) {
 	deleted.forEach(async i => {
 		await db.delete(notesTable).where(eq(notesTable.id, data[i].uid))
 	})
+}
+
+export async function getNote(userId, noteId) {
+	let result = await db.select({
+		data: notesTable.data,
+	})
+	.from(notesTable)
+	.where(eq(notesTable.userId, userId))
+	.where(eq(notesTable.id, noteId))
+	.orderBy(notesTable.created, 'ASC')
+	if (result.length == 0) return null
+	let res = result[0].data
+	return res
+}
+
+export async function putNote(userId, noteId, data) {
+	let oldData = await getNote(userId, noteId)
+	let timestamp = 0
+	let deleted = false
+	if (oldData === null) {
+		data.uid = noteId
+		data.creation = DateTime.now().toISO()
+		putAway([data], DateTime.now().toISO(), [0], [], userId)
+		return
+	} else if (oldData.uid === data.uid) {
+		timestamp = oldData.lastEdited
+		deleted = oldData.delete
+	}
+	if (timestamp < data.lastEdited && !deleted) {
+		putAway([data], DateTime.now().toISO(), [0], [], userId)
+	} else if (deleted) {
+		// TODO: Run delete
+	}
+  return true
 }

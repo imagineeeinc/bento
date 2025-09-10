@@ -1,39 +1,34 @@
 <script>
-  export let title = ""
-  export let text = " "
-  export let archive = false
-  export let pin = false
-  export let uid = null
+  import { get, writable } from 'svelte/store'
+  let title = writable("")
+  let text = writable("")
+  let archive = $state(false)
+  let pin = $state(false)
+  let { uid } = $props()
   // mode: 1=edit, 0=view only
-  export let mode = 1
-  export let back = '/'
+  let mode = $state(1)
+  let back = '/'
 
-  import { onMount, createEventDispatcher } from 'svelte'
-  import * as TinyMDE from 'tiny-markdown-editor'
+  import { onMount } from 'svelte'
   import { navigate } from 'svelte-routing'
-  import 'tiny-markdown-editor/dist/tiny-mde.css'
   import SvelteMarkdown from 'svelte-markdown'
   import { sendFile } from '$lib/components/images.js'
   import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
-  import { get, writable } from 'svelte/store'
   import TagsEditor from '$lib/components/tagsEditor.svelte'
 
-  const dispatch = createEventDispatcher()
-  var tinyMDE
   function update() {
-    if (tinyMDE.getContent() != '') {
+    if (text != '') {
       if (uid === null || uid == "null") {
-        uid = newNote(tinyMDE.getContent(), title)
+        // uid = newNote(tinyMDE.getContent(), title)
         navigate(`/editor/${uid}`)
       } else {
-        updateNote(uid, tinyMDE.getContent(), title, archive, pin)
+        updateNote(uid, get(text), get(title), archive, pin)
       }
-      text = tinyMDE.getContent()
     } else {
       if (uid !== null) {
         //TODO: move the deleting note to on close of window
         delNote(uid)
-        uid = null
+        // uid = null
       }
     }
   }
@@ -60,57 +55,63 @@
     if (pickImage == true) {
       pickImage = false
       let imageUrl = await sendFile(get(settings).blackhole, document.getElementById('image-picker').files[0])
-      tinyMDE.setContent(tinyMDE.getContent() + `\n![](${imageUrl})`)
+      // add image`\n![](${imageUrl})`
     }
   }
   onMount(()=>{
-    tinyMDE = new TinyMDE.Editor({ element: 'editor-box' })
-
     if (uid == null || uid == "null") {
       text = ""
     } else {
       let note = getUidNote(uid)
-      text = note.data
-      title = note.title
+      text.set(note.data)
+      title.set(note.title)
       archive = note.archive || false
       pin = note.pin || false
     }
-    tinyMDE.setContent(text)
-    tinyMDE.addEventListener('change', update)
+/*     text.subscribe(() => {
+      update()
+    }) */
   })
   let tagEditor = writable(false)
 </script>
-<input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" on:change={imagePicked}>
+<input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" onchange={imagePicked}>
 <div id="editor-container">
-  <button id="close-btn" class="m-icon big" on:click={()=>navigate(back)}>close</button>
-  <input type="text" bind:value={title} placeholder="title" on:change={update} id="title-box">
-  <div id="editor-box" class="{mode == 0?'hide':''}"></div>
-  {#if mode == 0}
-    <div id="preview-box">
-      <SvelteMarkdown source={text} />
-    </div>
-  {/if}
-  <div id="editor-toolbar">
-    <button class="m-icon transparent" on:click={deleteThisNote}>delete</button>
-    <button class="m-icon transparent" on:click={swapViewMode}>edit_note</button>
-    <!-- <button class="m-icon transparent" on:click={addImage}>add_a_photo</button> -->
-    <button class="m-icon transparent" on:click={()=>{archive=!archive;update()}}>
+  <div id="editor-topbar">
+    <button id="close-btn" class="m-icon transparent" onclick={()=>navigate(back)}>arrow_back</button>
+    <div id="topbar-right">
+      <button class="m-icon transparent" onclick={()=>{pin=!pin;update()}}>
+        {#if pin}
+          keep_off
+        {:else}
+          keep
+        {/if}
+      </button>
+      <button class="m-icon transparent" onclick={()=>{archive=!archive;update()}}>
       {#if archive}
         unarchive
       {:else}
         archive
       {/if}
     </button>
-    {#if uid !== 'null'}
-      <button class="m-icon transparent" on:click={()=>tagEditor.set(!$tagEditor)}>label</button>
+    </div>
+  </div>
+  <div id="editing-box">
+    <input type="text" bind:value={$title} placeholder="Title" onchange={update} oninput={update} id="title-box">
+    <textarea id="editor-box" class="{mode == 0?'hide':''}" placeholder="note..." bind:value={$text} onchange={update} oninput={update}></textarea>
+    {#if mode == 0}
+      <div id="preview-box">
+        <SvelteMarkdown source={text} />
+      </div>
     {/if}
-    <button class="m-icon transparent" on:click={()=>{pin=!pin;update()}}>
-      {#if pin}
-        keep_off
-      {:else}
-        keep
-      {/if}
-    </button>
+  </div>
+  <div id="editor-toolbar">
+    <button class="m-icon transparent" onclick={deleteThisNote}>delete</button>
+    <button class="m-icon transparent" onclick={swapViewMode}>edit_note</button>
+    <!-- <button class="m-icon transparent" on:click={addImage}>add_a_photo</button> -->
+    
+    {#if uid !== 'null'}
+      <button class="m-icon transparent" onclick={()=>tagEditor.set(!$tagEditor)}>label</button>
+    {/if}
   </div>
 </div>
 {#if $tagEditor}
@@ -127,17 +128,46 @@
     z-index: 200;
     overflow-y: hidden;
   }
-  #editor-box {
-    position: absolute;
-    top: 74px;
+  #editor-topbar {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 2ch);
+    padding: 5px 1ch;
+  }
+  #topbar-right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .25ch;
+  }
+  #editing-box {
+    position: fixed;
+    top: 69px;
     width: 100%;
+    height: calc(100% - 135px);
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+  }
+  #editor-box {
+    display: block;
+    width: calc(100% - 40px);
+    height: calc(100% - var(--width) - 40px);
+    outline: none;
+    resize: none;
+    margin: 0;
+    overflow: auto;
+    padding: 20px;
   }
   #preview-box {
     position: absolute;
     top: 74px;
     width: 100%;
     height: calc(100% - 149px);
-    padding: 10px;
+    padding: 1ch;
     overflow-y: auto;
   }
   :global(#preview-box img) {
@@ -149,30 +179,30 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    width: calc(100% - 10px);
+    width: calc(100% - 20px);
     height: 56px;
-    padding: 5px 10px;
+    padding: 5px 1ch;
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 5px;
+    gap: .25ch;
     overflow-x: auto;
+  }
+  #editor-toolbar::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 56px;
+    background: linear-gradient(90deg, transparent, var(--bg));
   }
   #editor-toolbar::-webkit-scrollbar {
     display: none;
   }
-  :global(.TinyMDE) {
-    background-color: var(--bg) !important;
-    color: var(--color) !important;
-    height: calc(100% - 149px);
-    overflow-y: auto;
-  }
   .hide {
     display: none;
-  }
-  #editor-box {
-    height: 100%;
   }
   #close-btn {
     position: fixed;
@@ -181,9 +211,10 @@
     z-index: 10;
   }
   #title-box {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    width: calc(100% - 114px);
+    width: calc(100% - 40px);
+    outline: none;
+    font-size: x-large;
+    margin: 0;
+    padding: 20px;
   }
 </style>

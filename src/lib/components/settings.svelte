@@ -9,7 +9,7 @@
 </script>
 
 <div id="settings-panel">
-	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
+	<button id="close-btn" class="m-icon big transparent" on:click={()=>navigate("/")}>arrow_back</button>
 	<div id="settings-content">
 	<h2 style="display: inline;">Settings</h2>
 		<label>
@@ -32,7 +32,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		background: var(--bg-transperent);
+		background: var(--bg);
 		backdrop-filter: blur(20px);
 		height: 100%;
 		width: calc(100% - 20px);
@@ -43,6 +43,7 @@
 	}
 	#settings-content {
 		padding: 20px;
+		padding-top: calc(60px);
 		width: 80vh;
 		max-width: 100%;
 		display: flex;

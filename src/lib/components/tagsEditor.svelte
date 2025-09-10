@@ -18,15 +18,17 @@
 	<button id="close-btn" class="m-icon big" on:click={save}>close</button>
 	<h2 style="display: inline;">Tags</h2>
 	<div id="tags-content">
-		<Tags
-			bind:tags={appliedTags}
-			allowPaste={true}
-			onlyUnique={true}
-			placeholder={"Tags"}
-			autoComplete={tags}
-			id={"tags-input"}
-			minChars={3}
-		/>
+		<div>
+			<Tags
+				bind:tags={appliedTags}
+				allowPaste={true}
+				onlyUnique={true}
+				placeholder={"Tags"}
+				autoComplete={tags}
+				id={"tags-input"}
+				minChars={3}
+			/>
+		</div>
 		<button on:click={save} class="m-icon">save</button>
 	</div>
 	
@@ -50,7 +52,7 @@
 		flex-wrap: nowrap;
 		align-items: center;
 		justify-content: center;
-		gap: 10px;
+		gap: 1ch;
 	}
 	#tags-content :global(.svelte-tags-input-tag) {
 		background:var(--bg);
@@ -84,5 +86,10 @@
 	}
 	#tags-content :global(.svelte-tags-input-layout:focus-within) {
 		outline: 3px solid var(--accent);
+	}
+	#tags-content :global(.svelte-tags-input-matchs) {
+		width: fit-parent;
+		background: var(--bg);
+		color: var(--color);
 	}
 </style>

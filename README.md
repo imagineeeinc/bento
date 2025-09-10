@@ -1,11 +1,11 @@
 # Bento
 
-<img src="./static/images/bento.svg" width="30%" align="right">
+<img src="./static/images/bento2.svg" width="30%" align="right">
 
 A self hosted minimalist multi user note taking service.
 
 > [!WARNING]  
-> As of right now, the database (and app) has been tested by me. However, the algorithm for updating and error handling is still rough around the edges. Thus, in this state it is recommended not to use for storing important information without another copy or backups.
+> As of right now, the app has been tested by me. However, the algorithm for updating and error handling is still rough around the edges. Thus, in this state it is recommended not to use for storing important information without another copy or backups.
 
 ### Features
 
@@ -16,7 +16,7 @@ A self hosted minimalist multi user note taking service.
 - 📱 Can be installed as a PWA
 - 📵 Offline First model, ensuring offline data is merged once online.
 
-![Screenshot of Bento App](.github/screenshot.png)
+![Screenshot of Bento App](.github/screenshot3.png)
 
 ## Installation
 
@@ -82,8 +82,11 @@ There is an API to access the app from without the UI. There is 2 versions of th
 - `V1` (`/api/v1`): First version with simple get sync and put sync, sending all the changes.
   - `/api/v1/sync`
     - `GET`: Get all notes
-    - `POST`: Put all notes, only the changed notes are actually updated
-- `V2` (`/api/v2`): [**Work in progress**] Second version with more complex sync, sending only the changed notes.
+    - `POST`: Put all notes, only the changed notes are actually updated, notes sent via body
+- `V2` (`/api/v2`): Second version which only allows you to update individual notes.
+  - `/api/v2/update?id=<id>`
+    - `GET`: Get note from query parameter id
+    - `POST`: Save note, in query parameter id, note sent by body
 
 ## License
 
