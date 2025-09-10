@@ -1,5 +1,5 @@
 {
-  "background_color": "#fafaf0",
+  "background_color": "#eff1f5",
   "dir": "ltr",
   "display": "standalone",
   "name": "Bento Notes",
@@ -7,7 +7,7 @@
   "scope": "/",
   "short_name": "Bento",
   "start_url": "/",
-  "theme_color": "#6bffc9",
+  "theme_color": "#eff1f5",
   "icons": [
     {
       "src": "./images/bento2.svg"
