@@ -4,6 +4,7 @@ import { build, files, version } from '$service-worker';
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
 
+console.log(build)
 const ASSETS = [
   ...build, // the app itself
   ...files  // everything in `static`
@@ -31,10 +32,6 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // ignore POST requests etc
-  if (event.request.method !== 'GET') return;
-  // if anyhting under `/api`
-  if (event.request.url.includes('/api/')) return;  
 
   async function respond() {
     const url = new URL(event.request.url);
@@ -43,6 +40,14 @@ self.addEventListener('fetch', (event) => {
     if (ASSETS.includes(url.pathname)) {
       return cache.match(url.pathname);
     } 
+    // ignore POST requests etc
+    if (event.request.method !== 'GET') {
+      return fetch(event.request);
+    }
+    // if anyhting under `/api`
+    if (event.request.url.includes('/api/')) {
+      return fetch(event.request);
+    }
     // for everything else, try the network first, but
     // fall back to the cache if we're offline
     try {
