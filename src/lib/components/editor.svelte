@@ -19,7 +19,6 @@
   function update() {
     if (text != '') {
       if (uid === null || uid == "null") {
-        // uid = newNote(tinyMDE.getContent(), title)
         navigate(`/editor/${uid}`)
       } else {
         updateNote(uid, get(text), get(title), archive, pin)
@@ -68,9 +67,6 @@
       archive = note.archive || false
       pin = note.pin || false
     }
-/*     text.subscribe(() => {
-      update()
-    }) */
   })
   let tagEditor = writable(false)
 </script>
@@ -97,10 +93,11 @@
   </div>
   <div id="editing-box">
     <input type="text" bind:value={$title} placeholder="Title" onchange={update} oninput={update} id="title-box">
-    <textarea id="editor-box" class="{mode == 0?'hide':''}" placeholder="note..." bind:value={$text} onchange={update} oninput={update}></textarea>
-    {#if mode == 0}
+    {#if mode == 1}
+      <textarea id="editor-box" placeholder="note..." bind:value={$text} onchange={update} oninput={update}></textarea>
+    {:else if mode == 0}
       <div id="preview-box">
-        <SvelteMarkdown source={text} />
+        <SvelteMarkdown source={$text} />
       </div>
     {/if}
   </div>
@@ -147,7 +144,7 @@
     top: 69px;
     width: 100%;
     height: calc(100% - 135px);
-    overflow-y: auto;
+    overflow-y: hidden;
 
     display: flex;
     flex-direction: column;
@@ -163,11 +160,9 @@
     padding: 20px;
   }
   #preview-box {
-    position: absolute;
-    top: 74px;
-    width: 100%;
-    height: calc(100% - 149px);
-    padding: 1ch;
+    width: calc(100% - 40px);
+    height: calc(100% - var(--width) - 40px);
+    padding: 20px;
     overflow-y: auto;
   }
   :global(#preview-box img) {
