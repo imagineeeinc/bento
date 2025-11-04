@@ -238,7 +238,6 @@ async function syncFirst() {
 function sync() {
 	fetch('/api/v1/sync').then(res => res.json()).then(res => notes.set(res.notes))
 	localStorage.setItem('beans_notes', JSON.stringify(get(notes)))
-
 }
 if (browser) {
   // Check if 
@@ -252,6 +251,9 @@ if (browser) {
   setInterval(() => {
     syncSave()
   }, 60*1000)
+  notes.subscribe((data) => {
+    localStorage.setItem('bento_notes', JSON.stringify(data))
+  })
   theme.set(localStorage.getItem('theme') || 'system')
   theme.subscribe((data) => {
     localStorage.setItem('theme', data)
