@@ -44,8 +44,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		background: var(--bg-transperent);
-		backdrop-filter: blur(20px);
+		background: var(--bg);
 		height: 100%;
 		width: calc(100% - 20px);
 		padding: 5px;

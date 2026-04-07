@@ -25,12 +25,12 @@
 
 <style>
 	.note-box {
-    --offset: 50px;
-    font-size: 15px;
+    --offset: 35px;
+    font-size: var(--grid-font-size);
     padding: 1ch;
     padding-bottom: calc(1ch + 20px);
-    background: var(--secondary-transperent);
-    outline: 3px solid var(--secondary-transperent);
+    background: var(--bg-50);
+    outline: 3px solid var(--bg-50);
     border-radius: 10px;
     cursor: pointer;
     width: calc(25vw - var(--offset));
@@ -39,7 +39,7 @@
     position: relative;
   }
   .note-box:hover {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--bg-100);
   }
   .note-time {
     position: absolute;
@@ -78,7 +78,6 @@
   }
   @media (max-width: 1000px) {
     .note-box {
-      --offset: 35px;
       width: calc(50vw - var(--offset));
       font-size: var(--grid-font-size);
       padding: .5ch 1ch;

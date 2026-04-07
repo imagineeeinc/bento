@@ -61,13 +61,13 @@
 		height: 60vh;
 		border-radius: 10px;
 		z-index: 100;
-		background: var(--bg-transperent);
+		background: var(--bg-50);
 		backdrop-filter: blur(20px);
 		padding: 1ch;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: row;
-    gap: 5px;
+		gap: 3px;
     flex-wrap: wrap;
     align-items: flex-start;
 	}
@@ -75,8 +75,7 @@
     --offset: 50px;
     font-size: 15px;
     padding: 1ch;
-    background: var(--secondary-transperent);
-    border-radius: 10px;
+    background: var(--bg);
     cursor: pointer;
     max-width: calc(100% - 20px);
 		width: 100%;
@@ -84,8 +83,17 @@
     overflow-y: hidden;
     position: relative;
   }
+	.note-box:first-child {
+		border-radius: 10px 10px 0 0;
+	}
+	.note-box:last-child {
+		border-radius: 0 0 10px 10px;
+	}
+	.note-box:only-child {
+		border-radius: 10px;
+	}
   .note-box:hover {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--bg-100);
   }
   .note-box > h3 {
     margin: 0;
