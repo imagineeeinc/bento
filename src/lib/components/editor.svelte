@@ -32,8 +32,48 @@
     }
   }
   function titleUpdate(e) {
-    if (e.keyCode == 13) {
+    if (e.key == "Enter") {
       document.getElementById("editor-box").focus()
+    }
+  }
+  function editorKeyPressed(e) {
+    if (e.key == "Enter") {
+      let editor = document.getElementById("editor-box")
+      let value = editor.value
+      let pos = editor.selectionStart
+      let lineTillNow = value.substr(0, pos).split("\n")
+      let curLine = lineTillNow[lineTillNow.length - 1]
+      if (curLine.startsWith("- ")) {
+        e.preventDefault()
+        if (curLine == "- ") {
+          editor.value = value.substr(0, pos-2) + value.substr(pos)
+          editor.selectionStart = pos-2
+          editor.selectionEnd = pos-2
+        } else {
+          editor.value = value.substr(0, pos) + "\n- " + value.substr(pos)
+          editor.selectionStart = editor.selectionEnd = pos + 3         
+        }
+        update()
+      }
+    }
+  }
+  function editorKeyDown(e) {
+    if (e.key == "Tab") {
+      e.preventDefault()
+      let editor = document.getElementById("editor-box")
+      let value = editor.value
+      let pos = editor.selectionStart
+      let lineTillNow = value.substr(0, pos).split("\n")
+      let curLine = lineTillNow[lineTillNow.length - 1]
+      if (e.shiftKey) { 
+        if (curLine.startsWith("  ")) {
+          editor.value = value.substr(0, pos-curLine.length) + curLine.substr(2) + value.substr(pos)
+          editor.selectionStart = editor.selectionEnd = pos - 2
+        }
+      } else {
+        editor.value = value.substr(0, pos-curLine.length) + "  " + curLine + value.substr(pos)
+        editor.selectionStart = editor.selectionEnd = pos + 2 
+      }
     }
   }
   function deleteThisNote() {
@@ -111,7 +151,7 @@
   <div id="editing-box">
     <input type="text" bind:value={$title} placeholder="Title" onchange={update} oninput={update} onkeyup={titleUpdate} id="title-box" disabled={editing == false}>
     {#if editing == true}
-      <textarea id="editor-box" placeholder="note..." bind:value={$text} onchange={update} oninput={update} spellcheck="true"></textarea>
+      <textarea id="editor-box" placeholder="note..." bind:value={$text} onchange={update} oninput={update} onkeypress={editorKeyPressed} onkeydown={editorKeyDown} spellcheck="true"></textarea>
     {:else}
       <div id="preview-box">
         <SvelteMarkdown source={$text} />
@@ -216,9 +256,6 @@
     background: linear-gradient(90deg, transparent, var(--bg));
   }
   #editor-toolbar::-webkit-scrollbar {
-    display: none;
-  }
-  .hide {
     display: none;
   }
   #close-btn {
