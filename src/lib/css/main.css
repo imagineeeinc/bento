@@ -79,6 +79,8 @@ input, textarea, button, select, a {
 }
 input:not([type='checkbox']):hover, select:hover, textarea:hover, input:focus-visible, textarea:focus-visible {
   outline: 3px solid var(--accent);
+}
+select:hover {
   cursor: pointer;
 }
 input[type='checkbox'] {

@@ -12,6 +12,7 @@
   import { browser } from '$app/environment'
   import { onMount } from 'svelte'
   import { slide } from 'svelte/transition'
+  // import { version, dev } from '$app/environment';
   function newNote() {
     navigate(`/editor/${newNoteId()}`)
   }
@@ -61,12 +62,12 @@
     bottom: 15px;
     right: 15px;
     z-index: 10;
-    background: var(--secondary-transperent);
-    outline: 3px solid var(--secondary-transperent);
+    background: var(--bg-50);
+    outline: 3px solid var(--bg-100);
     backdrop-filter: blur(20px);
   }
   #new:hover, #new:focus-visible {
-      outline: 3px solid var(--accent);
+    outline: 3px solid var(--bg-200);
   }
   nav {
     position: fixed;
@@ -81,23 +82,23 @@
     background: var(--bg);
   }
   #menu-btn {
-    background: var(--secondary-transperent);
-    outline: 3px solid var(--secondary-transperent);
+    background: var(--bg-50);
+    outline: 3px solid var(--bg-50);
     backdrop-filter: blur(20px);
   }
   #menu-btn:hover, #menu-btn:focus-visible {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--bg-200);
   }
   #searchbar {
     width: calc(100%);
     height: 54px;
     padding: 20px;
-    background: var(--secondary-transperent);
-    outline: 3px solid var(--secondary-transperent);
+    background: var(--bg-50);
+    outline: 3px solid var(--bg-50);
     backdrop-filter: blur(20px);
   }
   #searchbar:hover, #searchbar:focus-visible {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--bg-200);
   }
   :global(.note-box img) {
     max-width: 90%;
