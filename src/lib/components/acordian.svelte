@@ -1,4 +1,5 @@
 <script>
+	import { slide } from 'svelte/transition'
 	export let title = ""
 	export let icon = ""
 	export let titleSize = "1.0em"
@@ -12,14 +13,14 @@
 	
 <div>
 	<div class="title" on:click={toggleExpansion} style="font-size: {titleSize}">
-		<span class="m-icon">
-			{expanded?'expand_less':'expand_more'}
+		<span class="m-icon expand-arrow {expanded?'rotate-180':''}">
+			expand_more
 		</span>
 		<span class="m-icon">{icon}</span>
 		<span>{title}</span>
 	</div>
 	{#if expanded}
-		<div class="items">
+		<div class="items" transition:slide>
 			<slot></slot>
 		</div>
 	{/if}
@@ -42,5 +43,11 @@
 	}
 	.items > * {
 		margin-left: 20px;
+	}
+	.expand-arrow {
+		transition: transform .2s ease-in-out;
+	}
+	.rotate-180 {
+		transform: rotate(180deg);
 	}
 </style>

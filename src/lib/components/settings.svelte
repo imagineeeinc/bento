@@ -19,12 +19,28 @@
 				<Acordian title="Account" icon="person" titleSize="1.4em">
 					<label>
 						<span class="center-icon">
-							Change Password
+							<span class="m-icon">user_attributes</span>
+							Change Username
 						</span>
-						<input type="button" class="hidden" onclick={()=>navigate("/change-password")}>
+						<input type="button" class="hidden">
 					</label>
 					<label>
 						<span class="center-icon">
+							<span class="m-icon">shield_lock</span>
+							Manage 2FA
+						</span>
+						<input type="button" class="hidden">
+					</label>
+					<label>
+						<span class="center-icon">
+							<span class="m-icon">key</span>
+							Change Password
+						</span>
+						<input type="button" class="hidden">
+					</label>
+					<label class="red">
+						<span class="center-icon">
+							<span class="m-icon">logout</span>
 							Logout
 						</span>
 						<input type="button" class="hidden" onclick={reset}>
@@ -43,6 +59,31 @@
 							<option value="dark">Dark</option>
 							<option value="light">Light</option>
 						</select>
+					</label>
+				</Acordian>
+			</section>
+			<section>
+				<Acordian title="Data" icon="data_table" titleSize="1.4em">
+					<label>
+						<span class="center-icon">
+							<span class="m-icon">download</span>
+							Export Data
+						</span>
+						<input type="button" class="hidden">
+					</label>
+					<label class="amber">
+						<span class="center-icon">
+							<span class="m-icon">publish</span>
+							Import Data
+						</span>
+						<input type="button" class="hidden">
+					</label>
+					<label class="red">
+						<span class="center-icon">
+							<span class="m-icon">delete_forever</span>
+							Delete Account
+						</span>
+						<input type="button" class="hidden" onclick={reset}>
 					</label>
 				</Acordian>
 			</section>
@@ -109,6 +150,9 @@
 		border-radius: 10px;
 		border-bottom: none;
 	}
+	label:hover {
+		background: var(--bg-100);
+	}
 	select {
 		padding: 0;
 		height: auto;
@@ -128,5 +172,11 @@
 	.hidden {
 		visibility: hidden;
 		height: 0;
+	}
+	.red, .red .m-icon {
+		color: #f38ba8;
+	}
+	.amber, .amber .m-icon {
+		color: #f9e2af;
 	}
 </style>
