@@ -1,5 +1,7 @@
 <script>
 	export let title = ""
+	export let icon = ""
+	export let titleSize = "1.0em"
 
 	let expanded = false
 
@@ -9,10 +11,11 @@
 </script>
 	
 <div>
-	<div class="title" on:click={toggleExpansion}>
+	<div class="title" on:click={toggleExpansion} style="font-size: {titleSize}">
 		<span class="m-icon">
 			{expanded?'expand_less':'expand_more'}
 		</span>
+		<span class="m-icon">{icon}</span>
 		<span>{title}</span>
 	</div>
 	{#if expanded}
