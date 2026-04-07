@@ -78,7 +78,11 @@
   }
   @media (max-width: 1000px) {
     .note-box {
+      --offset: 35px;
       width: calc(50vw - var(--offset));
+      font-size: var(--grid-font-size);
+      padding: .5ch 1ch;
+      padding-bottom: calc(.5ch + 20px)
     }
   }
   @media (max-width: 400px) {

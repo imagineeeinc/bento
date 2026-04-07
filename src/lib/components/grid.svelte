@@ -67,7 +67,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-    gap: 2ch;
+    gap: 1ch;
     margin: 1ch 0;
   }
   .section-title {

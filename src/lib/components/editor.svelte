@@ -6,7 +6,7 @@
   let pin = $state(false)
   let { uid } = $props()
   // mode: 1=edit, 0=view only
-  let mode = $state(1)
+  let editing = $state(true)
   let back = '/'
 
   import { onMount } from 'svelte'
@@ -21,7 +21,7 @@
       if (uid === null || uid == "null") {
         navigate(`/editor/${uid}`)
       } else {
-        updateNote(uid, get(text), get(title), archive, pin)
+        updateNote(uid, get(text), get(title), archive, pin, editing)
       }
     } else {
       if (uid !== null) {
@@ -31,6 +31,11 @@
       }
     }
   }
+  function titleUpdate(e) {
+    if (e.keyCode == 13) {
+      document.getElementById("editor-box").focus()
+    }
+  }
   function deleteThisNote() {
     let ask = confirm("Are you sure you want to delete this Note?")
     if (ask) {
@@ -38,7 +43,7 @@
       window.history.back()
     }
   }
-  function swapViewMode() {mode = mode == 0 ? 1 : 0}
+  function swapViewMode() {editing = !editing;update()}
   let pickImage = false
   function addImage() {
     let blackhole = get(settings).blackhole
@@ -60,12 +65,24 @@
   onMount(()=>{
     if (uid == null || uid == "null") {
       text = ""
+      document.getElementById("title-box").focus()
     } else {
       let note = getUidNote(uid)
       text.set(note.data)
       title.set(note.title)
+      if (note.clientArgs.editing == undefined) {
+        note.clientArgs.editing = true
+      }
+      editing = note.clientArgs.editing
       archive = note.archive || false
       pin = note.pin || false
+      if (note.title == "") {
+        document.getElementById("title-box").focus()
+      } else if (editing == true) {
+        document.getElementById("editor-box").focus()
+        // scroll bottom
+        document.getElementById("editing-box").scrollTop = document.getElementById("editor-box").scrollHeight
+      }
     }
   })
   let tagEditor = writable(false)
@@ -92,10 +109,10 @@
     </div>
   </div>
   <div id="editing-box">
-    <input type="text" bind:value={$title} placeholder="Title" onchange={update} oninput={update} id="title-box">
-    {#if mode == 1}
-      <textarea id="editor-box" placeholder="note..." bind:value={$text} onchange={update} oninput={update}></textarea>
-    {:else if mode == 0}
+    <input type="text" bind:value={$title} placeholder="Title" onchange={update} oninput={update} onkeyup={titleUpdate} id="title-box" disabled={editing == false}>
+    {#if editing == true}
+      <textarea id="editor-box" placeholder="note..." bind:value={$text} onchange={update} oninput={update} spellcheck="true"></textarea>
+    {:else}
       <div id="preview-box">
         <SvelteMarkdown source={$text} />
       </div>
@@ -103,9 +120,14 @@
   </div>
   <div id="editor-toolbar">
     <button class="m-icon transparent" onclick={deleteThisNote}>delete</button>
-    <button class="m-icon transparent" onclick={swapViewMode}>edit_note</button>
+    <button class="m-icon transparent" onclick={swapViewMode}>
+      {#if editing == false}
+        edit
+      {:else}
+        two_pager
+      {/if}
+    </button>
     <!-- <button class="m-icon transparent" on:click={addImage}>add_a_photo</button> -->
-    
     {#if uid !== 'null'}
       <button class="m-icon transparent" onclick={()=>tagEditor.set(!$tagEditor)}>label</button>
     {/if}
@@ -151,18 +173,18 @@
   }
   #editor-box {
     display: block;
-    width: calc(100% - 40px);
-    height: calc(100% - var(--width) - 40px);
+    width: calc(100% - 4ch);
+    height: calc(100% - var(--width) - 2ch);
     outline: none;
     resize: none;
     margin: 0;
     overflow: auto;
-    padding: 20px;
+    padding: .5ch 2ch;
   }
   #preview-box {
-    width: calc(100% - 40px);
+    width: calc(100% - 4ch);
     height: calc(100% - var(--width) - 40px);
-    padding: 20px;
+    padding: .5ch 2ch;
     overflow-y: auto;
   }
   :global(#preview-box img) {
@@ -206,10 +228,10 @@
     z-index: 10;
   }
   #title-box {
-    width: calc(100% - 40px);
+    width: calc(100% - 4ch);
     outline: none;
     font-size: x-large;
     margin: 0;
-    padding: 20px;
+    padding: .5ch 2ch;
   }
 </style>
