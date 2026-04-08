@@ -1,28 +1,24 @@
 <script>
+  let {params = {}} = $props()
   import { get, writable } from 'svelte/store'
   let title = writable("")
   let text = writable("")
   let archive = $state(false)
   let pin = $state(false)
-  let { uid } = $props()
-  // mode: 1=edit, 0=view only
+  let uid = params.uid
   let editing = $state(true)
   let back = '/'
 
   import { onMount } from 'svelte'
-  import { navigate } from 'svelte-routing'
+  import { pop } from 'svelte-spa-router'
   import SvelteMarkdown from 'svelte-markdown'
   import { sendFile } from '$lib/components/images.js'
   import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
   import TagsEditor from '$lib/components/tagsEditor.svelte'
 
   function update() {
-    if (text != '') {
-      if (uid === null || uid == "null") {
-        navigate(`/editor/${uid}`)
-      } else {
-        updateNote(uid, get(text), get(title), archive, pin, editing)
-      }
+    if ($text != "" && $title != "") {
+      updateNote(uid, get(text), get(title), archive, pin, editing)
     } else {
       if (uid !== null) {
         //TODO: move the deleting note to on close of window
@@ -130,7 +126,7 @@
 <input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" onchange={imagePicked}>
 <div id="editor-container">
   <div id="editor-topbar">
-    <button id="close-btn" class="m-icon transparent" onclick={()=>navigate(back)}>arrow_back</button>
+    <button id="close-btn" class="m-icon transparent" onclick={()=>pop()}>arrow_back</button>
     <div id="topbar-right">
       <button class="m-icon transparent" onclick={()=>{pin=!pin;update()}}>
         {#if pin}

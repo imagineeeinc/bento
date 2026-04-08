@@ -1,6 +1,6 @@
 <script>
 	import Acordian from "./acordian.svelte"
-	import { navigate } from "svelte-routing"
+	import { pop } from 'svelte-spa-router'
 	import { theme, settings } from "$lib/components/store.js"
 	import { resetClient } from "./store.js";
 	
@@ -20,7 +20,7 @@
 <div id="settings-panel">
 	<div id="settings-content">
 		<div class="top-bar">
-			<button id="close-btn" class="m-icon big transparent" onclick={()=>navigate("/")}>arrow_back</button>
+			<button id="close-btn" class="m-icon big transparent" onclick={()=>pop()}>arrow_back</button>
 			<h2 style="display: inline;">Settings</h2>
 		</div>
 		<div>

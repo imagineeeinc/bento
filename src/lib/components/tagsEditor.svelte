@@ -1,5 +1,4 @@
 <script>
-	import { navigate } from 'svelte-routing'
 	import { availableTags, getUidTags, setUidTags } from '$lib/components/store.js'
 
 	export let tagEditor = null

@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte'
-  import { navigate } from 'svelte-routing'
+	import { pop, push, replace } from 'svelte-spa-router'
 	import { availableTags } from './store.js'
 	import Acordian from './acordian.svelte'
 	import { fade } from 'svelte/transition'
@@ -9,18 +9,18 @@
 	<div id="menu-box">
 		<div id="top-bar">
 			<span id="title">Bento</span>
-			<button id="close-btn" class="transparent m-icon big" onclick={()=>window.history.back()}>close</button>
+			<button id="close-btn" class="transparent m-icon big" onclick={()=>pop()}>close</button>
 		</div>
 		<div id="menu-list-container">
 			<div id="menu-list">
 				<section>
-					<button class="transparent" onclick={()=>navigate('/')}><span class="m-icon">home</span>Home</button>
-					<button class="transparent" onclick={()=>navigate('tags/archive')}><span class="m-icon">archive</span>Archive</button>
+					<button class="transparent" onclick={()=>replace("/")}><span class="m-icon">home</span>Home</button>
+					<button class="transparent" onclick={()=>replace("/tags/archive")}><span class="m-icon">archive</span>Archive</button>
 				</section>
 				<section>
 					<div class="transparent section-title"><span class="m-icon">tag</span>Tags</div>
 					{#each availableTags() as tag}
-						<button onclick={()=>navigate(`tags/${tag}`)} class=" transparent label-link">
+						<button onclick={()=>replace(`/tags/${tag}`)} class=" transparent label-link">
 							<span class="m-icon">label_important</span>{tag}
 						</button>
 					{/each}
@@ -28,8 +28,8 @@
 			</div>
 		</div>
 		<div id="bottom-bar">
-			<button class="transparent m-icon big" onclick={()=>navigate('about')} title="About">info</button>
-			<button class="transparent m-icon big" onclick={()=>navigate('settings')} title="Settings">settings</button>
+			<button class="transparent m-icon big" onclick={()=>replace("/about")} title="About">info</button>
+			<button class="transparent m-icon big" onclick={()=>replace("/settings")} title="Settings">settings</button>
 		</div>
 	</div>
 </div>

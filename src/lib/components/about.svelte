@@ -1,5 +1,5 @@
 <script>
-	import { navigate } from 'svelte-routing'
+	import { pop } from 'svelte-spa-router'
 	import { writable } from 'svelte/store'
 	import { settings } from '$lib/components/store.js'
 
@@ -17,7 +17,7 @@
 </script>
 
 <div id="about-panel">
-	<button id="close-btn" class="m-icon big" on:click={()=>navigate("/")}>close</button>
+	<button id="close-btn" class="m-icon big" on:click={()=>pop()}>close</button>
 	<h2 style="display: inline;">About</h2>
 	
 	<div id="about-content">

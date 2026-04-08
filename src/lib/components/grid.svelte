@@ -1,5 +1,6 @@
 <script>
-	export let tag = ""
+  let {params = {}} = $props()
+	let tag = params.tag || ""
 
 	import { notes } from '$lib/components/store'
   import NoteBox from './noteBox.svelte';

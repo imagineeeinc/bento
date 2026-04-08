@@ -1,11 +1,11 @@
 <script>
-	import { navigate } from 'svelte-routing'
+  import { push } from 'svelte-spa-router'
 	import SvelteMarkdown from 'svelte-markdown'
   import { settings } from '$lib/components/store'
 
 	export let note
 	function editNow(uid) {
-		navigate(`/editor/${uid}`)
+		push(`/editor/${uid}`)
 	}
 </script>
 <!-- svelte-ignore a11y-no-static-element-interactions -->

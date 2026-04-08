@@ -12,11 +12,11 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.5.4",
-		"@sveltejs/kit": "^2.56.1",
+		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"drizzle-kit": "^0.30.6",
-		"svelte": "^5.55.1",
-		"vite": "^8.0.6"
+		"svelte": "^5.55.2",
+		"vite": "^8.0.7"
 	},
 	"type": "module",
 	"dependencies": {
@@ -30,7 +30,7 @@
 		"luxon": "^3.7.2",
 		"pg": "^8.20.0",
 		"svelte-markdown": "^0.4.1",
-		"svelte-routing": "^2.13.0",
+		"svelte-spa-router": "^5.0.1",
 		"svelte-tags-input": "^6.0.2",
 		"uuid4": "^2.0.3"
 	},

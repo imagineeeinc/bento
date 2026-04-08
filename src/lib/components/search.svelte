@@ -7,7 +7,7 @@
 	import lunr from 'lunr'
 	import SvelteMarkdown from 'svelte-markdown'
 	import { notes, getUidNote } from '$lib/components/store'
-	import { navigate } from 'svelte-routing'
+	import { push } from 'svelte-spa-router'
 
 	var idx
 	let res = []
@@ -28,7 +28,7 @@
 	})
 
 	function editNow(uid) {
-    navigate(`editor/${uid}`)
+    push(`/editor/${uid}`)
   }
 </script>
 

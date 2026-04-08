@@ -8,17 +8,16 @@
   import { newNoteId } from '../lib/components/store'
   import SvelteMarkdown from 'svelte-markdown'
   import { fade } from 'svelte/transition'
-  import { Router, Route, navigate } from 'svelte-routing'
+  import Router, { push, replace } from 'svelte-spa-router'
   import { browser } from '$app/environment'
-  import { onMount } from 'svelte'
   import { slide } from 'svelte/transition'
   // import { version, dev } from '$app/environment';
   function newNote() {
-    navigate(`/editor/${newNoteId()}`)
+    push(`/editor/${newNoteId()}`)
   }
   function openMenu() {
     menuOpened = true
-    navigate('/menu')
+    push('/menu')
   }
   let animtion = { fn: fade, duration: 200 }
   let menuOpened = false
@@ -27,17 +26,25 @@
   if (browser) {
     searchTerm.subscribe(val=>{
       if (val != "" && searchMenuOpened == false) {
-        navigate('/search')
+        push("/search")
         searchMenuOpened = true
         document.getElementById("searchbar").focus()
       } else if (val == "" && searchMenuOpened == true){
-        navigate('/')
+        replace("/")
         searchMenuOpened = false
         document.getElementById("searchbar").focus()
       }
     })
   }
   let url = ''
+  const routes = {
+    "/editor/:uid": Editor,
+    "/menu": Menu,
+    "/settings": Settings,
+    "/about": About,
+    "/search": Search,
+    "/tags/:tag": Grid
+  }
 </script>
 <nav>
   <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
@@ -48,13 +55,13 @@
 <!-- {/if} -->
 <Grid tag=""></Grid>
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
-<Router {url}>
-  <Route path="editor/:uid" let:params><Editor uid="{params.uid}"/></Route>
+<Router {routes}>
+  <!-- <Route path="editor/:uid" let:params><Editor uid="{params.uid}"/></Route>
   <Route path="menu"><Menu transition={slide} /></Route>
   <Route path="settings"><Settings /></Route>
   <Route path="about"><About /></Route>
   <Route path="search"><Search /></Route>
-  <Route path="tags/:tag" let:params><Grid tag="{params.tag}"/></Route>
+  <Route path="tags/:tag" let:params><Grid tag="{params.tag}"/></Route> -->
 </Router>
 <style>
   #new {
