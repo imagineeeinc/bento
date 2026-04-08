@@ -114,7 +114,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		background: var(--bg-secondary-transparent);
+		background: var(--secondary-transparent);
 		backdrop-filter: blur(10px);
 		height: 100%;
 		width: 100%;
@@ -162,11 +162,6 @@
 		border-radius: 0 0 10px 10px;
 		border-bottom: none;
 	}
-	#close-btn {
-		/* position: fixed;
-		top: 10px;
-		left: 10px; */
-	}
 	label {
 		display: flex;
 		flex-direction: row;
@@ -197,6 +192,7 @@
 	select {
 		padding: 0;
 		height: auto;
+		background: var(--bg);
 	}
 	select:hover {
 		background: none;

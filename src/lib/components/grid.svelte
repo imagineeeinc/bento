@@ -54,11 +54,11 @@
     top: 0;
     left: 0;
     margin-top: 84px;
-		padding-bottom: 20px;
     height: calc(100vh - 104px);
-    width: 100%;
+    width: calc(100% - 2ch);
     overflow-y: auto;
-
+    padding: 0 1ch;
+		padding-bottom: 2ch;
 		background: var(--bg);
   }
   .notes-grid {
