@@ -1,13 +1,20 @@
 <script>
 	import Acordian from "./acordian.svelte"
 	import { navigate } from "svelte-routing"
-	import { theme } from "$lib/components/store.js"
+	import { theme, settings } from "$lib/components/store.js"
 	import { resetClient } from "./store.js";
+	
+	let gridSize = $state($settings.local.gridFontSize)
 	function reset() {
 		resetClient()
 		window.location.href = "/logout"
 	}
-	// TODO: Add change password
+	$effect(() => {
+		settings.update((value) => {
+			value.local.gridFontSize = gridSize
+			return value
+		})
+	})
 </script>
 
 <div id="settings-panel">
@@ -16,7 +23,7 @@
 	<h2 style="display: inline;">Settings</h2>
 		<div>
 			<section>
-				<Acordian title="Account" icon="person" titleSize="1.4em">
+				<Acordian title="Account" icon="person" titleSize="1.4em" expanded={true}>
 					<label>
 						<span class="center-icon">
 							<span class="m-icon">user_attributes</span>
@@ -59,6 +66,16 @@
 							<option value="dark">Dark</option>
 							<option value="light">Light</option>
 						</select>
+					</label>
+					<label class="vert">
+						<span class="center-icon">
+							<span class="m-icon">format_size</span>
+							Grid Font Size
+						</span>
+						<span class="range-box">
+							<input type="range" step="0.1" min="0.5" max="1.5" bind:value={gridSize}>
+							<span class="range-value">{gridSize.toFixed(1)}x</span>
+						</span>
 					</label>
 				</Acordian>
 			</section>
@@ -133,10 +150,15 @@
 	}
 	label {
 		display: flex;
+		flex-direction: row;
 		background: var(--bg);
 		padding: 1ch 2ch;
 		border-bottom: 3px solid var(--bg-50);
 		cursor: pointer;
+		user-select: none;
+	}
+	label.vert {
+		flex-direction: column;
 	}
 	label:first-child {
 		margin-top: 1ch;
@@ -160,6 +182,16 @@
 	select:hover {
 		background: none;
 	}
+	input[type="range"] {
+		outline: none;
+		width: 100%;
+	}
+	.range-box {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1ch;
+	}
 	.center-icon {
 		margin: 0;
 		display: flex;
@@ -174,9 +206,9 @@
 		height: 0;
 	}
 	.red, .red .m-icon {
-		color: #f38ba8;
+		color: var(--red);
 	}
 	.amber, .amber .m-icon {
-		color: #f9e2af;
+		color: var(--amber);
 	}
 </style>

@@ -15,9 +15,9 @@
   let pinned = writable([])
   notes.subscribe((value) => {
     pinned.set([])
-    pinned.update((value) => {
+    pinned.update(() => {
       let list = []
-      let notesList = $notes.filter(filterBy)
+      let notesList = value.filter(filterBy)
       for (let i = 0; i < notesList.length; i++) {
         if (notesList[i].pin) {
           list.push(notesList[i])

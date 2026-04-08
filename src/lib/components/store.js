@@ -30,7 +30,9 @@ format:
 */
 // Vars
 export let notes = writable([])
-export let settings = writable({})
+export let settings = writable({global: {}, local: {
+  gridFontSize: 0.8
+}})
 export let theme = writable(browser? localStorage.getItem('theme') || 'system' : 'system')
 export let tags = writable([])
 let user = ''
@@ -233,8 +235,7 @@ async function syncFirst() {
   res = await res.json()
   if (res.notes) {
     notes.set(res.notes)
-    settings.set(res.settings)
-    // user = data.settings.user
+    settings.update(val => {return {global: res.settings, local: val.local}})
   } else if (res.error != "Not logged in") {
     alert("Error syncing")
     console.error(res.error)
@@ -267,13 +268,13 @@ if (browser) {
 
 // Settings
 if (browser) {
-  if (localStorage.getItem('settings') !== undefined &&
-  localStorage.getItem('settings') != "" &&
-  localStorage.getItem('settings') !== null) {
-    settings.set(JSON.parse(localStorage.getItem('settings')))
+  if (localStorage.getItem('bento_settings') !== undefined &&
+  localStorage.getItem('bento_settings') != "" &&
+  localStorage.getItem('bento_settings') !== null) {
+    settings.set(JSON.parse(localStorage.getItem('bento_settings')))
   }
   settings.subscribe((data) => {
-    localStorage.setItem('settings', JSON.stringify(data))
+    localStorage.setItem('bento_settings', JSON.stringify(data))
   })
 }
 

@@ -15,4 +15,6 @@
   --secondary: var(--dark-secondary);
   --secondary-transperent: var(--dark-secondary-transperent);
   --accent: var(--dark-accent);
+  --red: var(--dark-red);
+  --amber: var(--dark-amber);
 }

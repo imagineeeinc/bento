@@ -1,6 +1,8 @@
 <script>
 	import { navigate } from 'svelte-routing'
 	import SvelteMarkdown from 'svelte-markdown'
+  import { settings } from '$lib/components/store'
+
 	export let note
 	function editNow(uid) {
 		navigate(`/editor/${uid}`)
@@ -8,7 +10,7 @@
 </script>
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="note-box" on:click={()=>editNow(note.uid)}>
+<div class="note-box" on:click={()=>editNow(note.uid)} style="font-size: {$settings.local.gridFontSize || 0.8}em">
 	<h3>{note.title}</h3>
 	<SvelteMarkdown source={note.data} />
 	<div class="note-time">
@@ -26,7 +28,6 @@
 <style>
 	.note-box {
     --offset: 35px;
-    font-size: var(--grid-font-size);
     padding: 1ch;
     padding-bottom: calc(1ch + 20px);
     background: var(--bg-50);
@@ -79,7 +80,6 @@
   @media (max-width: 1000px) {
     .note-box {
       width: calc(50vw - var(--offset));
-      font-size: var(--grid-font-size);
       padding: .5ch 1ch;
       padding-bottom: calc(.5ch + 20px)
     }

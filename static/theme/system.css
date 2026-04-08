@@ -16,6 +16,8 @@
     --secondary: var(--light-secondary);
     --secondary-transperent: var(--light-secondary-transperent);
     --accent: var(--light-accent);
+    --red: var(--light-red);
+    --amber: var(--light-amber);
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -36,5 +38,7 @@
     --secondary: var(--dark-secondary);
     --secondary-transperent: var(--dark-secondary-transperent);
     --accent: var(--dark-accent);
+    --red: var(--dark-red);
+    --amber: var(--dark-amber);
   }
 }

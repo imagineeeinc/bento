@@ -3,8 +3,7 @@
 	export let title = ""
 	export let icon = ""
 	export let titleSize = "1.0em"
-
-	let expanded = false
+	export let expanded = false
 
 	function toggleExpansion() {
 		expanded = !expanded
