@@ -18,9 +18,11 @@
 </script>
 
 <div id="settings-panel">
-	<button id="close-btn" class="m-icon big transparent" onclick={()=>navigate("/")}>arrow_back</button>
 	<div id="settings-content">
-	<h2 style="display: inline;">Settings</h2>
+		<div class="top-bar">
+			<button id="close-btn" class="m-icon big transparent" onclick={()=>navigate("/")}>arrow_back</button>
+			<h2 style="display: inline;">Settings</h2>
+		</div>
 		<div>
 			<section>
 				<Acordian title="Account" icon="person" titleSize="1.4em" expanded={true}>
@@ -112,24 +114,41 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		background: var(--bg);
-		backdrop-filter: blur(20px);
+		background: var(--bg-secondary-transparent);
+		backdrop-filter: blur(10px);
 		height: 100%;
-		width: calc(100% - 20px);
-		padding: 5px;
+		width: 100%;
 		z-index: 20;
 		display: flex;
 		justify-content: center;
+		align-items: center;
 	}
 	#settings-content {
-		padding: 20px;
-		padding-top: calc(60px);
+		padding: 2ch;
+		padding-top: .5ch;
 		width: 80vh;
+		height: calc(100% - 80px - 2.5ch);
 		max-width: 100%;
+		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
 		overflow: auto;
+		background: var(--bg);
+		outline: 3px solid var(--bg-50);
+	}
+	@media only screen and (max-width: 80vh) {
+		#settings-content {
+			height: calc(100% - 2.5ch);
+			border-radius: 0;
+			outline: none;
+		}
+	}
+	.top-bar {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1ch;
 	}
 	section {
 		padding: 1ch;
@@ -144,9 +163,9 @@
 		border-bottom: none;
 	}
 	#close-btn {
-		position: fixed;
+		/* position: fixed;
 		top: 10px;
-		left: 10px;
+		left: 10px; */
 	}
 	label {
 		display: flex;
@@ -199,7 +218,7 @@
 		flex-wrap: nowrap;
 		align-items: center;
 		width: 100%;
-		gap: 5px;
+		gap: 1ch;
 	}
 	.hidden {
 		visibility: hidden;
