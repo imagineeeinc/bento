@@ -1,27 +1,10 @@
 <script>
-	import { pop } from 'svelte-spa-router'
-	import { writable } from 'svelte/store'
-	import { settings } from '$lib/components/store.js'
-
-	let blackholeUrl = writable("")
-
-	settings.subscribe((data)=>{
-		blackholeUrl.set(data.blackhole)
-	})
-	blackholeUrl.subscribe((url) => {
-		settings.update((value) => {
-			value.blackhole = url
-			return value
-		})
-	})
+	import Modal from './modal.svelte'
 </script>
 
-<div id="about-panel">
-	<button id="close-btn" class="m-icon big" on:click={()=>pop()}>close</button>
-	<h2 style="display: inline;">About</h2>
-	
+<Modal title="About">
 	<div id="about-content">
-		<img src="/images/bento2.svg" class="icon">
+		<img src="/images/bento2.svg" alt="Bento logo" class="icon">
 		<h3>A minimal self hosted notes app.</h3>
 		<p style="text-align: justify; max-width: 600px;">
 			Bento is a self hosted, minimal looking and grid based private notes taking app.
@@ -38,20 +21,9 @@
 			<a href="https://github.com/imagineeeinc/bento" target="_blank" rel="noopener noreferrer">Github</a>
 		</p>
 	</div>
-</div>
+</Modal>
 <style>
-	#about-panel {
-		position: fixed;
-		top: 0;
-		left: 0;
-		background: var(--bg);
-		height: 100%;
-		width: calc(100% - 20px);
-		padding: 5px;
-		z-index: 20;
-	}
 	#about-content {
-		padding: 20px;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
