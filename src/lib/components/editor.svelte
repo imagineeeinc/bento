@@ -7,14 +7,14 @@
   let pin = $state(false)
   let uid = params.uid
   let editing = $state(true)
-  let back = '/'
-
+  
   import { onMount } from 'svelte'
   import { pop } from 'svelte-spa-router'
   import SvelteMarkdown from 'svelte-markdown'
   import { sendFile } from '$lib/components/images.js'
   import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
   import TagsEditor from '$lib/components/tagsEditor.svelte'
+  import { fade } from 'svelte/transition'
 
   function update() {
     if ($text != "" && $title != "") {
@@ -54,7 +54,7 @@
     }
   }
   function editorKeyDown(e) {
-    if (e.key == "Tab") {
+    if (e.key == "Tab" && !e.ctrlKey) {
       e.preventDefault()
       let editor = document.getElementById("editor-box")
       let value = editor.value
@@ -123,8 +123,8 @@
   })
   let tagEditor = writable(false)
 </script>
-<input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" onchange={imagePicked}>
-<div id="editor-container">
+<div id="editor-container" transition:fade>
+  <input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" onchange={imagePicked}>
   <div id="editor-topbar">
     <button id="close-btn" class="m-icon transparent" onclick={()=>pop()}>arrow_back</button>
     <div id="topbar-right">
@@ -261,10 +261,10 @@
     z-index: 10;
   }
   #title-box {
-    width: calc(100% - 4ch);
+    width: calc(100% - 2em);
     outline: none;
     font-size: x-large;
     margin: 0;
-    padding: .5ch 2ch;
+    padding: .5ch 1em;
   }
 </style>
