@@ -32,7 +32,7 @@ A self hosted minimalist multi user note taking service.
 
 ### From Source
 
-Make sure to have the latest version of Node and npm installed, also pnpm is recommended over npm
+Make sure to have the latest version of Node and npm installed, also pnpm is recommended over npm.
 You can also place environment variables in a `.env` file in the root of the project.
 1. Clone the this repo
   ```bash
@@ -69,9 +69,9 @@ Make sure to have docker cli installed.
 	```bash
 	docker build . -t bento
 	```
-2. Run. Set the `WEB_PASS` env to a password of your choice. You can also set the used port by setting the `PORT` env.
+2. Run. Set the `DATABASE_URL` to your Postgresdatabse url. You can also set the used port by setting the `PORT` env.
 	```bash
-	docker run -p 3000:3000 -e WEB_PASS=Password -d bento
+	docker run -p 3000:3000 -e DATABASE_URL "postgres://postgres:postgres@127.0.0.1:543/postgres" -d bento
 	```
 	Access the web app at `localhost:3000`.
 
