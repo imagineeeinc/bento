@@ -7,6 +7,9 @@
   let pin = $state(false)
   let uid = params.uid
   let editing = $state(true)
+  let charCount = $state(0)
+  let lineCount = $state(0)
+  let wordCount = $state(0)
   
   import { onMount } from 'svelte'
   import { pop } from 'svelte-spa-router'
@@ -14,8 +17,16 @@
   import { sendFile } from '$lib/components/images.js'
   import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
   import TagsEditor from '$lib/components/tagsEditor.svelte'
+  import { createHotkey } from '@tanstack/svelte-hotkeys'
   import { fade } from 'svelte/transition'
 
+  import Link from '$lib/components/renderer/Link.svelte'
+
+  function stats() {
+    charCount = $text.length
+    lineCount = $text === "" ? 0 : $text.split(/\r\n|\r|\n/).length
+    wordCount = $text.trim() === "" ? 0 : $text.trim().split(/\s+/).length
+  }
   function update() {
     if ($text == "" && $title == "") {
       if (uid !== null) {
@@ -25,6 +36,7 @@
       }
     } else {
       updateNote(uid, get(text), get(title), archive, pin, editing)
+      stats()
     }
   }
   function titleUpdate(e) {
@@ -80,7 +92,17 @@
       
     }
   }
-  function swapViewMode() {editing = !editing;update()}
+  function swapViewMode(edit) {
+    if (typeof edit === "boolean") {
+      editing = edit
+    } else {
+       editing = !editing
+    }
+    update()
+    if (editing == true) {
+      document.getElementById("editor-box").focus()
+    }
+  }
   let pickImage = false
   function addImage() {
     let blackhole = get(settings).blackhole
@@ -120,9 +142,17 @@
         // scroll bottom
         document.getElementById("editing-box").scrollTop = document.getElementById("editor-box").scrollHeight
       }
+      stats()
     }
   })
   let tagEditor = writable(false)
+
+  createHotkey("i", () => {
+    swapViewMode(true)
+  })
+  createHotkey("Mod+I", () => {
+    swapViewMode()
+  })
 </script>
 <div id="editor-container" transition:fade>
   <input id="image-picker" style="display: none;" type="file" accept="image/*" multiple="false" onchange={imagePicked}>
@@ -151,7 +181,12 @@
       <textarea id="editor-box" placeholder="note..." bind:value={$text} onchange={update} oninput={update} onkeypress={editorKeyPressed} onkeydown={editorKeyDown} spellcheck="true"></textarea>
     {:else}
       <div id="preview-box">
-        <SvelteMarkdown source={$text} />
+        <SvelteMarkdown
+          source={$text}
+          renderers={{
+            link: Link
+          }}
+        />
       </div>
     {/if}
   </div>
