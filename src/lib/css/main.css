@@ -205,6 +205,10 @@ ul {
 ol {
   padding-inline-start: 3ch;
 }
+h1, h2, h3, h4, h5, h6 {
+  margin: 1ch 0;
+  padding: 0;
+}
 ::-webkit-scrollbar {
   width: 7.5px;
   height: 5px;
