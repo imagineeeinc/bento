@@ -17,14 +17,14 @@
   import { fade } from 'svelte/transition'
 
   function update() {
-    if ($text != "" && $title != "") {
-      updateNote(uid, get(text), get(title), archive, pin, editing)
-    } else {
+    if ($text == "" && $title == "") {
       if (uid !== null) {
         //TODO: move the deleting note to on close of window
         delNote(uid)
         // uid = null
       }
+    } else {
+      updateNote(uid, get(text), get(title), archive, pin, editing)
     }
   }
   function titleUpdate(e) {
@@ -77,6 +77,7 @@
     if (ask) {
       delNote(uid)
       window.history.back()
+      
     }
   }
   function swapViewMode() {editing = !editing;update()}

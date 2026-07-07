@@ -144,6 +144,7 @@ export function delNote(uid) {
     list[i] = note
     return list
   })
+  syncSave()
 }
 export function getListNotes() {
   return get(notes)
