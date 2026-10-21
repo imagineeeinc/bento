@@ -19,6 +19,7 @@ format:
     markdown: true
     data: string
     editing: boolen (default: true)
+    lastPosition: int (default: null)
   }
   versonHistory?: array[
     {
@@ -66,7 +67,7 @@ export function newNote() {
   return uid;
 }
 
-export function updateNote(uid, text, title, archive, pin, editing) {
+export function updateNote(uid, text, title, archive, pin, editing, editPosition) {
   let note = {};
   notes.update((list) => {
     let i = null;
@@ -88,7 +89,7 @@ export function updateNote(uid, text, title, archive, pin, editing) {
         archive,
         pin,
         tags: [],
-        clientArgs: { markdown: true, editing }
+        clientArgs: { markdown: true, editing, lastPosition: editPosition || null }
       };
 
       list.push(note);
@@ -101,6 +102,7 @@ export function updateNote(uid, text, title, archive, pin, editing) {
       note.archive = archive;
       note.pin = pin;
       note.clientArgs.editing = editing;
+      note.clientArgs.lastPosition = editPosition || null
       list[i] = note;
     }
 
