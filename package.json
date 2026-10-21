@@ -1,42 +1,46 @@
 {
-	"name": "bento",
-	"version": "0.4.2",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev --host",
-		"build": "vite build",
-		"preview": "vite preview",
-		"server": "node build",
-		"start": "concurrently \"npm run migrations\" \"npm run server\"",
-		"migrations": "npx drizzle-kit push"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-node": "^6.0.0",
-		"@sveltejs/kit": "^3.1.0",
-		"@sveltejs/vite-plugin-svelte": "^7.3.1",
-		"drizzle-kit": "^0.30.6",
-		"svelte": "^5.57.2",
-		"vite": "^8.3.4"
-	},
-	"type": "module",
-	"dependencies": {
-		"@node-rs/argon2": "^2.2.2",
-		"@oslojs/crypto": "^1.0.1",
-		"@oslojs/encoding": "^1.1.0",
-		"@tanstack/svelte-hotkeys": "^0.10.0",
-		"concurrently": "^10.0.6",
-		"dotenv": "^16.6.1",
-		"drizzle-orm": "^0.40.1",
-		"lunr": "^2.3.9",
-		"luxon": "^3.7.2",
-		"pg": "^8.23.1",
-		"svelte-markdown": "^0.4.1",
-		"svelte-spa-router": "^5.1.1",
-		"svelte-tags-input": "^6.0.2",
-		"uuid4": "^2.0.3"
-	},
-	"packageManager": "pnpm@11.28.6+sha512.55d90390c3b39042f1505a2697789f0256c6d95bb28bdd7cb731af1887c9f2629ef581acb9f4e4ec772024c8203c2aed22a03299b97103fdcf32668e905d0024",
-	"imports": {
-		"#lib/*": "./src/lib/*"
-	}
+  "name": "bento",
+  "version": "0.4.2",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node build",
+    "start": "concurrently \"npm run migrations\" \"npm run server\"",
+    "migrations": "npx drizzle-kit push",
+    "lint": "prettier --check . && prettier . --write",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-node": "^6.0.0",
+    "@sveltejs/kit": "^3.1.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "drizzle-kit": "^0.30.6",
+    "prettier": "^3.9.10",
+    "prettier-plugin-svelte": "^4.1.0",
+    "svelte": "^5.57.2",
+    "vite": "^8.3.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "@node-rs/argon2": "^2.2.2",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "@tanstack/svelte-hotkeys": "^0.10.0",
+    "concurrently": "^10.0.6",
+    "dotenv": "^16.6.1",
+    "drizzle-orm": "^0.40.1",
+    "lunr": "^2.3.9",
+    "luxon": "^3.7.2",
+    "pg": "^8.23.1",
+    "svelte-markdown": "^0.4.1",
+    "svelte-spa-router": "^5.1.1",
+    "svelte-tags-input": "^6.0.2",
+    "uuid4": "^2.0.3"
+  },
+  "packageManager": "pnpm@11.28.6+sha512.55d90390c3b39042f1505a2697789f0256c6d95bb28bdd7cb731af1887c9f2629ef581acb9f4e4ec772024c8203c2aed22a03299b97103fdcf32668e905d0024",
+  "imports": {
+    "#lib/*": "./src/lib/*"
+  }
 }
