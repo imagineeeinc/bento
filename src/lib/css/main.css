@@ -117,7 +117,7 @@ button {
   background: var(--bg);
   border-radius: 10px;
   cursor: pointer;
-  outline: 3px solid var(--secondary);
+  outline: none;
   margin: 5px;
   font: inherit;
 }
@@ -164,6 +164,9 @@ button.big {
 button:active {
   transform: scale(0.95);
   background: var(--primary);
+}
+button.dimmed {
+  color: var(--color-sec)
 }
 input[type='range'] {
   -webkit-appearance: none;
