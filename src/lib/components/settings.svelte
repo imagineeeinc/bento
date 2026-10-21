@@ -1,7 +1,7 @@
 <script>
 	import Acordian from "./acordian.svelte"
 	import Modal from "./modal.svelte"
-	import { theme, settings } from "$lib/components/store.js"
+	import { theme, settings } from "#lib/components/store.js"
 	import { resetClient } from "./store.js";
 	
 	let gridSize = $state($settings.local.gridFontSize)

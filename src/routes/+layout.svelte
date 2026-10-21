@@ -1,6 +1,6 @@
 <script>
-  import '$lib/css/main.css'
-  import { theme } from '$lib/components/store.js'
+  import '#lib/css/main.css'
+  import { theme } from '#lib/components/store.js'
 </script>
 <svelte:head>
   <title>Bento</title>

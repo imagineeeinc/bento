@@ -1,4 +1,4 @@
-import { invalidateSession, deleteSessionTokenCookie } from '$lib/server/session.js'
+import { invalidateSession, deleteSessionTokenCookie } from '#lib/server/session.js'
 import { fail, redirect } from '@sveltejs/kit'
 
 export async function GET(event) {

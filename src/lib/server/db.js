@@ -1,11 +1,11 @@
-import { env } from '$env/dynamic/private'
+import { DATABASE_URL } from '$app/env/private';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { eq } from 'drizzle-orm'
 import { usersTable, notesTable } from '../../db/schema.js'
 import { verifyPasswordHash } from './password.js'
 import { DateTime } from 'luxon'
 
-export const db = drizzle(env.DATABASE_URL);
+export const db = drizzle(DATABASE_URL);
 
 export function newUser(username, email, password) {
 	return db.insert(usersTable).values({ username: username.toLowerCase(), email, password }).onConflictDoNothing().returning()
@@ -29,15 +29,13 @@ export async function getNotes(userId) {
 	})
 	result = result.map(item => JSON.parse(item.data))
 	return result */
-	let result = await db.select({
-		data: notesTable.data,
-	})
-	.from(notesTable)
-	.where(eq(notesTable.userId, userId))
-	.orderBy(notesTable.created, 'ASC')
-	let res = []
-	result.forEach(item => res.push(item.data))
-	return res
+	let result = await db.select({ data: notesTable.data }).from(notesTable).where(eq(notesTable.userId, userId)).orderBy(notesTable.created, 'ASC');
+
+	let res = [];
+
+	result.forEach((item) => res.push(item.data));
+
+	return res;
 }
 
 export async function putNotes(userId, data) {
@@ -45,10 +43,10 @@ export async function putNotes(userId, data) {
   let updated = []
   let deletedList = []
 	if (data !== null) {
-		data.forEach(n => {
-			let i = null
-			let timestamp = 0
-			let deleted = false
+		data.forEach((n) => {
+			let i = null;
+			let timestamp = 0;
+			let deleted = false;
 			oldData.find((data, index) => {
 				if (data.uid === n.uid) {
 					i = index
@@ -78,13 +76,13 @@ export async function putNotes(userId, data) {
 }
 
 async function putAway(data, timestamp, updated, deleted, userId) {
-	updated.forEach(async i => {
-		let item = data[i]
-		await db.insert(notesTable)
-		.values({
+	updated.forEach(async (i) => {
+		let item = data[i];
+
+		await db.insert(notesTable).values({
 			id: item.uid,
 			data: item,
-			userId: userId,
+			userId,
 			lastUpdated: new Date(timestamp),
 			created: new Date(item.creation),
 			delete: item.delete
@@ -96,11 +94,11 @@ async function putAway(data, timestamp, updated, deleted, userId) {
 				created: new Date(item.creation),
 				delete: item.delete
 			}
-		})
-	})
-	deleted.forEach(async i => {
-		await db.delete(notesTable).where(eq(notesTable.id, data[i].uid))
-	})
+		});
+	});
+	deleted.forEach(async (i) => {
+		await db.delete(notesTable).where(eq(notesTable.id, data[i].uid));
+	});
 }
 
 export async function getNote(userId, noteId) {

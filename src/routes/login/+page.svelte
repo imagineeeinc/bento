@@ -1,10 +1,11 @@
 <script>
-	let { data, form } = $props()
-	let mode = $state(form ? form.mode : 0)
-	let showPassword = $state(false)
-	let register = $state(data? data.register : true)
-	import { redirect } from '@sveltejs/kit'
-	import { browser } from '$app/environment'
+	let { data, form } = $props();
+	let mode = $state(form ? form.mode : 0);
+	let showPassword = $state(false);
+	let register = $state(data ? data.register : true);
+
+	import { redirect } from '@sveltejs/kit';
+	import { browser } from '$app/env';
 
 	if (browser && form && form.success) window.location.href = '/';
 </script>
@@ -15,7 +16,7 @@
 	<div id="login-form">
 		<img src="/images/bento2.svg" width="30%" alt="bento logo" />
 		<h1>Bento</h1>
-		<hr>
+		<hr />
 		{#if register == true || register == 'true'}
 			<div id="selection">
 				<button class={[mode==0?'selected':'']} onclick={() => mode = 0}>Login</button>
@@ -41,10 +42,9 @@
 				</div>
 			</label>
 			{#if form?.error}
-				<br>
-				<div id="error">{form.error}</div>
+				<br /><div id="error">{form.error}</div>
 			{/if}
-			<br>
+			<br />
 			<button type="submit">
 				{#if mode == 0}Login{:else}Register{/if}
 			</button>

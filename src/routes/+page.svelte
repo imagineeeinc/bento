@@ -1,16 +1,16 @@
 <script>
-  import Editor from '$lib/components/editor.svelte'
-  import Menu from '$lib/components/menu.svelte'
-  import Settings from '$lib/components/settings.svelte'
-  import About from '$lib/components/about.svelte'
-  import Search, { searchTerm } from '$lib/components/search.svelte'
-  import Grid from '$lib/components/grid.svelte'
-  import { newNoteId } from '../lib/components/store'
-  import SvelteMarkdown from 'svelte-markdown'
-  import { fade } from 'svelte/transition'
-  import Router, { push, replace } from 'svelte-spa-router'
-  import { browser } from '$app/environment'
-  import { slide } from 'svelte/transition'
+  import Editor from '#lib/components/editor.svelte';
+  import Menu from '#lib/components/menu.svelte';
+  import Settings from '#lib/components/settings.svelte';
+  import About from '#lib/components/about.svelte';
+  import Search, { searchTerm } from '#lib/components/search.svelte';
+  import Grid from '#lib/components/grid.svelte';
+  import { newNoteId } from '../lib/components/store';
+  import SvelteMarkdown from 'svelte-markdown';
+  import { fade } from 'svelte/transition';
+  import Router, { push, replace } from 'svelte-spa-router';
+  import { browser } from '$app/env';
+  import { slide } from 'svelte/transition';
   // import { version, dev } from '$app/environment';
   function newNote() {
     push(`/editor/${newNoteId()}`)
@@ -24,7 +24,7 @@
   let searchMenuOpened = false
 
   if (browser) {
-    searchTerm.subscribe(val=>{
+    searchTerm.subscribe((val) => {
       if (val != "" && searchMenuOpened == false) {
         push("/search")
         searchMenuOpened = true
@@ -47,15 +47,25 @@
   }
 </script>
 <nav>
-  <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
-  <input type="search" id="searchbar" placeholder="Search your notes" bind:value={$searchTerm}>
+  <button
+    id="menu-btn"
+    class="m-icon big"
+    on:click={openMenu}
+  >menu</button>
+
+  <input
+    type="search"
+    id="searchbar"
+    placeholder="Search your notes"
+    bind:value={$searchTerm}
+  />
 </nav>
 <!-- {#if $searchterm != ""} -->
 <!--   <search></search> -->
 <!-- {/if} -->
-<Grid tag=""></Grid>
+<Grid tag="" />
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
-<Router {routes}>
+<Router routes={routes}>
   <!-- <Route path="editor/:uid" let:params><Editor uid="{params.uid}"/></Route>
   <Route path="menu"><Menu transition={slide} /></Route>
   <Route path="settings"><Settings /></Route>

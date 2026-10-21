@@ -1,7 +1,7 @@
 import { json, error } from '@sveltejs/kit'
 import { env } from "$env/dynamic/private"
-import { validateSessionToken } from '$lib/server/session.js'
-import { getNotes, putNotes } from '$lib/server/db.js'
+import { validateSessionToken } from '#lib/server/session.js'
+import { getNotes, putNotes } from '#lib/server/db.js'
 
 export async function GET(event) {
 	let session = await validateSessionToken(event.cookies.get("session"))

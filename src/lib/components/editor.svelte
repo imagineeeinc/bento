@@ -14,13 +14,13 @@
   import { onMount } from 'svelte'
   import { pop } from 'svelte-spa-router'
   import SvelteMarkdown from 'svelte-markdown'
-  import { sendFile } from '$lib/components/images.js'
-  import { newNote, updateNote, delNote, getUidNote, settings } from '$lib/components/store'
-  import TagsEditor from '$lib/components/tagsEditor.svelte'
+  import { sendFile } from '#lib/components/images.js'
+  import { newNote, updateNote, delNote, getUidNote, settings } from '#lib/components/store.js'
+  import TagsEditor from '#lib/components/tagsEditor.svelte'
   import { createHotkey } from '@tanstack/svelte-hotkeys'
   import { fade } from 'svelte/transition'
 
-  import Link from '$lib/components/renderer/Link.svelte'
+  import Link from '#lib/components/renderer/Link.svelte'
 
   function stats() {
     charCount = $text.length

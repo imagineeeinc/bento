@@ -1,5 +1,5 @@
-import { writable, get } from 'svelte/store'
-import { browser } from '$app/environment'
+import { writable, get } from 'svelte/store';
+import { browser } from '$app/env';
 /*
 format:
 {
@@ -29,15 +29,15 @@ format:
 }
 */
 // Vars
-export let notes = writable([])
-export let settings = writable({global: {}, local: {
-  gridFontSize: 0.8
-}})
-export let theme = writable(browser? localStorage.getItem('theme') || 'system' : 'system')
-export let tags = writable([])
-let user = ''
+export let notes = writable([]);
 
-let newNoteIds = []
+export let settings = writable({ global: {}, local: { gridFontSize: 0.8 } });
+export let theme = writable(browser ? localStorage.getItem('theme') || 'system' : 'system');
+export let tags = writable([]);
+
+let user = '';
+let newNoteIds = [];
+
 export function newNoteId() {
   let res = crypto.randomUUID()
   newNoteIds.push(res)
@@ -48,25 +48,23 @@ export function newNote() {
   notes.update((list) => {
     list.push(
       {
-        title: '',
-        data: '',
-        creation: Date.now(),
-        lastEdited: Date.now(),
-        uid: uid,
-        owner: user,
-        delete: false,
-        archive: false,
-        pin: false,
-        tags: [],
-        clientArgs: {
-          markdown: true,
-          editing: true
-        }
-      }
-    )
-    return list
-  })
-  return uid
+      title: '',
+      data: '',
+      creation: Date.now(),
+      lastEdited: Date.now(),
+      uid,
+      owner: user,
+      delete: false,
+      archive: false,
+      pin: false,
+      tags: [],
+      clientArgs: { markdown: true, editing: true }
+    });
+
+    return list;
+  });
+
+  return uid;
 }
 
 export function updateNote(uid, text, title, archive, pin, editing) {
@@ -81,22 +79,20 @@ export function updateNote(uid, text, title, archive, pin, editing) {
     })
     if (i === null) {
       note = {
-          title: title,
-          data: title,
-          creation: Date.now(),
-          lastEdited: Date.now(),
-          uid: uid,
-          owner: user,
-          delete: false,
-          archive: archive,
-          pin: pin,
-          tags: [],
-          clientArgs: {
-            markdown: true,
-            editing: editing
-          }
-        }
-      list.push(note)
+        title,
+        data: title,
+        creation: Date.now(),
+        lastEdited: Date.now(),
+        uid,
+        owner: user,
+        delete: false,
+        archive,
+        pin,
+        tags: [],
+        clientArgs: { markdown: true, editing }
+      };
+
+      list.push(note);
     } else {
       note = list[i]
       note.data = text
@@ -108,17 +104,15 @@ export function updateNote(uid, text, title, archive, pin, editing) {
       note.clientArgs.editing = editing
       list[i] = note
     }
-    return list
-  })
 
-  let d = new FormData()
-  d.append("data", JSON.stringify(note))
-  fetch(`/api/v2/update?id=${uid}`, {
-    method: 'POST',
-    body: d
-  })
-  .then(res => res.json())
-  .then(res => {
+    return list;
+  });
+
+  let d = new FormData();
+
+  d.append("data", JSON.stringify(note));
+
+  fetch(`/api/v2/update?id=${uid}`, { method: 'POST', body: d }).then((res) => res.json()).then((res) => {
     if (res.error) {
       console.error(res.error)
     }
@@ -164,7 +158,7 @@ export function getUidNote(uid) {
       data: '',
       creation: Date.now(),
       lastEdited: Date.now(),
-      uid: uid,
+      uid,
       owner: user,
       delete: false,
       archive: false,
@@ -218,12 +212,17 @@ export function setUidTags(uid, tags) {
 // Note Sync
 let sendOf = null
 async function syncSave() {
-  let d = new FormData()
-  d.append("notes", localStorage.getItem('bento_notes'))
-  fetch(`/api/v1/sync`, {
-    method: "POST",
-    body: d
-  }).then(res=>res.json()).then(res=>{if (res.success) {sendOf = null} else {console.error(res.error)}})
+  let d = new FormData();
+
+  d.append("notes", localStorage.getItem('bento_notes'));
+
+  fetch(`/api/v1/sync`, { method: "POST", body: d }).then((res) => res.json()).then((res) => {
+    if (res.success) {
+      sendOf = null;
+    } else {
+      console.error(res.error);
+    }
+  });
 }
 var firstTime
 async function syncFirst() {
@@ -235,16 +234,19 @@ async function syncFirst() {
   })
   res = await res.json()
   if (res.notes) {
-    notes.set(res.notes)
-    settings.update(val => {return {global: res.settings, local: val.local}})
+    notes.set(res.notes);
+
+    settings.update((val) => {
+      return { global: res.settings, local: val.local };
+    });
   } else if (res.error != "Not logged in") {
     alert("Error syncing")
     console.error(res.error)
   }
 }
 function sync() {
-	fetch('/api/v1/sync').then(res => res.json()).then(res => notes.set(res.notes))
-	localStorage.setItem('beans_notes', JSON.stringify(get(notes)))
+  fetch('/api/v1/sync').then((res) => res.json()).then((res) => notes.set(res.notes));
+  localStorage.setItem('beans_notes', JSON.stringify(get(notes)));
 }
 if (browser) {
   // Check if 
@@ -280,9 +282,9 @@ if (browser) {
 }
 
 export function availableTags() {
-  get(notes).forEach(note => {
+  get(notes).forEach((note) => {
     if (note.tags) {
-      note.tags.forEach(tag => {
+      note.tags.forEach((tag) => {
         if (!get(tags).includes(tag)) {
           tags.update((list) => {
             list.push(tag)

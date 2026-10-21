@@ -1,17 +1,15 @@
-import { hashPassword, verifyPasswordHash } from '$lib/server/password.js'
-import { newUser, comparePasswordHash } from '$lib/server/db.js'
-import { generateSessionToken, createSession, setSessionTokenCookie } from '$lib/server/session.js'
-import { fail, redirect } from '@sveltejs/kit'
-import { env } from '$env/dynamic/private'
+import { hashPassword, verifyPasswordHash } from '#lib/server/password.js';
+import { newUser, comparePasswordHash } from '#lib/server/db.js';
+import { generateSessionToken, createSession, setSessionTokenCookie } from '#lib/server/session.js';
+import { fail, redirect } from '@sveltejs/kit';
+import { REGISTRATION } from '$app/env/private';
 
 export const load = async (event) => {
 	const token = event.cookies.get("session") ?? null
 	if (token !== null && event.request.method !== 'POST') {
 		return redirect(307, '/')
 	} else {
-		return {
-			register: env.REGISTRATION || true
-		}
+		return { register: REGISTRATION || true };
 	}
 }
 export const actions = {
@@ -42,14 +40,14 @@ export const actions = {
 
 	},
 	register: async (event) => {
-		if (env.REGISTRATION == 'false') return {
-			error: 'Registration is disabled'
-		}
-		const data = await event.request.formData()
-		let username = data.get('username')
-		let password = await hashPassword(data.get('password'))
-		let email = data.get('email')
-		let user = await newUser(username, email, password)
+		if (REGISTRATION == 'false') return { error: 'Registration is disabled' };
+
+		const data = await event.request.formData();
+		let username = data.get('username');
+		let password = await hashPassword(data.get('password'));
+		let email = data.get('email');
+		let user = await newUser(username, email, password);
+
 		if (user.length == 0) {
 			return {
 				error: 'User already exists with that username or email',

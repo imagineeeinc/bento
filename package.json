@@ -11,9 +11,9 @@
 		"migrations": "npx drizzle-kit push"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-node": "^5.5.7",
-		"@sveltejs/kit": "^2.70.3",
-		"@sveltejs/vite-plugin-svelte": "^5.1.1",
+		"@sveltejs/adapter-node": "^6.0.0",
+		"@sveltejs/kit": "^3.1.0",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
 		"drizzle-kit": "^0.30.6",
 		"svelte": "^5.57.2",
 		"vite": "^8.3.4"
@@ -35,12 +35,8 @@
 		"svelte-tags-input": "^6.0.2",
 		"uuid4": "^2.0.3"
 	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@sveltejs/kit",
-			"core-js",
-			"esbuild"
-		]
-	},
-	"packageManager": "pnpm@11.28.6+sha512.55d90390c3b39042f1505a2697789f0256c6d95bb28bdd7cb731af1887c9f2629ef581acb9f4e4ec772024c8203c2aed22a03299b97103fdcf32668e905d0024"
+	"packageManager": "pnpm@11.28.6+sha512.55d90390c3b39042f1505a2697789f0256c6d95bb28bdd7cb731af1887c9f2629ef581acb9f4e4ec772024c8203c2aed22a03299b97103fdcf32668e905d0024",
+	"imports": {
+		"#lib/*": "./src/lib/*"
+	}
 }

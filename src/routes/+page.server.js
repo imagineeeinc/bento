@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit'
 import {
 	validateSessionToken,
 	deleteSessionTokenCookie
-} from '$lib/server/session.js'
+} from '#lib/server/session.js'
 
 export const load = async (event) => {
 	const token = event.cookies.get("session") ?? null

@@ -1,5 +1,5 @@
 <script>
-	import { availableTags, getUidTags, setUidTags } from '$lib/components/store.js'
+	import { availableTags, getUidTags, setUidTags } from '#lib/components/store.js'
 
 	export let tagEditor = null
 	export let uid = null

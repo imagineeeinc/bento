@@ -1,7 +1,7 @@
 <script>
   import { push } from 'svelte-spa-router'
 	import SvelteMarkdown from 'svelte-markdown'
-  import { settings } from '$lib/components/store'
+  import { settings } from '#lib/components/store.js'
 
 	export let note
 	function editNow(uid) {

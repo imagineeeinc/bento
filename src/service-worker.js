@@ -1,13 +1,17 @@
-/// <reference types="@sveltejs/kit" />
-import { build, files, version } from '$service-worker';
+import { self } from '$app/service-worker';
+import { version } from '$app/env';
+import { immutable, assets } from '$app/manifest';
+import { resolve } from '$app/paths';
 
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
 
-console.log(build)
+// `immutable`/`assets` paths from `$app/manifest` are relative to the
+// base path, so resolve them to absolute pathnames that can be matched
+// against `url.pathname` in the `fetch` handler
 const ASSETS = [
-  ...build, // the app itself
-  ...files  // everything in `static`
+  ...immutable.map((asset) => resolve(asset.path)), // the Vite output
+  ...assets.map((asset) => resolve(asset.path))  // everything in `static`
 ];
 
 self.addEventListener('install', (event) => {
@@ -32,46 +36,46 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+	// ignore POST requests etc
+	if (event.request.method !== 'GET') return;
+  // if anyhting under `/api`
+	if (event.request.url.includes('/api/')) return;
 
+  
   async function respond() {
     const url = new URL(event.request.url);
-    const cache = await caches.open(CACHE);  
-    // `build`/`files` can always be served from the cache
-    if (ASSETS.includes(url.pathname)) {
-      return cache.match(url.pathname);
-    } 
-    // ignore POST requests etc
-    if (event.request.method !== 'GET') {
-      return fetch(event.request);
-    }
-    // if anyhting under `/api`
-    if (event.request.url.includes('/api/')) {
-      return fetch(event.request);
-    }
-    // for everything else, try the network first, but
-    // fall back to the cache if we're offline
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2500);
-      const response = await fetch(event.request, { signal: controller.signal });
-      clearTimeout(timeoutId);
-      // if response takes to long return from cache
-      // if (response.headers.get('x-sveltekit-cache') === 'no-store') {
-      //   return response;
-      // }
-      
-      if (response.status === 200) {
-        cache.put(event.request, response.clone());
-      }  
-      return response;
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        // If the fetch was aborted due to timeout, return from cache
-        return cache.match(event.request);
-      } else {
-        return cache.match(event.request);
+  	const cache = await caches.open(CACHE);
+
+    // `immutable`/`assets` can always be served from the cache
+		if (ASSETS.includes(url.pathname)) {
+      const response = await cache.match(url.pathname);
+   
+      if (response) {
+        return response;
       }
     }
+
+		// for everything else, try the network first...
+    try {
+      const response = await fetch(event.request);
+      
+      if (response.status === 200 && !response.headers.get('cache-control')?.includes('no-store')) {
+        // ...and cache responses in the background for next time....
+        void cache.put(event.request, response.clone());
+      }
+      
+      return response;
+    } catch (error) {
+      // ...otherwise fall back to previously cached data if it exists...
+      const response = await cache.match(event.request);
+      
+      if (response) {
+        return response;
+      }
+      
+      // ...or throw the error
+      throw error;
+  	}
   }
 
   event.respondWith(respond());

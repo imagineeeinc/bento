@@ -2,7 +2,7 @@
   let {params = {}} = $props()
 	let tag = params.tag || ""
 
-	import { notes } from '$lib/components/store'
+	import { notes } from '#lib/components/store.js'
   import NoteBox from './noteBox.svelte';
   import { writable } from 'svelte/store';
 

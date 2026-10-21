@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import lunr from 'lunr'
 	import SvelteMarkdown from 'svelte-markdown'
-	import { notes, getUidNote } from '$lib/components/store'
+	import { notes, getUidNote } from '#lib/components/store.js'
 	import { push } from 'svelte-spa-router'
 
 	var idx
