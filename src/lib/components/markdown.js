@@ -1,7 +1,7 @@
-import { marked } from 'marked'
-import DOMPurify from 'dompurify'
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
-console.log(DOMPurify)
+console.log(DOMPurify);
 export function mdToUi(md) {
-	return DOMPurify.sanitize(marked.parse(md), { USE_PROFILES: { html: true } })
+  return DOMPurify.sanitize(marked.parse(md), { USE_PROFILES: { html: true } });
 }

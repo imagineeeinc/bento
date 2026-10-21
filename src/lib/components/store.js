@@ -39,15 +39,14 @@ let user = '';
 let newNoteIds = [];
 
 export function newNoteId() {
-  let res = crypto.randomUUID()
-  newNoteIds.push(res)
-  return res
+  let res = crypto.randomUUID();
+  newNoteIds.push(res);
+  return res;
 }
 export function newNote() {
-  let uid = crypto.randomUUID()
+  let uid = crypto.randomUUID();
   notes.update((list) => {
-    list.push(
-      {
+    list.push({
       title: '',
       data: '',
       creation: Date.now(),
@@ -68,15 +67,15 @@ export function newNote() {
 }
 
 export function updateNote(uid, text, title, archive, pin, editing) {
-  let note = {}
+  let note = {};
   notes.update((list) => {
-    let i = null
+    let i = null;
     list.find((data, index) => {
       if (data.uid === uid) {
-        i = index
-        return true
+        i = index;
+        return true;
       }
-    })
+    });
     if (i === null) {
       note = {
         title,
@@ -94,15 +93,15 @@ export function updateNote(uid, text, title, archive, pin, editing) {
 
       list.push(note);
     } else {
-      note = list[i]
-      note.data = text
-      note.title = title
-      note.owner = user
-      note.lastEdited = Date.now()
-      note.archive = archive
-      note.pin = pin
-      note.clientArgs.editing = editing
-      list[i] = note
+      note = list[i];
+      note.data = text;
+      note.title = title;
+      note.owner = user;
+      note.lastEdited = Date.now();
+      note.archive = archive;
+      note.pin = pin;
+      note.clientArgs.editing = editing;
+      list[i] = note;
     }
 
     return list;
@@ -110,48 +109,50 @@ export function updateNote(uid, text, title, archive, pin, editing) {
 
   let d = new FormData();
 
-  d.append("data", JSON.stringify(note));
+  d.append('data', JSON.stringify(note));
 
-  fetch(`/api/v2/update?id=${uid}`, { method: 'POST', body: d }).then((res) => res.json()).then((res) => {
-    if (res.error) {
-      console.error(res.error)
-    }
-  })
+  fetch(`/api/v2/update?id=${uid}`, { method: 'POST', body: d })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        console.error(res.error);
+      }
+    });
 }
 
 export function delNote(uid) {
   notes.update((list) => {
-    let i = null
+    let i = null;
     list.find((data, index) => {
       if (data.uid === uid) {
-        i = index
-        return true
+        i = index;
+        return true;
       }
-    })
-    let note = list[i]
-    delete note.data
-    delete note.title
-    delete note.owner
-    delete note.clientArgs
-    note.lastEdited = Date.now()
-    note.delete = true
-    list[i] = note
-    return list
-  })
-  syncSave()
+    });
+    let note = list[i];
+    delete note.data;
+    delete note.title;
+    delete note.owner;
+    delete note.clientArgs;
+    note.lastEdited = Date.now();
+    note.delete = true;
+    list[i] = note;
+    return list;
+  });
+  syncSave();
 }
 export function getListNotes() {
-  return get(notes)
+  return get(notes);
 }
 export function getUidNote(uid) {
-  let list = getListNotes()
-  let i = null
+  let list = getListNotes();
+  let i = null;
   list.find((data, index) => {
     if (data.uid === uid) {
-      i = index
-      return true
+      i = index;
+      return true;
     }
-  })
+  });
   if (i === null && newNoteIds.includes(uid)) {
     return {
       title: '',
@@ -168,117 +169,125 @@ export function getUidNote(uid) {
         markdown: true,
         editing: true
       }
-    }
+    };
   }
-  return list[i]
+  return list[i];
 }
 export function getUidTags(uid) {
-  let list = getListNotes()
-  let i = null
+  let list = getListNotes();
+  let i = null;
   list.find((data, index) => {
     if (data.uid === uid) {
-      i = index
-      return true
+      i = index;
+      return true;
     }
-  })
-  let note = list[i]
+  });
+  let note = list[i];
   // if tags dosen't exist create and save
   if (note.tags === undefined) {
-    note.tags = []
-    list[i] = note
-    notes.set(list)
+    note.tags = [];
+    list[i] = note;
+    notes.set(list);
   }
-  return note.tags
+  return note.tags;
 }
 export function setUidTags(uid, tags) {
-  let note = {}
+  let note = {};
   notes.update((list) => {
-    let i = null
+    let i = null;
     list.find((data, index) => {
       if (data.uid === uid) {
-        i = index
-        return true
+        i = index;
+        return true;
       }
-    })
-    note = list[i]
-    note.tags = tags
-    note.lastEdited = Date.now()
-    list[i] = note
-    return list
-  })
-  updateNote(uid, note.data, note.title, note.archive, note.pin)
+    });
+    note = list[i];
+    note.tags = tags;
+    note.lastEdited = Date.now();
+    list[i] = note;
+    return list;
+  });
+  updateNote(uid, note.data, note.title, note.archive, note.pin);
 }
 
 // Note Sync
-let sendOf = null
+let sendOf = null;
 async function syncSave() {
   let d = new FormData();
 
-  d.append("notes", localStorage.getItem('bento_notes'));
+  d.append('notes', localStorage.getItem('bento_notes'));
 
-  fetch(`/api/v1/sync`, { method: "POST", body: d }).then((res) => res.json()).then((res) => {
-    if (res.success) {
-      sendOf = null;
-    } else {
-      console.error(res.error);
-    }
-  });
+  fetch(`/api/v1/sync`, { method: 'POST', body: d })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.success) {
+        sendOf = null;
+      } else {
+        console.error(res.error);
+      }
+    });
 }
-var firstTime
+var firstTime;
 async function syncFirst() {
-  let d = new FormData()
-  d.append("notes", localStorage.getItem('bento_notes'))
+  let d = new FormData();
+  d.append('notes', localStorage.getItem('bento_notes'));
   let res = await fetch(`/api/v1/sync?first=true`, {
-    method: "POST",
+    method: 'POST',
     body: d
-  })
-  res = await res.json()
+  });
+  res = await res.json();
   if (res.notes) {
     notes.set(res.notes);
 
     settings.update((val) => {
       return { global: res.settings, local: val.local };
     });
-  } else if (res.error != "Not logged in") {
-    alert("Error syncing")
-    console.error(res.error)
+  } else if (res.error != 'Not logged in') {
+    alert('Error syncing');
+    console.error(res.error);
   }
 }
 function sync() {
-  fetch('/api/v1/sync').then((res) => res.json()).then((res) => notes.set(res.notes));
+  fetch('/api/v1/sync')
+    .then((res) => res.json())
+    .then((res) => notes.set(res.notes));
   localStorage.setItem('beans_notes', JSON.stringify(get(notes)));
 }
 if (browser) {
-  // Check if 
-  if (localStorage.getItem('bento_notes') !== undefined &&
-  localStorage.getItem('bento_notes') != "" &&
-  localStorage.getItem('bento_notes') !== null) {
-    notes.set(JSON.parse(localStorage.getItem('bento_notes')))
+  // Check if
+  if (
+    localStorage.getItem('bento_notes') !== undefined &&
+    localStorage.getItem('bento_notes') != '' &&
+    localStorage.getItem('bento_notes') !== null
+  ) {
+    notes.set(JSON.parse(localStorage.getItem('bento_notes')));
   }
-  syncFirst()
+  syncFirst();
   // Auto save every minute
   setInterval(() => {
-    syncSave()
-  }, 60*1000)
+    syncSave();
+  }, 60 * 1000);
   notes.subscribe((data) => {
-    localStorage.setItem('bento_notes', JSON.stringify(data))
-  })
-  theme.set(localStorage.getItem('theme') || 'system')
+    localStorage.setItem('bento_notes', JSON.stringify(data));
+  });
+  theme.set(localStorage.getItem('theme') || 'system');
   theme.subscribe((data) => {
-    localStorage.setItem('theme', data)
-  })
+    localStorage.setItem('theme', data);
+  });
 }
 
 // Settings
 if (browser) {
-  if (localStorage.getItem('bento_settings') !== undefined &&
-  localStorage.getItem('bento_settings') != "" &&
-  localStorage.getItem('bento_settings') !== null) {
-    settings.set(JSON.parse(localStorage.getItem('bento_settings')))
+  if (
+    localStorage.getItem('bento_settings') !== undefined &&
+    localStorage.getItem('bento_settings') != '' &&
+    localStorage.getItem('bento_settings') !== null
+  ) {
+    settings.set(JSON.parse(localStorage.getItem('bento_settings')));
   }
   settings.subscribe((data) => {
-    localStorage.setItem('bento_settings', JSON.stringify(data))
-  })
+    localStorage.setItem('bento_settings', JSON.stringify(data));
+  });
 }
 
 export function availableTags() {
@@ -287,18 +296,18 @@ export function availableTags() {
       note.tags.forEach((tag) => {
         if (!get(tags).includes(tag)) {
           tags.update((list) => {
-            list.push(tag)
-            return list
-          })
+            list.push(tag);
+            return list;
+          });
         }
-      })
+      });
     }
-  })
-  return get(tags)
+  });
+  return get(tags);
 }
 
 export function resetClient() {
-  localStorage.removeItem('bento_notes')
-  localStorage.removeItem('bento_settings')
-  localStorage.removeItem('theme')
+  localStorage.removeItem('bento_notes');
+  localStorage.removeItem('bento_settings');
+  localStorage.removeItem('theme');
 }

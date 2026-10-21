@@ -1,40 +1,41 @@
 <script>
-  let {params = {}} = $props()
-	let tag = params.tag || ""
+  let { params = {} } = $props();
+  let tag = params.tag || '';
 
-	import { notes } from '#lib/components/store.js'
+  import { notes } from '#lib/components/store.js';
   import NoteBox from './noteBox.svelte';
   import { writable } from 'svelte/store';
 
-	function filterBy(item) {
-		if (tag == "") {
-			return !item.archive
-		} else {
-			return (item.tags && item.tags.includes(tag)) || (tag == "archive" && item.archive)
-		}
-	}
-  let pinned = writable([])
+  function filterBy(item) {
+    if (tag == '') {
+      return !item.archive;
+    } else {
+      return (item.tags && item.tags.includes(tag)) || (tag == 'archive' && item.archive);
+    }
+  }
+  let pinned = writable([]);
   notes.subscribe((value) => {
-    pinned.set([])
+    pinned.set([]);
     pinned.update(() => {
-      let list = []
-      let notesList = value.filter(filterBy)
+      let list = [];
+      let notesList = value.filter(filterBy);
       for (let i = 0; i < notesList.length; i++) {
         if (notesList[i].pin) {
-          list.push(notesList[i])
+          list.push(notesList[i]);
         }
       }
-      return list
-    })
-  })
+      return list;
+    });
+  });
 </script>
+
 <div id="grid">
   {#if $pinned.length > 0}
     <span class="section-title">Pinned</span>
     <div class="notes-grid">
       {#each [...$pinned].reverse().filter(filterBy) as note}
         <NoteBox {note} />
-      {/each} 
+      {/each}
     </div>
   {/if}
   {#if $pinned.length > 0}
@@ -50,7 +51,7 @@
 </div>
 
 <style>
-	#grid {
+  #grid {
     position: absolute;
     top: 0;
     left: 0;
@@ -59,8 +60,8 @@
     width: calc(100% - 2ch);
     overflow-y: auto;
     padding: 0 1ch;
-		padding-bottom: 2ch;
-		background: var(--bg);
+    padding-bottom: 2ch;
+    background: var(--bg);
   }
   .notes-grid {
     display: flex;

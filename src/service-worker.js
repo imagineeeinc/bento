@@ -11,7 +11,7 @@ const CACHE = `cache-${version}`;
 // against `url.pathname` in the `fetch` handler
 const ASSETS = [
   ...immutable.map((asset) => resolve(asset.path)), // the Vite output
-  ...assets.map((asset) => resolve(asset.path))  // everything in `static`
+  ...assets.map((asset) => resolve(asset.path)) // everything in `static`
 ];
 
 self.addEventListener('install', (event) => {
@@ -36,46 +36,45 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-	// ignore POST requests etc
-	if (event.request.method !== 'GET') return;
+  // ignore POST requests etc
+  if (event.request.method !== 'GET') return;
   // if anyhting under `/api`
-	if (event.request.url.includes('/api/')) return;
+  if (event.request.url.includes('/api/')) return;
 
-  
   async function respond() {
     const url = new URL(event.request.url);
-  	const cache = await caches.open(CACHE);
+    const cache = await caches.open(CACHE);
 
     // `immutable`/`assets` can always be served from the cache
-		if (ASSETS.includes(url.pathname)) {
+    if (ASSETS.includes(url.pathname)) {
       const response = await cache.match(url.pathname);
-   
+
       if (response) {
         return response;
       }
     }
 
-		// for everything else, try the network first...
+    // for everything else, try the network first...
     try {
       const response = await fetch(event.request);
-      
+
       if (response.status === 200 && !response.headers.get('cache-control')?.includes('no-store')) {
         // ...and cache responses in the background for next time....
         void cache.put(event.request, response.clone());
       }
-      
+
       return response;
     } catch (error) {
       // ...otherwise fall back to previously cached data if it exists...
       const response = await cache.match(event.request);
-      
+
       if (response) {
         return response;
       }
-      
+
       // ...or throw the error
       throw error;
-  	}
+    }
   }
 
   event.respondWith(respond());

@@ -13,59 +13,51 @@
   import { slide } from 'svelte/transition';
   // import { version, dev } from '$app/environment';
   function newNote() {
-    push(`/editor/${newNoteId()}`)
+    push(`/editor/${newNoteId()}`);
   }
   function openMenu() {
-    menuOpened = true
-    push('/menu')
+    menuOpened = true;
+    push('/menu');
   }
-  let animtion = { fn: fade, duration: 200 }
-  let menuOpened = false
-  let searchMenuOpened = false
+  let animtion = { fn: fade, duration: 200 };
+  let menuOpened = false;
+  let searchMenuOpened = false;
 
   if (browser) {
     searchTerm.subscribe((val) => {
-      if (val != "" && searchMenuOpened == false) {
-        push("/search")
-        searchMenuOpened = true
-        document.getElementById("searchbar").focus()
-      } else if (val == "" && searchMenuOpened == true){
-        replace("/")
-        searchMenuOpened = false
-        document.getElementById("searchbar").focus()
+      if (val != '' && searchMenuOpened == false) {
+        push('/search');
+        searchMenuOpened = true;
+        document.getElementById('searchbar').focus();
+      } else if (val == '' && searchMenuOpened == true) {
+        replace('/');
+        searchMenuOpened = false;
+        document.getElementById('searchbar').focus();
       }
-    })
+    });
   }
-  let url = ''
+  let url = '';
   const routes = {
-    "/editor/:uid": Editor,
-    "/menu": Menu,
-    "/settings": Settings,
-    "/about": About,
-    "/search": Search,
-    "/tags/:tag": Grid
-  }
+    '/editor/:uid': Editor,
+    '/menu': Menu,
+    '/settings': Settings,
+    '/about': About,
+    '/search': Search,
+    '/tags/:tag': Grid
+  };
 </script>
-<nav>
-  <button
-    id="menu-btn"
-    class="m-icon big"
-    on:click={openMenu}
-  >menu</button>
 
-  <input
-    type="search"
-    id="searchbar"
-    placeholder="Search your notes"
-    bind:value={$searchTerm}
-  />
+<nav>
+  <button id="menu-btn" class="m-icon big" on:click={openMenu}>menu</button>
+
+  <input type="search" id="searchbar" placeholder="Search your notes" bind:value={$searchTerm} />
 </nav>
 <!-- {#if $searchterm != ""} -->
 <!--   <search></search> -->
 <!-- {/if} -->
 <Grid tag="" />
 <button id="new" class="m-icon big" on:click={newNote}>add</button>
-<Router routes={routes}>
+<Router {routes}>
   <!-- <Route path="editor/:uid" let:params><Editor uid="{params.uid}"/></Route>
   <Route path="menu"><Menu transition={slide} /></Route>
   <Route path="settings"><Settings /></Route>
@@ -73,6 +65,7 @@
   <Route path="search"><Search /></Route>
   <Route path="tags/:tag" let:params><Grid tag="{params.tag}"/></Route> -->
 </Router>
+
 <style>
   #new {
     position: fixed;
@@ -83,7 +76,8 @@
     outline: 3px solid var(--bg-100);
     backdrop-filter: blur(20px);
   }
-  #new:hover, #new:focus-visible {
+  #new:hover,
+  #new:focus-visible {
     outline: 3px solid var(--bg-200);
   }
   nav {
@@ -103,7 +97,8 @@
     outline: 3px solid var(--bg-50);
     backdrop-filter: blur(20px);
   }
-  #menu-btn:hover, #menu-btn:focus-visible {
+  #menu-btn:hover,
+  #menu-btn:focus-visible {
     outline: 3px solid var(--bg-200);
   }
   #searchbar {
@@ -114,7 +109,8 @@
     outline: 3px solid var(--bg-50);
     backdrop-filter: blur(20px);
   }
-  #searchbar:hover, #searchbar:focus-visible {
+  #searchbar:hover,
+  #searchbar:focus-visible {
     outline: 3px solid var(--bg-200);
   }
   :global(.note-box img) {

@@ -34,46 +34,57 @@ A self hosted minimalist multi user note taking service.
 
 Make sure to have the latest version of Node and npm installed, also pnpm is recommended over npm.
 You can also place environment variables in a `.env` file in the root of the project.
+
 1. Clone the this repo
-  ```bash
-  git clone https://github.com/imagineeeinc/bento.git
-  ```
+
+```bash
+git clone https://github.com/imagineeeinc/bento.git
+```
+
 2. Install dependencies
-  ```bash
-  # npm
-  npm i
-  # pnpm (recommended)
-  pnpm i
-  ```
+
+```bash
+# npm
+npm i
+# pnpm (recommended)
+pnpm i
+```
 
 3. Run database migrations
-  ```bash
-  npx drizzle-kit push
-  # Set env "DATABASE_URL" to the Postgres database url.
-  ```
+
+```bash
+npx drizzle-kit push
+# Set env "DATABASE_URL" to the Postgres database url.
+```
+
 4. Generate build
-  ```bash
-  # npm
-  npm run build
-  # pnpm
-  pnpm build
-  ```
+
+```bash
+# npm
+npm run build
+# pnpm
+pnpm build
+```
+
 6. Run server.
-  ```bash
-  node build
-  ```
+
+```bash
+node build
+```
 
 ### Docker
+
 Make sure to have docker cli installed.
+
 1. Build the image
-	```bash
-	docker build . -t bento
-	```
+   ```bash
+   docker build . -t bento
+   ```
 2. Run. Set the `DATABASE_URL` to your Postgresdatabse url. You can also set the used port by setting the `PORT` env.
-	```bash
-	docker run -p 3000:3000 -e DATABASE_URL "postgres://postgres:postgres@127.0.0.1:543/postgres" -d bento
-	```
-	Access the web app at `localhost:3000`.
+   ```bash
+   docker run -p 3000:3000 -e DATABASE_URL "postgres://postgres:postgres@127.0.0.1:543/postgres" -d bento
+   ```
+   Access the web app at `localhost:3000`.
 
 ## API
 

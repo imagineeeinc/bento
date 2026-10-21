@@ -1,5 +1,5 @@
 <script>
-	import { redirect } from '@sveltejs/kit'
+  import { redirect } from '@sveltejs/kit';
 
-	throw redirect(303, `/#/${window.location.pathname}`)
+  throw redirect(303, `/#/${window.location.pathname}`);
 </script>

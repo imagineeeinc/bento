@@ -1,32 +1,41 @@
 <script>
-  import { push } from 'svelte-spa-router'
-	import SvelteMarkdown from 'svelte-markdown'
-  import { settings } from '#lib/components/store.js'
+  import { push } from 'svelte-spa-router';
+  import SvelteMarkdown from 'svelte-markdown';
+  import { settings } from '#lib/components/store.js';
 
-	export let note
-	function editNow(uid) {
-		push(`/editor/${uid}`)
-	}
+  export let note;
+  function editNow(uid) {
+    push(`/editor/${uid}`);
+  }
 </script>
+
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="note-box" on:click={()=>editNow(note.uid)} style="font-size: {$settings.local.gridFontSize || 0.8}em">
-	<h3>{note.title}</h3>
-	<SvelteMarkdown source={note.data} />
-	<div class="note-time">
-		{#if note.tags && note.tags.length > 0}
-			<span class="tags-list">
-				{#each note.tags as tag}
-					<span class="tag">{tag}</span>
-				{/each}
-			</span>
-		{/if}
-		<span class="time">{new Intl.DateTimeFormat('en-GB', {dateStyle: 'short',timeStyle: 'short'}).format(new Date(note.lastEdited))}</span>
-	</div>
+<div
+  class="note-box"
+  on:click={() => editNow(note.uid)}
+  style="font-size: {$settings.local.gridFontSize || 0.8}em"
+>
+  <h3>{note.title}</h3>
+  <SvelteMarkdown source={note.data} />
+  <div class="note-time">
+    {#if note.tags && note.tags.length > 0}
+      <span class="tags-list">
+        {#each note.tags as tag}
+          <span class="tag">{tag}</span>
+        {/each}
+      </span>
+    {/if}
+    <span class="time"
+      >{new Intl.DateTimeFormat('en-GB', { dateStyle: 'short', timeStyle: 'short' }).format(
+        new Date(note.lastEdited)
+      )}</span
+    >
+  </div>
 </div>
 
 <style>
-	.note-box {
+  .note-box {
     --offset: 35px;
     padding: 1ch;
     padding-bottom: calc(1ch + 20px);
@@ -55,7 +64,7 @@
     justify-content: flex-end;
     color: var(--color-sec);
     background: var(--bg-transperent);
-		backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     padding: 5px;
     border-radius: 10px;
   }
@@ -80,8 +89,8 @@
   @media (max-width: 1000px) {
     .note-box {
       width: calc(50vw - var(--offset));
-      padding: .5ch 1ch;
-      padding-bottom: calc(.5ch + 20px)
+      padding: 0.5ch 1ch;
+      padding-bottom: calc(0.5ch + 20px);
     }
   }
   @media (max-width: 400px) {

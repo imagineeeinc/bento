@@ -28,11 +28,8 @@
       "description": "Create a new note"
     }
   ],
-  "categories": [
-    "productivity",
-    "utilities"
-  ],
-	"icons": [
+  "categories": ["productivity", "utilities"],
+  "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
