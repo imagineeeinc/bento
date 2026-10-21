@@ -77,8 +77,9 @@
   }
 
   .tag {
-    background: var(--secondary);
-    color: var(--color);
+    background: var(--primary);
+    color: var(--bg);
+    font-weight: 600;
     padding: 5px;
     border-radius: 10px;
     flex-shrink: 0;
