@@ -1,0 +1,20 @@
+.hori-button-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 3px;
+}
+.hori-button-bar > button {
+  margin: 0;
+  border-radius: 0;
+}
+.hori-button-bar > button:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.hori-button-bar > button:last-child {
+  border-radius: 0 10px 10px 0;
+}
+.hori-button-bar > button:only-child {
+  border-radius: 10px;
+}

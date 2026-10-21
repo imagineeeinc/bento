@@ -4,6 +4,14 @@
   import { availableTags } from './store.js';
   import Acordian from './acordian.svelte';
   import { fade } from 'svelte/transition';
+  
+  onMount(() => {
+    document.getElementById("menu-container").addEventListener("click", (e) => {
+      if (e.target.id == "menu-container") {
+        pop()
+      }
+    })
+  })
 </script>
 
 <div id="menu-container">
@@ -32,13 +40,9 @@
         </section>
       </div>
     </div>
-    <div id="bottom-bar">
-      <button class="transparent m-icon big" onclick={() => replace('/about')} title="About"
-        >info</button
-      >
-      <button class="transparent m-icon big" onclick={() => replace('/settings')} title="Settings"
-        >settings</button
-      >
+    <div id="bottom-bar" class="hori-button-bar">
+      <button class="transparent m-icon big" onclick={() => replace('/about')} title="About">info</button>
+      <button class="transparent m-icon big" onclick={() => replace('/settings')} title="Settings">settings</button>
     </div>
   </div>
 </div>
@@ -145,13 +149,16 @@
     width: calc(100% - 4ch);
     height: 60px;
     background: var(--bg);
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
     padding: 1ch 2ch;
     border-top: 3px solid var(--bg-50);
     position: absolute;
     bottom: 0;
+    justify-content: end;
+  }
+  #bottom-bar > button {
+    background: var(--bg-100);
+  }
+  #bottom-bar > button:hover {
+    background: var(--bg-200);
   }
 </style>

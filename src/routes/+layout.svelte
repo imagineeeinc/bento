@@ -1,5 +1,6 @@
 <script>
   import '#lib/css/main.css';
+  import '#lib/css/shared.css';
   import { theme } from '#lib/components/store.js';
 </script>
 
