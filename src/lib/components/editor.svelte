@@ -1,6 +1,6 @@
 <script>
   let { params = {} } = $props();
-  import { tick } from 'svelte'
+  import { tick } from 'svelte';
   import { get, writable } from 'svelte/store';
   let title = writable('');
   let text = writable('');
@@ -43,10 +43,10 @@
   }
   async function focusLocation() {
     await tick();
-    if (typeof editPosition === "number") {
-      console.log(editPosition)
+    if (typeof editPosition === 'number') {
+      console.log(editPosition);
       document.getElementById('editor-box').focus();
-      document.getElementById('editor-box').setSelectionRange(editPosition, editPosition)
+      document.getElementById('editor-box').setSelectionRange(editPosition, editPosition);
     } else {
       document.getElementById('editor-box').focus();
     }
@@ -65,9 +65,14 @@
       let curLine = lineTillNow[lineTillNow.length - 1];
       if (curLine.endsWith('- ')) {
         e.preventDefault();
-        let sections = curLine.split('-')
-        editor.value = value.substr(0, pos - (2 + (sections.length > 1 ? sections[0].length : 0))) + value.substr(pos);
-        editor.selectionStart = editor.selectionEnd = pos = pos - (2 + (sections.length > 1 ? sections[0].length : 0));
+        let sections = curLine.split('-');
+        editor.value =
+          value.substr(0, pos - (2 + (sections.length > 1 ? sections[0].length : 0))) +
+          value.substr(pos);
+        editor.selectionStart =
+          editor.selectionEnd =
+          pos =
+            pos - (2 + (sections.length > 1 ? sections[0].length : 0));
       } else if (curLine.startsWith('- ')) {
         e.preventDefault();
         editor.value = value.substr(0, pos) + '\n- ' + value.substr(pos);
@@ -75,12 +80,12 @@
         update();
       } else if (curLine.trim().startsWith('- ')) {
         e.preventDefault();
-        let sections = curLine.split('-')
+        let sections = curLine.split('-');
         editor.value = value.substr(0, pos) + '\n' + sections[0] + '- ' + value.substr(pos);
         editor.selectionstart = editor.selectionend = pos = pos + sections[0].length + 3;
       }
     }
-    editPosition = pos
+    editPosition = pos;
   }
   function editorKeyDown(e) {
     if (e.key == 'Tab' && !e.ctrlKey) {
@@ -117,7 +122,7 @@
     }
     update();
     if (editing == true) {
-      focusLocation()
+      focusLocation();
     }
   }
   let pickImage = false;
@@ -155,11 +160,11 @@
       editing = note.clientArgs.editing;
       archive = note.archive || false;
       pin = note.pin || false;
-      editPosition = note.clientArgs.lastPosition
+      editPosition = note.clientArgs.lastPosition;
       if (note.title == '') {
         document.getElementById('title-box').focus();
       } else if (editing == true) {
-        focusLocation()
+        focusLocation();
         // scroll bottom
         document.getElementById('editing-box').scrollTop =
           document.getElementById('editor-box').scrollHeight;
@@ -187,10 +192,13 @@
     onchange={imagePicked}
   />
   <div id="editor-topbar">
-    <button id="close-btn" class="m-icon transparent" onclick={() => pop()} title="Back">arrow_back</button>
-    <div id="topbar-right" class="hori-button-bar">
+    <button id="close-btn" class="m-icon transparent" onclick={() => pop()} title="Back"
+      >arrow_back</button
+    >
+    <div id="topbar-right" class="hori-button-bar-100">
       <button
-        class="m-icon transparent {pin?'':'dimmed'}"
+        class="m-icon transparent"
+        class:dimmed={pin}
         onclick={() => {
           pin = !pin;
           update();
@@ -204,7 +212,8 @@
         {/if}
       </button>
       <button
-        class="m-icon transparent {archive?'':'dimmed'}"
+        class="m-icon transparent"
+        class:dimmed={archive}
         onclick={() => {
           archive = !archive;
           update();
@@ -251,9 +260,13 @@
       </div>
     {/if}
   </div>
-  <div id="editor-toolbar" class="hori-button-bar">
+  <div id="editor-toolbar" class="hori-button-bar-100">
     <button class="m-icon" onclick={deleteThisNote} title="Delete this note">delete</button>
-    <button class="m-icon" onclick={swapViewMode} title="Switch between edit and view mode (Ctrl+I)">
+    <button
+      class="m-icon"
+      onclick={swapViewMode}
+      title="Switch between edit and view mode (Ctrl+I)"
+    >
       {#if editing == false}
         edit
       {:else}
@@ -262,7 +275,11 @@
     </button>
     <!-- <button class="m-icon transparent" on:click={addImage}>add_a_photo</button> -->
     {#if uid !== 'null'}
-      <button class="m-icon transparent" onclick={() => tagEditor.set(!$tagEditor)} title="Add a tag to this note">label</button>
+      <button
+        class="m-icon transparent"
+        onclick={() => tagEditor.set(!$tagEditor)}
+        title="Add a tag to this note">label</button
+      >
     {/if}
   </div>
 </div>
@@ -277,7 +294,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg);
+    background: var(--bg-100);
     z-index: 200;
     overflow-y: hidden;
   }
@@ -326,7 +343,7 @@
     border-radius: 5px;
   }
   #editor-toolbar {
-    background: var(--bg);
+    background: var(--bg-100);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -343,17 +360,10 @@
     right: 0;
     width: 40px;
     height: 56px;
-    background: linear-gradient(90deg, transparent, var(--bg));
+    background: linear-gradient(90deg, transparent, var(--bg-100));
   }
   #editor-toolbar::-webkit-scrollbar {
     display: none;
-  }
-  #editor-toolbar > button {
-    background: var(--bg-100);
-    outline: none;
-  }
-  #editor-toolbar > button:hover {
-    background: var(--bg-200);
   }
   #close-btn {
     position: fixed;

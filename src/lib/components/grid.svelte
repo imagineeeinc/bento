@@ -4,7 +4,7 @@
 
   import { notes } from '#lib/components/store.js';
   import NoteBox from './noteBox.svelte';
-  import { writable } from 'svelte/store';
+  import { writable, get } from 'svelte/store';
 
   function filterBy(item) {
     if (tag == '') {
@@ -14,7 +14,8 @@
     }
   }
   let pinned = writable([]);
-  notes.subscribe((value) => {
+  $effect(() => {
+    let value = get(notes);
     pinned.set([]);
     pinned.update(() => {
       let list = [];
@@ -61,7 +62,7 @@
     overflow-y: auto;
     padding: 0 1ch;
     padding-bottom: 2ch;
-    background: var(--bg);
+    background: var(--bg-100);
   }
   .notes-grid {
     display: flex;

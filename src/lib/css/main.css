@@ -9,16 +9,16 @@
 
   --light-color: #4c4f69;
   --light-color-sec: #6c6f85;
-  --light-bg: #eff1f5;
   --light-bg-50: #e6e9ef;
-  --light-bg-100: #ccd0da;
-  --light-bg-200: #bcc0cc;
-  --light-bg-300: #acb0be;
-  --light-bg-400: #9ca0b0;
-  --light-bg-500: #8c8fa1;
-  --light-bg-600: #7c7f93;
-  --light-bg-700: #6c6f85;
-  --light-bg-800: #5c5f77;
+  --light-bg-100: #eff1f5;
+  --light-bg-200: #ccd0da;
+  --light-bg-300: #bcc0cc;
+  --light-bg-400: #acb0be;
+  --light-bg-500: #9ca0b0;
+  --light-bg-600: #8c8fa1;
+  --light-bg-700: #7c7f93;
+  --light-bg-800: #6c6f85;
+  --light-bg-900: #5c5f77;
   --light-bg-transperent: rgba(239, 241, 245, 0.4);
   --light-primary: #8839ef;
   --light-secondary: #cba6f7;
@@ -29,16 +29,16 @@
 
   --dark-color: #cdd6f4;
   --dark-color-sec: #a6adc8;
-  --dark-bg: #1e1e2e;
   --dark-bg-50: #181825;
-  --dark-bg-100: #313244;
-  --dark-bg-200: #45475a;
-  --dark-bg-300: #585b70;
-  --dark-bg-400: #6c7086;
-  --dark-bg-500: #7f849c;
-  --dark-bg-600: #9399b2;
-  --dark-bg-700: #a6adc8;
-  --dark-bg-800: #bac2de;
+  --dark-bg-100: #1e1e2e;
+  --dark-bg-200: #313244;
+  --dark-bg-300: #45475a;
+  --dark-bg-400: #585b70;
+  --dark-bg-500: #6c7086;
+  --dark-bg-600: #7f849c;
+  --dark-bg-700: #9399b2;
+  --dark-bg-800: #a6adc8;
+  --dark-bg-900: #bac2de;
   --dark-bg-transperent: rgba(30, 30, 46, 0.4);
   --dark-primary: #cba6f7;
   --dark-secondary: #8839ef;
@@ -52,7 +52,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color);
-  background: var(--bg);
+  background: var(--bg-100);
   font-size: var(--font-size);
   overflow: hidden;
 }
@@ -114,7 +114,7 @@ button {
   min-width: var(--width);
   padding: 10px;
   border: none;
-  background: var(--bg);
+  background: var(--bg-100);
   border-radius: 10px;
   cursor: pointer;
   outline: none;
@@ -128,7 +128,7 @@ textarea {
   height: var(--width);
   border: none;
   outline: 3px solid var(--secondary);
-  background: var(--bg);
+  background: var(--bg-100);
   border-radius: 10px;
   padding: 10px;
   margin: 5px;
@@ -155,7 +155,7 @@ button.big {
   outline: none;
 }
 .transparent:hover {
-  background: var(--bg-100);
+  background: var(--bg-200);
   outline: none;
 }
 .transparent:focus-visible {
@@ -166,7 +166,7 @@ button:active {
   background: var(--primary);
 }
 button.dimmed {
-  color: var(--color-sec)
+  color: var(--color-sec);
 }
 input[type='range'] {
   -webkit-appearance: none;
@@ -181,22 +181,22 @@ input[type='range'] {
   cursor: pointer;
 }
 input[type='range']::-webkit-slider-runnable-track {
-  background: var(--bg-100);
+  background: var(--bg-200);
   border: none;
   border-radius: 5px;
   height: 1ch;
 }
 input[type='range']::-moz-range-track {
-  background: var(--bg-100);
+  background: var(--bg-200);
   border: none;
   border-radius: 5px;
   height: 1ch;
 }
 input[type='range']:hover::-webkit-slider-runnable-track {
-  background: var(--bg-200);
+  background: var(--bg-300);
 }
 input[type='range']:hover::-moz-range-track {
-  background: var(--bg-200);
+  background: var(--bg-300);
 }
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -244,6 +244,6 @@ h6 {
   width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-100);
+  background: var(--bg-200);
   border-radius: 5px;
 }

@@ -76,7 +76,7 @@
     --offset: 50px;
     font-size: 15px;
     padding: 1ch;
-    background: var(--bg);
+    background: var(--bg-100);
     cursor: pointer;
     max-width: calc(100% - 20px);
     width: 100%;
@@ -94,7 +94,7 @@
     border-radius: 10px;
   }
   .note-box:hover {
-    outline: 3px solid var(--bg-100);
+    outline: 3px solid var(--bg-200);
   }
   .note-box > h3 {
     margin: 0;

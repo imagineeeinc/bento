@@ -102,7 +102,7 @@ export function updateNote(uid, text, title, archive, pin, editing, editPosition
       note.archive = archive;
       note.pin = pin;
       note.clientArgs.editing = editing;
-      note.clientArgs.lastPosition = editPosition || null
+      note.clientArgs.lastPosition = editPosition || null;
       list[i] = note;
     }
 

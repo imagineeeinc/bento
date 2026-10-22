@@ -4,14 +4,14 @@
   import { availableTags } from './store.js';
   import Acordian from './acordian.svelte';
   import { fade } from 'svelte/transition';
-  
+
   onMount(() => {
-    document.getElementById("menu-container").addEventListener("click", (e) => {
-      if (e.target.id == "menu-container") {
-        pop()
+    document.getElementById('menu-container').addEventListener('click', (e) => {
+      if (e.target.id == 'menu-container') {
+        pop();
       }
-    })
-  })
+    });
+  });
 </script>
 
 <div id="menu-container">
@@ -40,9 +40,13 @@
         </section>
       </div>
     </div>
-    <div id="bottom-bar" class="hori-button-bar">
-      <button class="transparent m-icon big" onclick={() => replace('/about')} title="About">info</button>
-      <button class="transparent m-icon big" onclick={() => replace('/settings')} title="Settings">settings</button>
+    <div id="bottom-bar" class="hori-button-bar-100">
+      <button class="transparent m-icon big" onclick={() => replace('/about')} title="About"
+        >info</button
+      >
+      <button class="transparent m-icon big" onclick={() => replace('/settings')} title="Settings"
+        >settings</button
+      >
     </div>
   </div>
 </div>
@@ -73,7 +77,7 @@
   #top-bar {
     width: calc(100% - 6ch);
     height: 60px;
-    background: var(--bg);
+    background: var(--bg-100);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -121,7 +125,7 @@
     align-items: center;
     flex-wrap: nowrap;
     gap: 1ch;
-    background: var(--bg);
+    background: var(--bg-100);
     width: 100%;
     border-radius: 0;
   }
@@ -140,7 +144,7 @@
     border-radius: 0 0 10px 10px;
   }
   #menu-list button:hover {
-    background: var(--bg-100);
+    background: var(--bg-200);
   }
   .label-link {
     padding-left: 3ch;
@@ -148,17 +152,11 @@
   #bottom-bar {
     width: calc(100% - 4ch);
     height: 60px;
-    background: var(--bg);
+    background: var(--bg-100);
     padding: 1ch 2ch;
     border-top: 3px solid var(--bg-50);
     position: absolute;
     bottom: 0;
     justify-content: end;
-  }
-  #bottom-bar > button {
-    background: var(--bg-100);
-  }
-  #bottom-bar > button:hover {
-    background: var(--bg-200);
   }
 </style>

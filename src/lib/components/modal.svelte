@@ -40,7 +40,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     overflow: hidden;
-    background: var(--bg);
+    background: var(--bg-100);
     outline: 3px solid var(--bg-50);
   }
   .modal-body {
@@ -60,6 +60,6 @@
     flex-direction: row;
     align-items: center;
     gap: 1ch;
-    border-bottom: 3px solid var(--bg);
+    border-bottom: 3px solid var(--bg-100);
   }
 </style>

@@ -70,7 +70,7 @@
     width: calc(100% - 20px);
     height: 100%;
     padding: 1ch;
-    background: var(--bg);
+    background: var(--bg-100);
   }
   #login-form {
     width: 80vh;
@@ -136,14 +136,14 @@
   }
   .selected {
     background: var(--primary);
-    color: var(--bg);
+    color: var(--bg-100);
   }
   .selected:hover {
     outline: 3px solid var(--primary);
   }
   #error {
     background: lightcoral;
-    color: var(--bg);
+    color: var(--bg-100);
     padding: 1ch;
     border-radius: 10px;
   }

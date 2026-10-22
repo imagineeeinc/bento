@@ -73,12 +73,12 @@
     right: 15px;
     z-index: 10;
     background: var(--bg-50);
-    outline: 3px solid var(--bg-100);
+    outline: 3px solid var(--bg-200);
     backdrop-filter: blur(20px);
   }
   #new:hover,
   #new:focus-visible {
-    outline: 3px solid var(--bg-200);
+    outline: 3px solid var(--bg-300);
   }
   nav {
     position: fixed;
@@ -90,7 +90,7 @@
     display: flex;
     flex-direction: row;
     gap: 1ch;
-    background: var(--bg);
+    background: var(--bg-100);
   }
   #menu-btn {
     background: var(--bg-50);
@@ -99,7 +99,7 @@
   }
   #menu-btn:hover,
   #menu-btn:focus-visible {
-    outline: 3px solid var(--bg-200);
+    outline: 3px solid var(--bg-300);
   }
   #searchbar {
     width: calc(100%);
@@ -111,7 +111,7 @@
   }
   #searchbar:hover,
   #searchbar:focus-visible {
-    outline: 3px solid var(--bg-200);
+    outline: 3px solid var(--bg-300);
   }
   :global(.note-box img) {
     max-width: 90%;

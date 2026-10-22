@@ -28,7 +28,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: var(--bg-100);
+    background: var(--bg-200);
     backdrop-filter: blur(20px);
     height: 100%;
     width: calc(100% - 20px);

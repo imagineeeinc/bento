@@ -106,7 +106,7 @@
   section {
     padding: 1ch;
     background: var(--bg-50);
-    border-bottom: 3px solid var(--bg-100);
+    border-bottom: 3px solid var(--bg-200);
   }
   section:first-child {
     border-radius: 10px 10px 0 0;
@@ -118,7 +118,7 @@
   label {
     display: flex;
     flex-direction: row;
-    background: var(--bg);
+    background: var(--bg-100);
     padding: 1ch 2ch;
     border-bottom: 3px solid var(--bg-50);
     cursor: pointer;
@@ -140,12 +140,12 @@
     border-bottom: none;
   }
   label:hover {
-    background: var(--bg-100);
+    background: var(--bg-200);
   }
   select {
     padding: 0;
     height: auto;
-    background: var(--bg);
+    background: var(--bg-100);
   }
   select:hover {
     background: none;

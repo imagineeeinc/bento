@@ -12,6 +12,7 @@
     --bg-600: var(--light-bg-600);
     --bg-700: var(--light-bg-700);
     --bg-800: var(--light-bg-800);
+    --bg-900: var(--light-bg-900);
     --primary: var(--light-primary);
     --secondary: var(--light-secondary);
     --secondary-transperent: var(--light-secondary-transperent);
@@ -34,6 +35,7 @@
     --bg-600: var(--dark-bg-600);
     --bg-700: var(--dark-bg-700);
     --bg-800: var(--dark-bg-800);
+    --bg-900: var(--dark-bg-900);
     --primary: var(--dark-primary);
     --secondary: var(--dark-secondary);
     --secondary-transperent: var(--dark-secondary-transperent);
