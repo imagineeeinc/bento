@@ -1,10 +1,8 @@
-import extractorSvelte from '@unocss/extractor-svelte'
-import { defineConfig } from 'unocss'
+import extractorSvelte from '@unocss/extractor-svelte';
+import { defineConfig } from 'unocss';
 
 export default defineConfig({
-  extractors: [
-    extractorSvelte(),
-  ],
+  extractors: [extractorSvelte()],
   rules: [
     [
       /^btn-([\.\d]+)$/,
@@ -12,12 +10,12 @@ export default defineConfig({
         yield {
           background: `var(--bg-${shade})`,
           outline: 'none !important'
-        }
+        };
         yield {
-          [symbols.selector]: selector => `${selector}:hover`,
+          [symbols.selector]: (selector) => `${selector}:hover`,
           background: `var(--bg-${shade == '50' ? 200 : parseInt(shade, 10) + 100})`
-        }
+        };
       }
     ]
   ]
-})
+});
