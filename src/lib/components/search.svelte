@@ -36,7 +36,7 @@
 <div id="search-container">
   <div id="search-res">
     {#each res as note}
-      <div class="note-box" on:click={() => editNow(note.uid)}>
+      <div class="note-box btn-100" on:click={() => editNow(note.uid)}>
         <h3>{note.title}</h3>
         <SvelteMarkdown source={note.data} />
       </div>
@@ -76,7 +76,6 @@
     --offset: 50px;
     font-size: 15px;
     padding: 1ch;
-    background: var(--bg-100);
     cursor: pointer;
     max-width: calc(100% - 20px);
     width: 100%;
@@ -94,7 +93,7 @@
     border-radius: 10px;
   }
   .note-box:hover {
-    outline: 3px solid var(--bg-200);
+    outline: 3px solid var(--bg-300);
   }
   .note-box > h3 {
     margin: 0;

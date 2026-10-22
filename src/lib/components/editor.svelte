@@ -192,12 +192,12 @@
     onchange={imagePicked}
   />
   <div id="editor-topbar">
-    <button id="close-btn" class="m-icon transparent" onclick={() => pop()} title="Back"
+    <button id="close-btn" class="m-icon btn-100" onclick={() => pop()} title="Back"
       >arrow_back</button
     >
-    <div id="topbar-right" class="hori-button-bar-100">
+    <div id="topbar-right" class="hori-button-bar">
       <button
-        class="m-icon transparent"
+        class="m-icon btn-100"
         class:dimmed={pin}
         onclick={() => {
           pin = !pin;
@@ -212,7 +212,7 @@
         {/if}
       </button>
       <button
-        class="m-icon transparent"
+        class="m-icon btn-100"
         class:dimmed={archive}
         onclick={() => {
           archive = !archive;
@@ -260,10 +260,10 @@
       </div>
     {/if}
   </div>
-  <div id="editor-toolbar" class="hori-button-bar-100">
-    <button class="m-icon" onclick={deleteThisNote} title="Delete this note">delete</button>
+  <div id="editor-toolbar" class="hori-button-bar">
+    <button class="m-icon btn-100" onclick={deleteThisNote} title="Delete this note">delete</button>
     <button
-      class="m-icon"
+      class="m-icon btn-100"
       onclick={swapViewMode}
       title="Switch between edit and view mode (Ctrl+I)"
     >
@@ -273,10 +273,10 @@
         two_pager
       {/if}
     </button>
-    <!-- <button class="m-icon transparent" on:click={addImage}>add_a_photo</button> -->
+    <!-- <button class="m-icon btn-100" on:click={addImage}>add_a_photo</button> -->
     {#if uid !== 'null'}
       <button
-        class="m-icon transparent"
+        class="m-icon btn-100"
         onclick={() => tagEditor.set(!$tagEditor)}
         title="Add a tag to this note">label</button
       >

@@ -18,33 +18,33 @@
   <div id="menu-box">
     <div id="top-bar">
       <span id="title">Bento</span>
-      <button id="close-btn" class="transparent m-icon big" onclick={() => pop()}>close</button>
+      <button id="close-btn" class="m-icon big btn-100" onclick={() => pop()}>close</button>
     </div>
     <div id="menu-list-container">
       <div id="menu-list">
         <section>
-          <button class="transparent" onclick={() => replace('/')}
+          <button class="btn-100" onclick={() => replace('/')}
             ><span class="m-icon">home</span>Home</button
           >
-          <button class="transparent" onclick={() => replace('/tags/archive')}
+          <button class="btn-100" onclick={() => replace('/tags/archive')}
             ><span class="m-icon">archive</span>Archive</button
           >
         </section>
         <section>
-          <div class="transparent section-title"><span class="m-icon">tag</span>Tags</div>
+          <div class="section-title"><span class="m-icon">tag</span>Tags</div>
           {#each availableTags() as tag}
-            <button onclick={() => replace(`/tags/${tag}`)} class=" transparent label-link">
+            <button onclick={() => replace(`/tags/${tag}`)} class="label-link btn-100">
               <span class="m-icon">label_important</span>{tag}
             </button>
           {/each}
         </section>
       </div>
     </div>
-    <div id="bottom-bar" class="hori-button-bar-100">
-      <button class="transparent m-icon big" onclick={() => replace('/about')} title="About"
+    <div id="bottom-bar" class="hori-button-bar">
+      <button class="m-icon big btn-100" onclick={() => replace('/about')} title="About"
         >info</button
       >
-      <button class="transparent m-icon big" onclick={() => replace('/settings')} title="Settings"
+      <button class="m-icon big btn-100" onclick={() => replace('/settings')} title="Settings"
         >settings</button
       >
     </div>
@@ -125,7 +125,6 @@
     align-items: center;
     flex-wrap: nowrap;
     gap: 1ch;
-    background: var(--bg-100);
     width: 100%;
     border-radius: 0;
   }
@@ -135,6 +134,7 @@
     user-select: none;
     cursor: default;
     font-weight: 600;
+    background: var(--bg-100);
   }
   #menu-list button:first-child,
   .section-title:first-child {
@@ -142,9 +142,6 @@
   }
   #menu-list button:last-child {
     border-radius: 0 0 10px 10px;
-  }
-  #menu-list button:hover {
-    background: var(--bg-200);
   }
   .label-link {
     padding-left: 3ch;
