@@ -72,13 +72,9 @@
     bottom: 15px;
     right: 15px;
     z-index: 10;
-    background: var(--bg-50);
-    outline: 3px solid var(--bg-200);
-    backdrop-filter: blur(20px);
-  }
-  #new:hover,
-  #new:focus-visible {
-    outline: 3px solid var(--bg-300);
+    color: var(--bg-100);
+    background: var(--accent);
+    outline: none;
   }
   nav {
     position: fixed;
@@ -90,28 +86,28 @@
     display: flex;
     flex-direction: row;
     gap: 1ch;
-    background: var(--bg-100);
-  }
-  #menu-btn {
-    background: var(--bg-50);
-    outline: 3px solid var(--bg-50);
-    backdrop-filter: blur(20px);
-  }
-  #menu-btn:hover,
-  #menu-btn:focus-visible {
-    outline: 3px solid var(--bg-300);
+    background: linear-gradient(var(--bg-100) 10%, transparent);
   }
   #searchbar {
     width: calc(100%);
     height: 54px;
     padding: 20px;
+  }
+  #searchbar,
+  #menu-btn {
     background: var(--bg-50);
-    outline: 3px solid var(--bg-50);
-    backdrop-filter: blur(20px);
+    outline: 3px solid var(--bg-100);
   }
   #searchbar:hover,
-  #searchbar:focus-visible {
-    outline: 3px solid var(--bg-300);
+  #searchbar:focus-visible,
+  #menu-btn:hover,
+  #menu-btn:focus-visible {
+    background: var(--bg-100);
+    outline: 3px solid var(--bg-400);
+  }
+  #new:hover,
+  #new:focus-visible {
+    background: var(--secondary);
   }
   :global(.note-box img) {
     max-width: 90%;

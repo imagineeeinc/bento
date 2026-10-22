@@ -49,7 +49,8 @@
     position: relative;
   }
   .note-box:hover {
-    outline: 3px solid var(--bg-200);
+    background: var(--bg-100);
+    outline: 3px solid var(--bg-400);
   }
   .note-time {
     position: absolute;

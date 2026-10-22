@@ -56,11 +56,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin-top: 84px;
     height: calc(100vh - 104px);
     width: calc(100% - 2ch);
     overflow-y: auto;
     padding: 0 1ch;
+    padding-top: 84px;
     padding-bottom: 2ch;
     background: var(--bg-100);
   }
