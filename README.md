@@ -101,4 +101,4 @@ There is an API to access the app from without the UI. There is 2 versions of th
 
 ## License
 
-This project is under the GNU GPL v3 License.
+This project is under the GNU Affero General Public License.
