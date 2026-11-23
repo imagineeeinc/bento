@@ -33,7 +33,7 @@
     "@tanstack/svelte-hotkeys": "^0.10.0",
     "concurrently": "^10.0.6",
     "dotenv": "^16.6.1",
-    "drizzle-orm": "^0.40.1",
+    "drizzle-orm": "^0.45.2",
     "lunr": "^2.3.9",
     "luxon": "^3.7.2",
     "pg": "^8.23.1",
